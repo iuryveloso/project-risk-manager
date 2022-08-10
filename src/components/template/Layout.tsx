@@ -1,14 +1,16 @@
 import Head from 'next/head'
-import Conteudo from '@components/template/Conteudo'
-import Cabecalho from '@components/template/Cabecalho'
-import MenuLateral from '@components/template/MenuLateral'
+import Content from '@components/template/Content'
+import Header from '@components/template/Header'
+import SideMenu from '@components/template/SideMenu'
 import useAppData from '@data/hook/useAppData'
+import { ReactElement } from 'react'
 
 interface LayoutProps {
-  pagina: string
-  titulo: string
-  subtitulo: string
+  page: string
+  title: string
+  subtitle: string
   children?: any
+  globalHeader?: ReactElement
 }
 
 export default function Layout(props: LayoutProps) {
@@ -16,15 +18,20 @@ export default function Layout(props: LayoutProps) {
 
   return (
     // <ForcarAutenticacao>
-    <div className={`${context.tema} flex h-screen w-screen`}>
+    <div
+      className={`${
+        context.theme === 'dark' ? 'dark' : ''
+      } flex h-screen w-screen`}
+    >
       <Head>
         <link rel="shortcut icon" type="image/png" href="icon.png" />
-        <title>{props.pagina}</title>
+        <title>{props.page}</title>
       </Head>
-      <MenuLateral />
+      <SideMenu />
       <div className={'flex flex-col w-full p-7 bg-white dark:bg-slate-800'}>
-        <Cabecalho titulo={props.titulo} subtitulo={props.subtitulo} />
-        <Conteudo>{props.children}</Conteudo>
+        <Header title={props.title} subtitle={props.subtitle} />
+        {props.globalHeader}
+        <Content>{props.children}</Content>
       </div>
     </div>
     // </ForcarAutenticacao>

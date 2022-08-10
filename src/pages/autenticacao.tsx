@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import AuthInput from '@components/auth/AuthInput'
-import { IconeAlerta } from '@components/icons'
+import { alertIcon } from '@components/icons'
 import googleLogo from '@public/google-logo.svg'
 import Logo from '@components/template/Logo'
 
@@ -89,7 +89,7 @@ export default function Autenticacao() {
                     text-white p-1 text-sm rounded-lg
                 `}
           >
-            {IconeAlerta()}
+            {alertIcon()}
             <span className={'ml-2'}>{error}</span>
           </div>
         ) : (

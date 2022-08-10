@@ -1,6 +1,6 @@
 // Encontre mais ícones em:  https://heroicons.com/
 
-export const IconeInicio = (
+export const homeIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -16,7 +16,7 @@ export const IconeInicio = (
     />
   </svg>
 )
-export const IconeAjustes = (
+export const settingsIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -32,7 +32,7 @@ export const IconeAjustes = (
     />
   </svg>
 )
-export const IconeNotificacoes = (
+export const notificationsIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -48,7 +48,7 @@ export const IconeNotificacoes = (
     />
   </svg>
 )
-export const IconeSair = (
+export const exitIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -64,7 +64,7 @@ export const IconeSair = (
     />
   </svg>
 )
-export const IconeSol = (
+export const sunIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -80,7 +80,7 @@ export const IconeSol = (
     />
   </svg>
 )
-export const IconeLua = (
+export const MoonIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -96,7 +96,7 @@ export const IconeLua = (
     />
   </svg>
 )
-export const IconeAlerta = (className?: string) => (
+export const alertIcon = (className?: string) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={`h-6 w-6 ${className ?? ''}`}
@@ -112,7 +112,7 @@ export const IconeAlerta = (className?: string) => (
     />
   </svg>
 )
-export const IconeUsuario = (
+export const userIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -128,7 +128,7 @@ export const IconeUsuario = (
     />
   </svg>
 )
-export const IconeClientes = (
+export const customerIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -144,7 +144,7 @@ export const IconeClientes = (
     />
   </svg>
 )
-export const IconeEditar = (
+export const editIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -160,7 +160,7 @@ export const IconeEditar = (
     />
   </svg>
 )
-export const IconeRemover = (
+export const deleteIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -176,7 +176,7 @@ export const IconeRemover = (
     />
   </svg>
 )
-export const IconeVer = (
+export const lookIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -198,7 +198,7 @@ export const IconeVer = (
     />
   </svg>
 )
-export const IconeNaoVer = (
+export const dontLookIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -214,7 +214,7 @@ export const IconeNaoVer = (
     />
   </svg>
 )
-export const IconeMais = (
+export const plusIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6 "
@@ -230,7 +230,7 @@ export const IconeMais = (
     />
   </svg>
 )
-export const IconePesquisar = (
+export const searchIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -246,7 +246,7 @@ export const IconePesquisar = (
     />
   </svg>
 )
-export const IconeVoltar = (
+export const backIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="h-6 w-6"
@@ -259,6 +259,40 @@ export const IconeVoltar = (
       strokeLinejoin="round"
       strokeWidth={2}
       d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z"
+    />
+  </svg>
+)
+
+export const leftArrowIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M11 17l-5-5m0 0l5-5m-5 5h12"
+    />
+  </svg>
+)
+
+export const saveIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
     />
   </svg>
 )

@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-// import useAuthData from '@data/hook/useAuthData'
 import avatar from '@public/images/avatar.svg'
-interface AvatarusuarioProps {
+interface UserAvatarProps {
   className?: string
   width: string
   height: string
@@ -10,9 +9,7 @@ interface AvatarusuarioProps {
   imgUrl?: string
 }
 
-export default function AvatarUsuario(props: AvatarusuarioProps) {
-  // const { usuario } = useAuthData()
-
+export default function UserAvatar(props: UserAvatarProps) {
   return (
     <div className={props.className}>
       <Link href={props.href ?? ''} passHref>

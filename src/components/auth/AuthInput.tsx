@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { IconeNaoVer, IconeVer } from '@components/icons'
+import { lookIcon, dontLookIcon } from '@components/icons'
 
 interface AuthInputProps {
   label: string
@@ -38,7 +38,7 @@ export default function AuthInput(props: AuthInputProps) {
                     hover:bg-slate-200
                 `}
           >
-            {tipo === 'password' ? IconeVer : IconeNaoVer}
+            {tipo === 'password' ? dontLookIcon : lookIcon}
           </button>
         </div>
       ) : (

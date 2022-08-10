@@ -1,31 +1,42 @@
+import Theme from '@api/Theme'
 import { createContext, useEffect, useState } from 'react'
 
 interface AppContextProps {
-  tema?: string
-  alternarTema?: () => void
+  theme?: string
+  switchTheme?: () => void
 }
 
 const AppContext = createContext<AppContextProps>({})
 
 export function AppProvider(props: { children: any }) {
-  const [tema, setTema] = useState('dark')
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
 
-  function alternarTema() {
-    const novoTema = tema === '' ? 'dark' : ''
-    setTema(novoTema)
-    localStorage.setItem('tema', novoTema)
+  function switchTheme() {
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    async function setThemeOnSession(theme: string) {
+      await Theme.set(theme)
+    }
+    setThemeOnSession(newTheme)
+    setTheme(newTheme)
+    // localStorage.setItem('theme', newTheme)
   }
 
   useEffect(() => {
-    const temaSalvo = localStorage.getItem('tema') ?? ''
-    setTema(temaSalvo)
+    async function getThemeOnSession() {
+      await Theme.get().then((item) => {
+        setTheme(item.theme)
+      })
+    }
+    getThemeOnSession()
+    // const savedTheme = localStorage.getItem('theme') ?? ''
+    // setTheme(savedTheme)
   }, [])
 
   return (
     <AppContext.Provider
       value={{
-        tema,
-        alternarTema,
+        theme,
+        switchTheme,
       }}
     >
       {props.children}

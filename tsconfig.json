@@ -20,6 +20,7 @@
       "@components/*": ["./src/components/*"],
       "@data/*": ["./src/data/*"],
       "@database/*": ["./src/database/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
       "@model/*": ["./src/model/*"],
       "@styles/*": ["./src/styles/*"],
       "@public/*": ["./public/*"],

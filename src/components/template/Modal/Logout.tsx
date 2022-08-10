@@ -1,12 +1,12 @@
-import { IconeAlerta } from '@components/icons'
+import { alertIcon } from '@components/icons'
 
-interface ModalSairProps {
+interface LogoutProps {
   modal?: string
-  mostrarModal: () => void
+  showModal: () => void
   logout: () => Promise<void>
 }
 
-export default function ModalSair(props: ModalSairProps) {
+export default function Logout(props: LogoutProps) {
   return (
     <div className={`${props.modal} fixed z-10 inset-0 overflow-y-auto`}>
       <div
@@ -41,7 +41,7 @@ export default function ModalSair(props: ModalSairProps) {
                                 h-12 w-12 rounded-full bg-red-500 sm:mx-0 sm:h-10 sm:w-10
                             `}
               >
-                {IconeAlerta('text-slate-100')}
+                {alertIcon('text-slate-100')}
               </div>
               <div className={'mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'}>
                 <h3
@@ -76,7 +76,7 @@ export default function ModalSair(props: ModalSairProps) {
               Sair
             </button>
             <button
-              onClick={props.mostrarModal}
+              onClick={props.showModal}
               className={`
                             mt-3 w-full inline-flex justify-center rounded-md border border-slate-300
                             shadow-sm px-4 py-2 mb-4 md:mb-0 bg-white text-base font-medium text-slate-700 
