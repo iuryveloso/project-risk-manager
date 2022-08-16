@@ -3,7 +3,6 @@ import { CustomerInterface } from '@interfaces/customerInterface'
 
 interface FormInterface {
   mode: 'table' | 'form'
-  switchMode: () => void
   customer: CustomerInterface
   setCustomer: Dispatch<SetStateAction<CustomerInterface>>
   saveCustomer: (customer: CustomerInterface) => Promise<void>
@@ -11,13 +10,12 @@ interface FormInterface {
 
 export default function Form({
   mode,
-  switchMode,
   customer,
   setCustomer,
   saveCustomer,
 }: FormInterface) {
   const classNameInput = `
-  px-4 py-3 rounded-lg border focus:outline-none my-2
+  px-3 py-2 rounded-lg border focus:outline-none my-1
   bg-slate-100 dark:bg-slate-600
   border-slate-500 dark:border-slate-200
   text-slate-900 dark:text-slate-100
@@ -33,7 +31,7 @@ export default function Form({
     >
       <div
         className={`
-            my-3 rounded-lg w-full
+            w-full
             flex-grow
             bg-slate-200 dark:bg-slate-700 p-4 
         `}

@@ -16,14 +16,15 @@ export default function header({
 }: headerInterface) {
   return (
     <div
-      className={`flex flex-row mt-7 mb-2 ${mode === 'form' ? '' : 'hidden'}`}
+      className={`flex flex-row mt-7 mb-3  ${mode === 'form' ? '' : 'hidden'}`}
     >
       <div className={'flex flex-grow'}>
         <button
           onClick={() => switchMode()}
           className={`
-                          bg-red-700 text-slate-50 px-3 py-2 
-                          rounded-md hover:bg-red-800 mb-1 mr-1
+                          focus:border-indigo-700 dark:focus:border-indigo-600
+                          bg-red-700 text-slate-50 px-3 py-2  mt-2
+                          rounded-lg hover:bg-red-800
                           `}
         >
           <div className={'flex'}>
@@ -35,8 +36,9 @@ export default function header({
       <button
         onClick={() => saveCustomer(customer)}
         className={`
+                        focus:border-indigo-700 dark:focus:border-indigo-600
                         bg-green-700 text-slate-50 px-3 py-2 
-                        rounded-md hover:bg-green-800 mb-1 ml-1
+                        rounded-lg hover:bg-green-800 mt-2 ml-1
                         `}
       >
         <div className={'flex'}>

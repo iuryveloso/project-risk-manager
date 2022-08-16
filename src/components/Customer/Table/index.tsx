@@ -1,29 +1,29 @@
 import { editIcon, deleteIcon } from '@components/icons'
 import { CustomerInterface } from '@interfaces/customerInterface'
 
-interface ContentInterface {
+interface TableInterface {
   mode: 'table' | 'form'
   customers: CustomerInterface[]
   selectCustomer: (customer: CustomerInterface) => void
   deleteCustomer: (customer: CustomerInterface) => Promise<void>
 }
 
-export default function Content({
+export default function Table({
   mode,
   customers,
   selectCustomer,
   deleteCustomer,
-}: ContentInterface) {
+}: TableInterface) {
   function renderHeader() {
     return (
       <tr>
-        <th className={'text-left pl-7'}>Nome</th>
-        <th className={'text-left p-2'}>Sobrenome</th>
-        <th className={'text-left p-2'}>Email</th>
-        <th className={'text-left p-2'}>Endereço</th>
-        <th className={'text-left p-2'}>Telefone</th>
-        <th className={'text-left p-2'}>Data de Nascimento</th>
-        <th className={'text-right pr-6'}>Ações</th>
+        <th className={'text-left w-1/7 pl-7'}>Nome</th>
+        <th className={'text-left w-1/7 p-2'}>Sobrenome</th>
+        <th className={'text-left w-1/7 p-2'}>Email</th>
+        <th className={'text-left w-1/7 p-2'}>Endereço</th>
+        <th className={'text-left w-1/7 p-2'}>Telefone</th>
+        <th className={'text-left w-1/7 p-2'}>Data de Nascimento</th>
+        <th className={'text-right w-1/7 pr-6'}>Ações</th>
       </tr>
     )
   }
@@ -45,12 +45,12 @@ export default function Content({
             `
           }`}
         >
-          <td className={'text-left pl-6'}>{customer.firstName}</td>
-          <td className={'text-left p-2'}>{customer.lastName}</td>
-          <td className={'text-left p-2'}>{customer.email}</td>
-          <td className={'text-left p-2'}>{customer.address}</td>
-          <td className={'text-left p-2'}>{customer.phone}</td>
-          <td className={'text-left p-2'}>{`${
+          <td className={'text-left w-1/7 pl-6'}>{customer.firstName}</td>
+          <td className={'text-left w-1/7 p-2'}>{customer.lastName}</td>
+          <td className={'text-left w-1/7 p-2'}>{customer.email}</td>
+          <td className={'text-left w-1/7 p-2'}>{customer.address}</td>
+          <td className={'text-left w-1/7 p-2'}>{customer.phone}</td>
+          <td className={'text-left w-1/7 p-2'}>{`${
             customer.birthDate.split('-')[2]
           }/${customer.birthDate.split('-')[1]}/${
             customer.birthDate.split('-')[0]
@@ -63,7 +63,7 @@ export default function Content({
 
   function renderActions(customer: CustomerInterface) {
     return (
-      <td className={'text-right pr-6 '}>
+      <td className={'text-right w-1/7 pr-6 '}>
         <button
           onClick={() => selectCustomer(customer)}
           className={`
@@ -91,9 +91,7 @@ export default function Content({
   return (
     <div className={`${mode === 'table' ? '' : 'hidden'}`}>
       <table
-        className={
-          'w-full rounded-xl overflow-hidden text-slate-900 dark:text-slate-300'
-        }
+        className={'w-full  overflow-hidden text-slate-900 dark:text-slate-300'}
       >
         <thead
           className={`

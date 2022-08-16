@@ -13,7 +13,13 @@ interface LayoutProps {
   globalHeader?: ReactElement
 }
 
-export default function Layout(props: LayoutProps) {
+export default function Layout({
+  page,
+  title,
+  subtitle,
+  children,
+  globalHeader,
+}: LayoutProps) {
   const context = useAppData()
 
   return (
@@ -25,13 +31,13 @@ export default function Layout(props: LayoutProps) {
     >
       <Head>
         <link rel="shortcut icon" type="image/png" href="icon.png" />
-        <title>{props.page}</title>
+        <title>{page}</title>
       </Head>
       <SideMenu />
       <div className={'flex flex-col w-full p-7 bg-white dark:bg-slate-800'}>
-        <Header title={props.title} subtitle={props.subtitle} />
-        {props.globalHeader}
-        <Content>{props.children}</Content>
+        <Header title={title} subtitle={subtitle} />
+        {globalHeader}
+        <Content>{children}</Content>
       </div>
     </div>
     // </ForcarAutenticacao>

@@ -18,18 +18,15 @@ export function AppProvider(props: { children: any }) {
     }
     setThemeOnSession(newTheme)
     setTheme(newTheme)
-    // localStorage.setItem('theme', newTheme)
   }
 
   useEffect(() => {
     async function getThemeOnSession() {
       await Theme.get().then((item) => {
-        setTheme(item.theme)
+        setTheme(item.theme ?? theme)
       })
     }
     getThemeOnSession()
-    // const savedTheme = localStorage.getItem('theme') ?? ''
-    // setTheme(savedTheme)
   }, [])
 
   return (

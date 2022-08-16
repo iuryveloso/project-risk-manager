@@ -1,9 +1,9 @@
 import Layout from '@components/template/Layout'
 import HeaderTable from '@components/Customer/Table/Header'
-import Content from '@components/Customer/Table/Content'
+import Table from '@components/Customer/Table'
 import HeaderForm from '@components/Customer/Form/Header'
 import Form from '@components/Customer/Form'
-import useCustomerData from '@data/hook/useCustomerData'
+import useCustomerData from '@data/hook/useCustomer'
 
 export default function Clientes() {
   const {
@@ -35,7 +35,7 @@ export default function Clientes() {
         </>
       }
     >
-      <Content
+      <Table
         customers={customers}
         deleteCustomer={deleteCustomer}
         mode={mode}
@@ -46,7 +46,6 @@ export default function Clientes() {
         setCustomer={setCustomer}
         mode={mode}
         saveCustomer={saveCustomer}
-        switchMode={switchMode}
       />
     </Layout>
   )

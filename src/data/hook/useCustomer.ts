@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Customer from '@api/Customer'
 import { CustomerInterface, empty } from '@interfaces/customerInterface'
 
-export default function useCustomerData() {
+export default function useCustomer() {
   const [mode, setMode] = useState<'table' | 'form'>('table')
   const [customer, setCustomer] = useState<CustomerInterface>(empty())
   const [customers, setCustomers] = useState<CustomerInterface[]>([])
