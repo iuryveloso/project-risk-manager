@@ -1,16 +1,78 @@
-import UserAvatar from '@components/template/UserAvatar'
+import { useEffect, useState } from 'react'
 import Layout from '@components/template/Layout'
+import useAuth from '@data/hook/useAuth'
+import UserInterface, { empty } from '@interfaces/userInterface'
+import UserData from '@components/profile/main/UserData'
+import Header from '@components/profile/main/Header'
+import AvatarImage from '@components/profile/main/AvatarImage'
+import EditUser from '@components/profile/editUser/EditUser'
+import HeaderEdit from '@components/profile/editUser/HeaderEdit'
+import HeaderPassword from '@components/profile/editPassword/HeaderPassword'
+import EditPassword from '@components/profile/editPassword/EditPassword'
 
 export default function Profile() {
+  const [mode, setMode] = useState<'main' | 'edit' | 'password'>('main')
+  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
+  const [user, setUser] = useState<UserInterface>(empty())
+
+  const { get, updateAvatar, update, updatePassword } = useAuth({
+    user,
+    setUser,
+    setMessage,
+    setError,
+  })
+
+  useEffect(() => {
+    get()
+  }, [])
+
   return (
     <Layout
       page={'Perfil'}
       title={'Perfil do Usuário'}
-      subtitle={'Personalize o seu perfil de usuário aqui'}
+      subtitle={'Personalize aqui o seu perfil de usuário'}
+      globalHeader={
+        <>
+          <Header
+            mode={mode}
+            setMode={setMode}
+            error={error}
+            message={message}
+          />
+          <HeaderEdit
+            mode={mode}
+            setMode={setMode}
+            error={error}
+            message={message}
+            update={update}
+          />
+          <HeaderPassword
+            mode={mode}
+            setMode={setMode}
+            error={error}
+            message={message}
+            updatePassword={updatePassword}
+          />
+        </>
+      }
     >
-      <span>Perfil do Usuário</span>
-      <div>
-        <UserAvatar width={'100'} height={'100'} />
+      <div
+        className={`
+        w-full flex-grow mt-3 rounded-t-lg
+        bg-slate-200 dark:bg-slate-700 p-4 
+        `}
+      >
+        <div className={'flex'}>
+          <AvatarImage updateAvatar={updateAvatar} />
+          <div className={'flex flex-col flex-grow ml-5'}>
+            <h1 className={'font-medium text-2xl mb-3'}>Dados Pessoais</h1>
+
+            <UserData user={user} setUser={setUser} mode={mode} />
+            <EditUser user={user} setUser={setUser} mode={mode} />
+            <EditPassword user={user} setUser={setUser} mode={mode} />
+          </div>
+        </div>
       </div>
     </Layout>
   )

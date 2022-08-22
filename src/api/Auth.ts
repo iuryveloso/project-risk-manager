@@ -6,25 +6,18 @@ class AuthApi {
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
-    }).then((e) => {
-      return { json: e.json(), status: e.status }
-    })
+    }).then((e) => e.json())
     return response
   }
 
   public async check() {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/check`
     const response = await fetch(url, { method: 'GET', credentials: 'include' })
-    const responseJSON = await response.json()
-    return {
-      message: responseJSON.message,
-      status: response.status,
-    }
+    return response.status === 200
   }
 
   public async create(user: UserInterface) {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth`
-    console.log(user)
     const userFormData = new FormData()
     userFormData.append('firstName', user.firstName ?? '')
     userFormData.append('lastName', user.lastName ?? '')
@@ -32,9 +25,9 @@ class AuthApi {
     userFormData.append('email', user.email ?? '')
     userFormData.append('password', user.password ?? '')
     userFormData.append('confirmPassword', user.confirmPassword ?? '')
-    console.log(userFormData)
     const response = await fetch(url, {
       method: 'POST',
+      credentials: 'include',
       body: userFormData,
     }).then((e) => e.json())
     return response
@@ -53,12 +46,11 @@ class AuthApi {
 
   public async logout() {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/logout`
-    const response = await fetch(url, { method: 'GET', credentials: 'include' })
-    const responseJSON = await response.json()
-    return {
-      message: responseJSON.message,
-      status: response.status,
-    }
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    return response
   }
 
   public async update(user: UserInterface) {
@@ -68,12 +60,20 @@ class AuthApi {
       credentials: 'include',
       body: JSON.stringify(user),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    })
-    const responseJSON = await response.json()
-    return {
-      message: responseJSON.message,
-      status: response.status,
-    }
+    }).then((e) => e.json())
+    return response
+  }
+
+  public async updateAvatar(avatar: File) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/avatar`
+    const userFormData = new FormData()
+    userFormData.append('avatar', avatar ?? '')
+    const response = await fetch(url, {
+      method: 'PATCH',
+      credentials: 'include',
+      body: userFormData,
+    }).then((e) => e.json())
+    return response
   }
 
   public async updatePassword(user: UserInterface) {
@@ -83,12 +83,8 @@ class AuthApi {
       credentials: 'include',
       body: JSON.stringify(user),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    })
-    const responseJSON = await response.json()
-    return {
-      message: responseJSON.message,
-      status: response.status,
-    }
+    }).then((e) => e.json())
+    return response
   }
 }
 

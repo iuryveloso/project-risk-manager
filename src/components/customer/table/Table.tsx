@@ -5,7 +5,7 @@ interface TableInterface {
   mode: 'table' | 'form'
   customers: CustomerInterface[]
   selectCustomer: (customer: CustomerInterface) => void
-  deleteCustomer: (customer: CustomerInterface) => Promise<void>
+  deleteCustomer: (customer: CustomerInterface) => void
 }
 
 export default function Table({

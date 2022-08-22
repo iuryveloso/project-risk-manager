@@ -3,7 +3,7 @@ import { alertIcon } from '@components/icons'
 interface LogoutProps {
   modal?: string
   showModal: () => void
-  logout: () => Promise<void>
+  logout: () => void
 }
 
 export default function Logout(props: LogoutProps) {

@@ -5,7 +5,7 @@ interface FormInterface {
   mode: 'table' | 'form'
   customer: CustomerInterface
   setCustomer: Dispatch<SetStateAction<CustomerInterface>>
-  saveCustomer: (customer: CustomerInterface) => Promise<void>
+  saveCustomer: (customer: CustomerInterface) => void
 }
 
 export default function Form({
@@ -37,7 +37,7 @@ export default function Form({
         `}
       >
         <div className={'flex flex-col mb-4'}>
-          <label>{'Nome'}</label>
+          <label>Nome</label>
           <input
             type={'text'}
             value={customer.firstName}
@@ -52,7 +52,7 @@ export default function Form({
           />
         </div>
         <div className={'flex flex-col mb-4'}>
-          <label>{'Sobrenome'}</label>
+          <label>Sobrenome</label>
           <input
             type={'text'}
             value={customer.lastName}
@@ -67,7 +67,7 @@ export default function Form({
           />
         </div>
         <div className={'flex flex-col mb-4'}>
-          <label>{'Email'}</label>
+          <label>Email</label>
           <input
             type={'email'}
             value={customer.email}
@@ -82,7 +82,7 @@ export default function Form({
           />
         </div>
         <div className={'flex flex-col mb-4'}>
-          <label>{'Endereço'}</label>
+          <label>Endereço</label>
           <input
             type={'text'}
             value={customer.address}
@@ -99,7 +99,7 @@ export default function Form({
           />
         </div>
         <div className={'flex flex-col mb-4'}>
-          <label>{'Telefone'}</label>
+          <label>Telefone</label>
           <input
             type={'text'}
             value={customer.phone}
@@ -114,7 +114,7 @@ export default function Form({
           />
         </div>
         <div className={'flex flex-col mb-4'}>
-          <label>{'Data de Nascimento'}</label>
+          <label>Data de Nascimento</label>
           <input
             type={'date'}
             value={customer.birthDate}

@@ -1,52 +1,79 @@
-import { useEffect, useState } from 'react'
 import Customer from '@api/Customer'
 import { CustomerInterface, empty } from '@interfaces/customerInterface'
+import { Dispatch, SetStateAction } from 'react'
 
-export default function useCustomer() {
-  const [mode, setMode] = useState<'table' | 'form'>('table')
-  const [customer, setCustomer] = useState<CustomerInterface>(empty())
-  const [customers, setCustomers] = useState<CustomerInterface[]>([])
-  const [allCustomers, setAllCustomers] = useState<CustomerInterface[]>()
+interface useCustomerInterface {
+  mode?: 'table' | 'form'
+  setMode?: Dispatch<SetStateAction<'table' | 'form'>>
+  setCustomer?: Dispatch<SetStateAction<CustomerInterface>>
+  setCustomers?: Dispatch<SetStateAction<CustomerInterface[]>>
+  allCustomers?: CustomerInterface[]
+  setAllCustomers?: Dispatch<SetStateAction<CustomerInterface[]>>
+  setError?: Dispatch<SetStateAction<string | null>>
+  setMessage?: Dispatch<SetStateAction<string | null>>
+}
 
-  useEffect(() => {
-    getAllCustomers()
-  }, [])
-
-  async function getAllCustomers() {
-    await Customer.index().then((customers) => {
-      setCustomers(customers)
-      setAllCustomers(customers)
+export default function useCustomer({
+  mode,
+  setMode,
+  setCustomer,
+  setCustomers,
+  allCustomers,
+  setAllCustomers,
+  setError,
+  setMessage,
+}: useCustomerInterface) {
+  function getAllCustomers() {
+    Customer.index().then((e) => {
+      if (setCustomers) {
+        setCustomers(e)
+      }
+      if (setAllCustomers) {
+        setAllCustomers(e)
+      }
     })
   }
 
   function newCustomer() {
-    setCustomer(empty())
-    setMode('form')
+    if (setCustomer) {
+      setCustomer(empty())
+    }
+    if (setMode) {
+      switchMode()
+    }
   }
 
   function selectCustomer(customer: CustomerInterface) {
-    setCustomer(customer)
-    switchMode()
-  }
-
-  async function saveCustomer(customer: CustomerInterface) {
-    if (!customer._id) {
-      await Customer.create(customer)
-    } else {
-      await Customer.update(customer)
+    if (setCustomer) {
+      setCustomer(customer)
     }
-    getAllCustomers()
     switchMode()
   }
 
-  async function deleteCustomer(customer: CustomerInterface) {
-    await Customer.delete(customer._id as string)
-    getAllCustomers()
+  function saveCustomer(customer: CustomerInterface) {
+    if (!customer._id) {
+      Customer.create(customer).then((e) => setAlert(e))
+    } else {
+      Customer.update(customer).then((e) => setAlert(e))
+    }
+  }
+
+  function deleteCustomer(customer: CustomerInterface) {
+    Customer.delete(customer._id as string).then((e) => {
+      if (e.error) {
+        showError(e.error)
+      } else if (e.message) {
+        showMessage(e.message)
+        getAllCustomers()
+      }
+    })
   }
 
   function search(searchTag: string) {
     if (searchTag === '') {
-      setCustomers(allCustomers ?? [])
+      if (setCustomers) {
+        setCustomers(allCustomers ?? [])
+      }
     } else {
       const query = allCustomers?.filter(
         (customer) =>
@@ -57,22 +84,50 @@ export default function useCustomer() {
           customer.phone.toLowerCase().includes(searchTag.toLowerCase()) ||
           customer.birthDate.toLowerCase().includes(searchTag.toLowerCase())
       )
-      setCustomers(query ?? [])
+      if (setCustomers) {
+        setCustomers(query ?? [])
+      }
     }
   }
+
+  function setAlert(e: any) {
+    if (e.error) {
+      showError(e.error)
+    } else if (e.message) {
+      showMessage(e.message)
+      switchMode()
+    }
+  }
+  function showError(message: any, seconds = 5) {
+    if (setError) {
+      setError(message)
+      setTimeout(() => setError(null), seconds * 1000)
+    }
+  }
+  function showMessage(message: any, seconds = 5) {
+    if (setMessage) {
+      setMessage(message)
+      setTimeout(() => setMessage(null), seconds * 1000)
+    }
+  }
+
   function switchMode() {
-    mode === 'table' ? setMode('form') : setMode('table')
+    if (setMode) {
+      if (mode === 'table') {
+        setMode('form')
+      } else {
+        setMode('table')
+        getAllCustomers()
+      }
+    }
   }
   return {
-    mode,
-    customer,
-    setCustomer,
-    customers,
     newCustomer,
     selectCustomer,
     saveCustomer,
     deleteCustomer,
     search,
     switchMode,
+    getAllCustomers,
   }
 }

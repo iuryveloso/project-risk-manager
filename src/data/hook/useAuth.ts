@@ -1,65 +1,124 @@
 import Auth from '@api/Auth'
 import UserInterface from '@interfaces/userInterface'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
-export default function useAuth() {
+interface UseAuthInterface {
+  mode?: 'login' | 'singup'
+  user?: UserInterface
+  setUser?: Dispatch<SetStateAction<UserInterface>>
+  setError?: Dispatch<SetStateAction<string | null>>
+  setMessage?: Dispatch<SetStateAction<string | null>>
+  setCheckAuth?: Dispatch<SetStateAction<boolean>>
+}
+
+export default function useAuth({
+  mode,
+  setError,
+  setMessage,
+  user,
+  setUser,
+  setCheckAuth,
+}: UseAuthInterface) {
   const router = useRouter()
-  const [error, setError] = useState<string | null>(null)
-  const [mode, setMode] = useState<'login' | 'singup'>('login')
-  const [type, setType] = useState<'text' | 'password'>('password')
-  const [user, setUser] = useState<UserInterface>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    avatar: undefined,
-    password: '',
-    confirmPassword: '',
-  })
 
-  useEffect(() => {
-    setUser({
-      email: '',
-      password: '',
-      confirmPassword: '',
-      avatar: undefined,
-      firstName: '',
-      lastName: '',
-    })
-  }, [mode])
+  const [loading, setLoading] = useState(false)
 
-  async function submit() {
-    if (mode === 'login') {
-      await Auth.login(user).then((e) => {
-        if (e.error) {
-          showError(e.error)
-        } else {
-          router.push('/')
-        }
-      })
-    } else {
-      await Auth.create(user).then((e) => {
-        if (e.error) {
-          showError(e.error)
-        } else {
-          router.push('/')
-        }
-      })
+  function get() {
+    if (setUser) {
+      Auth.get().then((e) => setUser(e))
     }
   }
 
+  function check() {
+    try {
+      setLoading(true)
+      Auth.check().then((e) => {
+        if (setCheckAuth) setCheckAuth(e)
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  function update() {
+    Auth.update(user ?? {}).then((e) => {
+      if (e.error) {
+        showError(e.error)
+      } else if (e.message) {
+        showMessage(e.message)
+      }
+    })
+  }
+  function updateAvatar(avatar: File) {
+    Auth.updateAvatar(avatar ?? {}).then((e) => {
+      if (e.error) {
+        showError(e.error)
+      } else if (e.message) {
+        showMessage(e.message)
+      }
+    })
+  }
+  function updatePassword() {
+    Auth.updatePassword(user ?? {}).then((e) => {
+      if (e.error) {
+        showError(e.error)
+      } else if (e.message) {
+        showMessage(e.message)
+      }
+    })
+  }
+
+  function submit() {
+    try {
+      setLoading(true)
+      if (mode === 'login') {
+        Auth.login(user ?? {}).then((e) => {
+          if (e.error) {
+            showError(e.error)
+          } else {
+            router.push('/')
+          }
+        })
+      } else {
+        Auth.create(user ?? {}).then((e) => {
+          if (e.error) {
+            showError(e.error)
+          } else {
+            router.push('/')
+          }
+        })
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  function logout() {
+    Auth.logout()
+    router.push('/auth')
+  }
+
   function showError(message: any, seconds = 5) {
-    setError(message)
-    setTimeout(() => setError(null), seconds * 1000)
+    if (setError) {
+      setError(message)
+      setTimeout(() => setError(null), seconds * 1000)
+    }
+  }
+  function showMessage(message: any, seconds = 5) {
+    if (setMessage) {
+      setMessage(message)
+      setTimeout(() => setMessage(null), seconds * 1000)
+    }
   }
   return {
-    error,
-    mode,
-    setMode,
-    user,
-    setUser,
-    type,
-    setType,
+    check,
+    get,
+    loading,
     submit,
+    logout,
+    update,
+    updateAvatar,
+    updatePassword,
   }
 }

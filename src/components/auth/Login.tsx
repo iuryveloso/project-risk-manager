@@ -10,7 +10,7 @@ interface LoginInterface {
   setType: Dispatch<SetStateAction<'password' | 'text'>>
   user: UserInterface
   setUser: Dispatch<SetStateAction<UserInterface>>
-  submit: () => Promise<void>
+  submit: () => void
 }
 
 export default function Login({

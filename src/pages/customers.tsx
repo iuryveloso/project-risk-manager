@@ -1,23 +1,43 @@
+import { useEffect, useState } from 'react'
 import Layout from '@components/template/Layout'
-import HeaderTable from '@components/Customer/Table/Header'
-import Table from '@components/Customer/Table'
-import HeaderForm from '@components/Customer/Form/Header'
-import Form from '@components/Customer/Form'
+import HeaderTable from '@components/customer/table/Header'
+import Table from '@components/customer/table/Table'
+import HeaderForm from '@components/customer/form/Header'
+import Form from '@components/customer/form/Form'
 import useCustomerData from '@data/hook/useCustomer'
+import { CustomerInterface, empty } from '@interfaces/customerInterface'
 
 export default function Clientes() {
+  const [mode, setMode] = useState<'table' | 'form'>('table')
+  const [customer, setCustomer] = useState<CustomerInterface>(empty())
+  const [customers, setCustomers] = useState<CustomerInterface[]>([])
+  const [allCustomers, setAllCustomers] = useState<CustomerInterface[]>([])
+  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
+
   const {
     newCustomer,
     search,
-    mode,
-    customers,
     selectCustomer,
     deleteCustomer,
     switchMode,
-    customer,
-    setCustomer,
     saveCustomer,
-  } = useCustomerData()
+    getAllCustomers,
+  } = useCustomerData({
+    mode,
+    setMode,
+    setCustomer,
+    setCustomers,
+    allCustomers,
+    setAllCustomers,
+    setError,
+    setMessage,
+  })
+
+  useEffect(() => {
+    getAllCustomers()
+  }, [])
+
   return (
     <Layout
       page={'Clientes'}
@@ -25,12 +45,20 @@ export default function Clientes() {
       subtitle={'Visualize, edite e adicione novas informações aos clientes'}
       globalHeader={
         <>
-          <HeaderTable newCustomer={newCustomer} search={search} mode={mode} />
+          <HeaderTable
+            newCustomer={newCustomer}
+            search={search}
+            mode={mode}
+            error={error}
+            message={message}
+          />
           <HeaderForm
             mode={mode}
             customer={customer}
             saveCustomer={saveCustomer}
             switchMode={switchMode}
+            error={error}
+            message={message}
           />
         </>
       }
