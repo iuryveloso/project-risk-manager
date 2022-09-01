@@ -14,7 +14,7 @@ export default function MenuItem(props: MenuItemProps) {
       <a
         className={`
             flex flex-col justify-center items-center 
-            w-24 h-24
+            w-20 h-20 mx-1
             ${
               props.className
                 ? props.className

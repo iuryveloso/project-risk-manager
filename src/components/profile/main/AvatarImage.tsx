@@ -1,9 +1,11 @@
 import { imageIcon } from '@components/icons'
 import UserAvatar from '@components/template/UserAvatar'
+import UserInterface from '@interfaces/userInterface'
 import { useRouter } from 'next/router'
 
 interface AvatarImageInterface {
   updateAvatar: (avatar: File) => void
+  user: UserInterface
 }
 
 export default function AvatarImage({ updateAvatar }: AvatarImageInterface) {

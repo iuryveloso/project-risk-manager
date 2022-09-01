@@ -21,23 +21,21 @@ export default function Layout({
   children,
   globalHeader,
 }: LayoutProps) {
-  const context = useAppData()
+  const { theme } = useAppData()
 
   return (
     <ForceAuth>
       <div
-        className={`${
-          context.theme === 'dark' ? 'dark' : ''
-        } flex h-screen w-screen`}
+        className={`${theme === 'dark' ? 'dark' : ''} flex h-screen w-screen `}
       >
         <Head>
           <link rel="shortcut icon" type="image/png" href="icon.png" />
           <title>{page}</title>
         </Head>
         <SideMenu />
-        <div className={'flex flex-col w-full p-7 bg-white dark:bg-slate-800'}>
+        <div className={'flex flex-col w-full p-5 bg-white dark:bg-slate-800'}>
           <Header title={title} subtitle={subtitle} />
-          {globalHeader}
+          <div className={`mt-3 mb-2`}>{globalHeader}</div>
           <Content>{children}</Content>
         </div>
       </div>

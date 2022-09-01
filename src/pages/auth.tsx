@@ -12,22 +12,16 @@ export default function Auth() {
   const [user, setUser] = useState<UserInterface>(empty())
 
   useEffect(() => {
-    setUser({
-      email: '',
-      password: '',
-      confirmPassword: '',
-      avatar: undefined,
-      firstName: '',
-      lastName: '',
-    })
+    setUser(empty())
   }, [mode])
 
-  const { submit } = useAuth({ mode, user, setError })
+  const { submit, getGoogleOAuthURl } = useAuth({ mode, user, setError })
   return (
     <Layout
       title={'Gerenciador de Riscos de Projetos'}
       mode={mode}
       setMode={setMode}
+      getGoogleOAuthURl={getGoogleOAuthURl}
     >
       <Login
         error={error}

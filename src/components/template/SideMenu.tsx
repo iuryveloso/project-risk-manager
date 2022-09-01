@@ -7,7 +7,7 @@ import {
   exitIcon,
   userIcon,
 } from '@components/icons'
-import Logout from '@components/template/modal/Logout'
+import LogoutModal from '@components/template/LogoutModal'
 import Logo from '@components/template/Logo'
 import MenuItem from '@components/template/MenuItem'
 import useAuth from '@data/hook/useAuth'
@@ -26,7 +26,7 @@ export default function SideMenu() {
       <div
         className={`
             flex items-center justify-center
-                h-24 w-24 mt-4`}
+                h-20 w-20 mt-4 mx-1`}
       >
         <Logo />
       </div>
@@ -56,7 +56,7 @@ export default function SideMenu() {
                   `}
         />
       </ul>
-      <Logout modal={modal} showModal={showModal} logout={logout} />
+      <LogoutModal modal={modal} showModal={showModal} logout={logout} />
     </aside>
   )
 }

@@ -8,6 +8,11 @@ export interface CustomerInterface {
   birthDate: string
 }
 
+export interface OrderInterface {
+  column: 'firstName' | 'lastName' | 'email' | 'address' | 'phone' | 'birthDate'
+  direction: 'asc' | 'desc'
+}
+
 export function empty() {
   const customer: CustomerInterface = {
     email: '',

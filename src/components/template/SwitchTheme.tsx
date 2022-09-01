@@ -1,14 +1,11 @@
+import useAppData from '@data/hook/useAppData'
 import { MoonIcon, sunIcon } from '@components/icons'
 
-interface SwitchThemeProps {
-  theme: string
-  switchTheme?: () => void
-}
-
-export default function SwitchTheme(props: SwitchThemeProps) {
-  return props.theme === 'dark' ? (
+export default function SwitchTheme() {
+  const { theme, switchTheme } = useAppData()
+  return theme === 'dark' ? (
     <div
-      onClick={props.switchTheme}
+      onClick={switchTheme}
       className={`
             hidden sm:flex items-center cursor-pointer
             bg-gradient-to-r from-yellow-300 to-yellow-600
@@ -33,7 +30,7 @@ export default function SwitchTheme(props: SwitchThemeProps) {
     </div>
   ) : (
     <div
-      onClick={props.switchTheme}
+      onClick={switchTheme}
       className={`
             hidden sm:flex items-center justify-end cursor-pointer
             bg-gradient-to-r from-slate-500 to-slate-900

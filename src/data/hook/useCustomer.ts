@@ -1,27 +1,33 @@
-import Customer from '@api/Customer'
-import { CustomerInterface, empty } from '@interfaces/customerInterface'
 import { Dispatch, SetStateAction } from 'react'
+import Customer from '@api/Customer'
+import {
+  CustomerInterface,
+  OrderInterface,
+} from '@interfaces/customerInterface'
+import { faker } from '@faker-js/faker'
 
 interface useCustomerInterface {
-  mode?: 'table' | 'form'
-  setMode?: Dispatch<SetStateAction<'table' | 'form'>>
+  setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
   setCustomer?: Dispatch<SetStateAction<CustomerInterface>>
+  customers?: CustomerInterface[]
   setCustomers?: Dispatch<SetStateAction<CustomerInterface[]>>
   allCustomers?: CustomerInterface[]
   setAllCustomers?: Dispatch<SetStateAction<CustomerInterface[]>>
   setError?: Dispatch<SetStateAction<string | null>>
   setMessage?: Dispatch<SetStateAction<string | null>>
+  setOrder?: Dispatch<SetStateAction<OrderInterface>>
 }
 
 export default function useCustomer({
-  mode,
   setMode,
   setCustomer,
+  customers,
   setCustomers,
   allCustomers,
   setAllCustomers,
   setError,
   setMessage,
+  setOrder,
 }: useCustomerInterface) {
   function getAllCustomers() {
     Customer.index().then((e) => {
@@ -35,11 +41,50 @@ export default function useCustomer({
   }
 
   function newCustomer() {
-    if (setCustomer) {
-      setCustomer(empty())
+    if (setCustomer && setMode) {
+      const fullDate = new Date(faker.date.birthdate())
+      const year = fullDate.toLocaleString('default', { year: 'numeric' })
+      const month = fullDate.toLocaleString('default', { month: '2-digit' })
+      const day = fullDate.toLocaleString('default', { day: '2-digit' })
+      const customer: CustomerInterface = {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        address: `${faker.address.streetAddress(
+          true
+        )} - ${faker.address.cityName()}`,
+        email: faker.internet.email(),
+        phone: faker.phone.number('(##) 9####-####'),
+        birthDate: `${year}-${month}-${day}`,
+      }
+      setCustomer(customer)
+      switchMode('create')
     }
-    if (setMode) {
-      switchMode()
+  }
+
+  function orderBy(
+    column: OrderInterface['column'],
+    direction: OrderInterface['direction']
+  ) {
+    if (setCustomers && customers && setOrder) {
+      setCustomers(
+        customers.sort((a, b) => {
+          if (a[column].toLowerCase() > b[column].toLowerCase()) {
+            if (direction === 'asc') {
+              return 1
+            } else {
+              return -1
+            }
+          } else if (a[column].toLowerCase() < b[column].toLowerCase()) {
+            if (direction === 'desc') {
+              return 1
+            } else {
+              return -1
+            }
+          } else {
+            return 0
+          }
+        })
+      )
     }
   }
 
@@ -47,7 +92,7 @@ export default function useCustomer({
     if (setCustomer) {
       setCustomer(customer)
     }
-    switchMode()
+    switchMode('edit')
   }
 
   function saveCustomer(customer: CustomerInterface) {
@@ -95,7 +140,7 @@ export default function useCustomer({
       showError(e.error)
     } else if (e.message) {
       showMessage(e.message)
-      switchMode()
+      switchMode('main')
     }
   }
   function showError(message: any, seconds = 5) {
@@ -111,12 +156,10 @@ export default function useCustomer({
     }
   }
 
-  function switchMode() {
+  function switchMode(mode: 'main' | 'create' | 'edit') {
     if (setMode) {
-      if (mode === 'table') {
-        setMode('form')
-      } else {
-        setMode('table')
+      setMode(mode)
+      if (mode === 'main') {
         getAllCustomers()
       }
     }
@@ -129,5 +172,6 @@ export default function useCustomer({
     search,
     switchMode,
     getAllCustomers,
+    orderBy,
   }
 }

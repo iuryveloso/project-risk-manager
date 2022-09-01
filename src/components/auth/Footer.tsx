@@ -1,33 +1,42 @@
 import Image from 'next/image'
 import googleLogo from '@public/google-logo.svg'
 import { Dispatch, SetStateAction } from 'react'
+import Link from 'next/link'
 
 interface FooterInterface {
   mode: 'login' | 'singup'
   setMode: Dispatch<SetStateAction<'login' | 'singup'>>
+  getGoogleOAuthURl: () => string
 }
 
-export default function Footer({ mode, setMode }: FooterInterface) {
+export default function Footer({
+  mode,
+  setMode,
+  getGoogleOAuthURl,
+}: FooterInterface) {
   return (
     <div>
       <div className={mode === 'singup' ? 'hidden' : ''}>
         <hr className={'my-3 border border-gray-300 w-full'} />
-
-        <button
-          className={` 
-          flex justify-center items-center w-full bg-red-600 hover:bg-red-700 text-white rounded-lg
-          px-3 py-2
-      `}
-        >
-          <Image
-            className={'w-8 mr-3'}
-            src={googleLogo}
-            width="25"
-            height={'25'}
-            alt="Google Logo"
-          />
-          <span className="ml-3">Entrar com Google</span>
-        </button>
+        <Link href={getGoogleOAuthURl() ?? ''} passHref>
+          <a>
+            <div
+              className={` 
+                        flex justify-center items-center w-full bg-red-600 hover:bg-red-700 
+                        text-white rounded-lg px-3 py-2
+                    `}
+            >
+              <Image
+                className={'w-8 mr-3'}
+                src={googleLogo}
+                width="25"
+                height={'25'}
+                alt="Google Logo"
+              />
+              <span className="ml-3">Entrar com Google</span>
+            </div>
+          </a>
+        </Link>
       </div>
       <div className="sm:flex mt-3">
         {mode === 'login' ? (
@@ -58,7 +67,7 @@ export default function Footer({ mode, setMode }: FooterInterface) {
           </p>
         )}
 
-        <p>
+        {/* <p>
           <a
             onClick={() => setMode('login')}
             className={`
@@ -68,7 +77,7 @@ export default function Footer({ mode, setMode }: FooterInterface) {
           >
             Esqueci minha senha
           </a>
-        </p>
+        </p> */}
       </div>
     </div>
   )

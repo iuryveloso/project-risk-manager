@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import avatar from '@public/images/avatar.svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface UserAvatarProps {
   className?: string
@@ -16,9 +16,16 @@ export default function UserAvatar({
   height,
   href,
 }: UserAvatarProps) {
-  const [userAvatarUrl, setUserAvatarUrl] = useState<string>(
-    `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/avatar`
-  )
+  const [image, setImage] = useState(avatar)
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/auth/avatar`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then((response) => response.blob())
+      .then((imageBlob) => setImage(URL.createObjectURL(imageBlob)))
+  }, [])
 
   return (
     <div>
@@ -29,13 +36,13 @@ export default function UserAvatar({
               <Image
                 loader={({ src }) => src}
                 unoptimized={true}
-                src={userAvatarUrl}
+                src={image}
                 alt="Avatar do usuário"
                 width={width}
                 height={height}
                 objectFit="cover"
                 className={'rounded-full'}
-                onError={() => setUserAvatarUrl(avatar)}
+                onError={() => setImage(avatar)}
               />
             </div>
           </a>

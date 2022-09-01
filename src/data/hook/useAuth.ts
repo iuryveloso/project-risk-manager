@@ -30,6 +30,26 @@ export default function useAuth({
     }
   }
 
+  function getGoogleOAuthURl() {
+    const rootURL = 'https://accounts.google.com/o/oauth2/v2/auth'
+
+    const options = {
+      redirect_uri: process.env.NEXT_PUBLIC_OAUTH_GOOGLE_REDIRECT_URL as string,
+      client_id: process.env.NEXT_PUBLIC_OAUTH_GOOGLE_CLIENT_ID as string,
+      access_type: 'offline',
+      response_type: 'code',
+      prompt: 'consent',
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email',
+      ].join(' '),
+    }
+
+    const queryString = new URLSearchParams(options)
+
+    return `${rootURL}?${queryString.toString()}`
+  }
+
   function check() {
     try {
       setLoading(true)
@@ -114,6 +134,7 @@ export default function useAuth({
   return {
     check,
     get,
+    getGoogleOAuthURl,
     loading,
     submit,
     logout,

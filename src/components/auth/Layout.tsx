@@ -8,6 +8,7 @@ interface LoginInterface {
   mode: 'login' | 'singup'
   children: any
   setMode: Dispatch<SetStateAction<'login' | 'singup'>>
+  getGoogleOAuthURl: () => string
 }
 
 export default function Login({
@@ -15,6 +16,7 @@ export default function Login({
   mode,
   children,
   setMode,
+  getGoogleOAuthURl,
 }: LoginInterface) {
   return (
     <div className="flex h-screen items-center  justify-center md:bg-gradient-to-r md:from-blue-600 md:to-cyan-600">
@@ -34,7 +36,11 @@ export default function Login({
           {title}
         </h1>
         <div>{children}</div>
-        <Footer mode={mode} setMode={setMode} />
+        <Footer
+          mode={mode}
+          setMode={setMode}
+          getGoogleOAuthURl={getGoogleOAuthURl}
+        />
       </div>
     </div>
   )

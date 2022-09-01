@@ -59,16 +59,16 @@ export default function Profile() {
     >
       <div
         className={`
-        w-full flex-grow mt-3 rounded-t-lg
+        w-full flex-grow rounded-t-lg
         bg-slate-200 dark:bg-slate-700 p-4 
         `}
       >
         <div className={'flex'}>
-          <AvatarImage updateAvatar={updateAvatar} />
+          <AvatarImage updateAvatar={updateAvatar} user={user} />
           <div className={'flex flex-col flex-grow ml-5'}>
             <h1 className={'font-medium text-2xl mb-3'}>Dados Pessoais</h1>
 
-            <UserData user={user} setUser={setUser} mode={mode} />
+            <UserData user={user} mode={mode} />
             <EditUser user={user} setUser={setUser} mode={mode} />
             <EditPassword user={user} setUser={setUser} mode={mode} />
           </div>

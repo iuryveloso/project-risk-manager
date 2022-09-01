@@ -18,7 +18,7 @@ export default function Header({
 }: HeaderInterface) {
   return (
     <div className={mode === 'main' ? '' : 'hidden'}>
-      <div className={'flex mt-7 justify-end'}>
+      <div className={'flex justify-end'}>
         <div className={'flex justify-center w-1/3'}>
           <Error error={error} />
           <Message message={message} />

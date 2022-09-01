@@ -20,7 +20,7 @@ export default function HeaderEdit({
 }: HeaderEditInterface) {
   return (
     <div className={mode === 'edit' ? '' : 'hidden'}>
-      <div className={'flex mt-7'}>
+      <div className={'flex'}>
         <div className={'w-1/3'}>
           <button
             onClick={() => setMode('main')}

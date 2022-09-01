@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { CustomerInterface } from '@interfaces/customerInterface'
 
 interface FormInterface {
-  mode: 'table' | 'form'
+  mode: 'main' | 'create' | 'edit'
   customer: CustomerInterface
   setCustomer: Dispatch<SetStateAction<CustomerInterface>>
   saveCustomer: (customer: CustomerInterface) => void
@@ -26,7 +26,7 @@ export default function Form({
     <div
       className={`
         flex flex-col justify-center
-        ${mode === 'form' ? '' : 'hidden'}
+        ${mode === 'create' ? '' : 'hidden'}
     `}
     >
       <div

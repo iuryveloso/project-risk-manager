@@ -1,13 +1,15 @@
 import { plusIcon } from '@components/icons'
 import Error from '@components/customer/alerts/Error'
 import Message from '@components/customer/alerts/Message'
+import Delete from '@components/customer/alerts/Delete'
 
 interface HeaderInterface {
-  mode: 'form' | 'table'
+  mode: 'main' | 'create' | 'edit'
   newCustomer: () => void
   search: (searchTag: string) => void
   error: string | null
   message: string | null
+  deleteMessage: string | null
 }
 
 export default function Header({
@@ -16,10 +18,11 @@ export default function Header({
   mode,
   error,
   message,
+  deleteMessage,
 }: HeaderInterface) {
   return (
-    <div className={mode === 'table' ? '' : 'hidden'}>
-      <div className={`flex mt-7 mb-3`}>
+    <div className={mode === 'main' ? '' : 'hidden'}>
+      <div className={`flex`}>
         <div className={'w-1/3'}>
           <button
             className={`
@@ -39,6 +42,7 @@ export default function Header({
         <div className={'flex justify-center w-1/3'}>
           <Error error={error} />
           <Message message={message} />
+          <Delete deleteMessage={deleteMessage} />
         </div>
         <div className={'flex justify-end w-1/3'}>
           <input

@@ -1,13 +1,11 @@
 import UserInterface from '@interfaces/userInterface'
-import { Dispatch, SetStateAction } from 'react'
 
 interface UserDataInterface {
   user: UserInterface
-  setUser: Dispatch<SetStateAction<UserInterface>>
   mode: 'main' | 'edit' | 'password'
 }
 
-export default function UserData({ setUser, user, mode }: UserDataInterface) {
+export default function UserData({ user, mode }: UserDataInterface) {
   const classname = `
     px-3 py-2 rounded-lg  focus:outline-none my-1
     bg-slate-200 dark:bg-slate-700 text-lg
