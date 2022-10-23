@@ -1,15 +1,6 @@
 import UserInterface from '@interfaces/userInterface'
 
 class AuthApi {
-  public async get() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth`
-    const response = await fetch(url, {
-      method: 'GET',
-      credentials: 'include',
-    }).then((e) => e.json())
-    return response
-  }
-
   public async check() {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/check`
     const response = await fetch(url, { method: 'GET', credentials: 'include' })
@@ -50,40 +41,6 @@ class AuthApi {
       method: 'GET',
       credentials: 'include',
     })
-    return response
-  }
-
-  public async update(user: UserInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth`
-    const response = await fetch(url, {
-      method: 'PATCH',
-      credentials: 'include',
-      body: JSON.stringify(user),
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    }).then((e) => e.json())
-    return response
-  }
-
-  public async updateAvatar(avatar: File) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/avatar`
-    const userFormData = new FormData()
-    userFormData.append('avatar', avatar ?? '')
-    const response = await fetch(url, {
-      method: 'PATCH',
-      credentials: 'include',
-      body: userFormData,
-    }).then((e) => e.json())
-    return response
-  }
-
-  public async updatePassword(user: UserInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/password`
-    const response = await fetch(url, {
-      method: 'PATCH',
-      credentials: 'include',
-      body: JSON.stringify(user),
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    }).then((e) => e.json())
     return response
   }
 }

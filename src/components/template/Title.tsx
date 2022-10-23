@@ -5,7 +5,7 @@ interface TitleProps {
 
 export default function Title(props: TitleProps) {
   return (
-    <div>
+    <div className={'flex flex-col justify-center items-center'}>
       <h1 className={'font-medium text-3xl text-slate-900 dark:text-slate-200'}>
         {props.title}
       </h1>

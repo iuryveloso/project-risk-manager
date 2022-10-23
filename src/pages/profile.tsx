@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Layout from '@components/template/Layout'
-import useAuth from '@data/hook/useAuth'
+import useUser from '@data/hook/useUser'
 import UserInterface, { empty } from '@interfaces/userInterface'
 import UserData from '@components/profile/main/UserData'
 import Header from '@components/profile/main/Header'
@@ -16,7 +16,7 @@ export default function Profile() {
   const [message, setMessage] = useState<string | null>(null)
   const [user, setUser] = useState<UserInterface>(empty())
 
-  const { get, updateAvatar, update, updatePassword } = useAuth({
+  const { get, updateAvatar, update, updatePassword } = useUser({
     user,
     setUser,
     setMessage,

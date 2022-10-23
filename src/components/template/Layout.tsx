@@ -29,7 +29,11 @@ export default function Layout({
         className={`${theme === 'dark' ? 'dark' : ''} flex h-screen w-screen `}
       >
         <Head>
-          <link rel="shortcut icon" type="image/png" href="icon.png" />
+          <link
+            rel={'shortcut icon'}
+            type={'image/png'}
+            href={'images/logo.png'}
+          />
           <title>{page}</title>
         </Head>
         <SideMenu />

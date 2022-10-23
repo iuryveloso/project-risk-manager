@@ -15,20 +15,12 @@ interface UseAuthInterface {
 export default function useAuth({
   mode,
   setError,
-  setMessage,
   user,
-  setUser,
   setCheckAuth,
 }: UseAuthInterface) {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
-
-  function get() {
-    if (setUser) {
-      Auth.get().then((e) => setUser(e))
-    }
-  }
 
   function getGoogleOAuthURl() {
     const rootURL = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -59,34 +51,6 @@ export default function useAuth({
     } finally {
       setLoading(false)
     }
-  }
-
-  function update() {
-    Auth.update(user ?? {}).then((e) => {
-      if (e.error) {
-        showError(e.error)
-      } else if (e.message) {
-        showMessage(e.message)
-      }
-    })
-  }
-  function updateAvatar(avatar: File) {
-    Auth.updateAvatar(avatar ?? {}).then((e) => {
-      if (e.error) {
-        showError(e.error)
-      } else if (e.message) {
-        showMessage(e.message)
-      }
-    })
-  }
-  function updatePassword() {
-    Auth.updatePassword(user ?? {}).then((e) => {
-      if (e.error) {
-        showError(e.error)
-      } else if (e.message) {
-        showMessage(e.message)
-      }
-    })
   }
 
   function submit() {
@@ -125,21 +89,11 @@ export default function useAuth({
       setTimeout(() => setError(null), seconds * 1000)
     }
   }
-  function showMessage(message: any, seconds = 5) {
-    if (setMessage) {
-      setMessage(message)
-      setTimeout(() => setMessage(null), seconds * 1000)
-    }
-  }
   return {
     check,
-    get,
     getGoogleOAuthURl,
     loading,
     submit,
     logout,
-    update,
-    updateAvatar,
-    updatePassword,
   }
 }

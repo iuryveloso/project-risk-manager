@@ -10,8 +10,11 @@ interface HeaderProps {
 export default function Header(props: HeaderProps) {
   return (
     <div className={'flex'}>
-      <Title title={props.title} subtitle={props.subtitle} />
-      <div className={'flex flex-grow justify-end items-center'}>
+      <div className={'w-1/6'} />
+      <div className={'flex justify-center items-center w-4/6'}>
+        <Title title={props.title} subtitle={props.subtitle} />
+      </div>
+      <div className={'flex justify-end items-center w-1/6'}>
         <SwitchTheme />
         <UserAvatar
           href={'/profile'}

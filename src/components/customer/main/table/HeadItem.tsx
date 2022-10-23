@@ -22,7 +22,7 @@ export default function HeadItem({
 }: HeadItemInterface) {
   return (
     <div className={'flex'}>
-      <div className={'flex flex-col'}>
+      <div className={'flex flex-col justify-center'}>
         <button
           className={
             order.column === column && order.direction === 'asc'

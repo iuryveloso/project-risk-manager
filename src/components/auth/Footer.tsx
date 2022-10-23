@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import googleLogo from '@public/google-logo.svg'
+import googleLogo from '@public/images/google-logo.svg'
 import { Dispatch, SetStateAction } from 'react'
 import Link from 'next/link'
 

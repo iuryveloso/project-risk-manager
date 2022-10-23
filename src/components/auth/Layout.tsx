@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import Logo from '@components/template/Logo'
 import { Dispatch, SetStateAction } from 'react'
 import Footer from '@components/auth/Footer'
+import logo from '@public/images/logo.png'
+import Image from 'next/image'
 
 interface LoginInterface {
   title: string
@@ -21,7 +22,11 @@ export default function Login({
   return (
     <div className="flex h-screen items-center  justify-center md:bg-gradient-to-r md:from-blue-600 md:to-cyan-600">
       <Head>
-        <link rel="shortcut icon" type="image/png" href="icon.png" />
+        <link
+          rel={'shortcut icon'}
+          type={'image/png'}
+          href={'images/logo.png'}
+        />
         <title>{mode === 'login' ? 'Login' : 'Cadastro'}</title>
       </Head>
       <div
@@ -30,7 +35,9 @@ export default function Login({
         }
       >
         <div className={'flex justify-center mb-3'}>
-          <Logo width="w-20" height="h-20" ballWidth="w-6" ballHeight="h-6" />
+          <div className={`h-20 w-20 mb-4`}>
+            <Image src={logo} alt={'Logo'} />
+          </div>
         </div>
         <h1 className={'text-4xl font-bold mb-5 text-slate-800 text-center'}>
           {title}
