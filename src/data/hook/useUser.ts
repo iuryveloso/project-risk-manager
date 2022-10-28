@@ -9,6 +9,7 @@ interface useUserInterface {
   setError?: Dispatch<SetStateAction<string | null>>
   setMessage?: Dispatch<SetStateAction<string | null>>
   setCheckAuth?: Dispatch<SetStateAction<boolean>>
+  setMode?: Dispatch<SetStateAction<'password' | 'main' | 'edit'>>
 }
 
 export default function useUser({
@@ -16,6 +17,7 @@ export default function useUser({
   setMessage,
   user,
   setUser,
+  setMode,
 }: useUserInterface) {
   function get() {
     if (setUser) {
@@ -29,6 +31,7 @@ export default function useUser({
         showError(e.error)
       } else if (e.message) {
         showMessage(e.message)
+        if (setMode) setMode('main')
       }
     })
   }
@@ -47,17 +50,18 @@ export default function useUser({
         showError(e.error)
       } else if (e.message) {
         showMessage(e.message)
+        if (setMode) setMode('main')
       }
     })
   }
 
-  function showError(message: any, seconds = 5) {
+  function showError(message: any, seconds = 3) {
     if (setError) {
       setError(message)
       setTimeout(() => setError(null), seconds * 1000)
     }
   }
-  function showMessage(message: any, seconds = 5) {
+  function showMessage(message: any, seconds = 3) {
     if (setMessage) {
       setMessage(message)
       setTimeout(() => setMessage(null), seconds * 1000)

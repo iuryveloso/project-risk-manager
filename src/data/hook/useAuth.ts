@@ -83,7 +83,7 @@ export default function useAuth({
     router.push('/auth')
   }
 
-  function showError(message: any, seconds = 5) {
+  function showError(message: any, seconds = 3) {
     if (setError) {
       setError(message)
       setTimeout(() => setError(null), seconds * 1000)

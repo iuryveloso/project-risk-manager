@@ -143,13 +143,13 @@ export default function useCustomer({
       switchMode('main')
     }
   }
-  function showError(message: any, seconds = 5) {
+  function showError(message: any, seconds = 3) {
     if (setError) {
       setError(message)
       setTimeout(() => setError(null), seconds * 1000)
     }
   }
-  function showMessage(message: any, seconds = 5) {
+  function showMessage(message: any, seconds = 3) {
     if (setMessage) {
       setMessage(message)
       setTimeout(() => setMessage(null), seconds * 1000)

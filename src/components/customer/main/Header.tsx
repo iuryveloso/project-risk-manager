@@ -10,6 +10,8 @@ interface HeaderInterface {
   error: string | null
   message: string | null
   deleteMessage: string | null
+  customersLength: number
+  allCustomersLength: number
 }
 
 export default function Header({
@@ -19,6 +21,8 @@ export default function Header({
   error,
   message,
   deleteMessage,
+  customersLength,
+  allCustomersLength,
 }: HeaderInterface) {
   return (
     <div className={mode === 'main' ? '' : 'hidden'}>
@@ -39,10 +43,18 @@ export default function Header({
             </div>
           </button>
         </div>
-        <div className={'flex justify-center w-1/3'}>
+        <div className={'flex justify-center items-end w-1/3'}>
           <Error error={error} />
           <Message message={message} />
           <Delete deleteMessage={deleteMessage} />
+          <div
+            className={`italic font-semibold ${
+              !(error || message || deleteMessage) ? '' : 'hidden'
+            }`}
+          >
+            Mostrando {customersLength} de {allCustomersLength} Clientes
+            Cadastrados
+          </div>
         </div>
         <div className={'flex justify-end w-1/3'}>
           <input

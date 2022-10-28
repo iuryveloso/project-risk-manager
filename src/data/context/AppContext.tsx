@@ -1,4 +1,3 @@
-import Theme from '@api/Theme'
 import { createContext, useEffect, useState } from 'react'
 
 interface AppContextProps {
@@ -12,21 +11,21 @@ export function AppProvider(props: { children: any }) {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
 
   function switchTheme() {
-    const newTheme = theme === 'light' ? 'dark' : 'light'
-    async function setThemeOnSession(theme: string) {
-      await Theme.set(theme)
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    function setThemeOnLocalStorage(theme: string) {
+      localStorage.setItem('USER_THEME', theme)
     }
-    setThemeOnSession(newTheme)
+    setThemeOnLocalStorage(newTheme)
     setTheme(newTheme)
   }
 
   useEffect(() => {
-    async function getThemeOnSession() {
-      await Theme.get().then((item) => {
-        setTheme(item.theme ?? theme)
-      })
+    function getThemeOnLocalStorage() {
+      const getTheme =
+        localStorage.getItem('USER_THEME') === 'light' ? 'light' : 'dark'
+      setTheme(getTheme)
     }
-    getThemeOnSession()
+    getThemeOnLocalStorage()
   }, [])
 
   return (

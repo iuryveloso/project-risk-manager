@@ -44,7 +44,6 @@ export default function HeaderEdit({
           <button
             onClick={() => {
               update()
-              setMode('main')
             }}
             className={`
                             focus:border-indigo-700 dark:focus:border-indigo-600

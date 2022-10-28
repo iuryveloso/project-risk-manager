@@ -44,7 +44,6 @@ export default function HeaderPassword({
           <button
             onClick={() => {
               updatePassword()
-              setMode('main')
             }}
             className={`
                             focus:border-indigo-700 dark:focus:border-indigo-600

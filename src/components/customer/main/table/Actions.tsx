@@ -28,7 +28,7 @@ export default function Actions({
       setTimeout(() => {
         setDeleteMessage(null)
         setIsClicked(false)
-      }, 5000)
+      }, 3000)
     }
   }
   return (

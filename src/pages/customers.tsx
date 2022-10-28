@@ -65,6 +65,8 @@ export default function Clientes() {
             error={error}
             message={message}
             deleteMessage={deleteMessage}
+            customersLength={customers.length}
+            allCustomersLength={allCustomers.length}
           />
           <HeaderCreate
             mode={mode}

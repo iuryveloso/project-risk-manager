@@ -21,11 +21,12 @@ export default function Profile() {
     setUser,
     setMessage,
     setError,
+    setMode,
   })
 
   useEffect(() => {
     get()
-  }, [])
+  }, [mode])
 
   return (
     <Layout
