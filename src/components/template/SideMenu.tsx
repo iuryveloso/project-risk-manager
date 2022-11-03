@@ -6,6 +6,7 @@ import {
   notificationsIcon,
   exitIcon,
   userIcon,
+  clipboardDocumentList,
 } from '@components/icons'
 import LogoutModal from '@components/template/LogoutModal'
 import MenuItem from '@components/template/MenuItem'
@@ -42,6 +43,11 @@ export default function SideMenu() {
           />
           <MenuItem url={'/profile'} text={'Perfil'} icon={userIcon} />
           <MenuItem url={'/customers'} text={'Clientes'} icon={customerIcon} />
+          <MenuItem
+            url={'/projects'}
+            text={'Projetos'}
+            icon={clipboardDocumentList}
+          />
         </ul>
       </div>
       <div>

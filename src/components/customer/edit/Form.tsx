@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import { CustomerInterface } from '@interfaces/customerInterface'
+import { CustomerInterface } from '@interfaces/customerInterfaces'
 
 interface FormInterface {
   mode: 'main' | 'create' | 'edit'

@@ -39,7 +39,7 @@ export default function Header({
           >
             <div className={'flex'}>
               <span className={'mr-2'}>{plusIcon}</span>
-              <span>Novo</span>
+              <span>Novo Cliente</span>
             </div>
           </button>
         </div>

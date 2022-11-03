@@ -3,7 +3,7 @@ import Layout from '@components/auth/Layout'
 import Login from '@components/auth/Login'
 import Singup from '@components/auth/Singup'
 import { useEffect, useState } from 'react'
-import UserInterface, { empty } from '@interfaces/userInterface'
+import UserInterface, { empty } from '@interfaces/userInterfaces'
 
 export default function Auth() {
   const [error, setError] = useState<string | null>(null)

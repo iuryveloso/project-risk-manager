@@ -1,5 +1,5 @@
 import Auth from '@api/Auth'
-import UserInterface from '@interfaces/userInterface'
+import UserInterface from '@interfaces/userInterfaces'
 import { useRouter } from 'next/router'
 import { Dispatch, SetStateAction, useState } from 'react'
 

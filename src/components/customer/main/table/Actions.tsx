@@ -1,5 +1,5 @@
 import { deleteIcon, editIcon } from '@components/icons'
-import { CustomerInterface } from '@interfaces/customerInterface'
+import { CustomerInterface } from '@interfaces/customerInterfaces'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 interface ActionsInterface {
@@ -33,15 +33,18 @@ export default function Actions({
   }
   return (
     <td className={'text-right pr-4'}>
-      <div className={'flex  justify-end items-center'}>
+      <div className={'flex flex-col justify-end items-center'}>
         <button
           onClick={() => selectCustomer(customer)}
           className={`
                       text-sky-600 hover:bg-slate-300 hover:text-sky-700
-                      dark:text-sky-500 dark:hover:bg-slate-800 dark:hover:text-sky-300 py-1
+                      dark:text-sky-500 dark:hover:bg-slate-800 dark:hover:text-sky-300 p-1
                   `}
         >
-          {editIcon}
+          <div className={'flex'}>
+            <span className={'mr-1'}>{editIcon}</span>
+            <span>Editar</span>
+          </div>
         </button>
         <button
           onClick={deleteCustomerClick}
@@ -54,7 +57,10 @@ export default function Actions({
                       dark:text-red-500 dark:hover:bg-slate-800 dark:hover:text-red-300 p-1
                   `}
         >
-          {deleteIcon}
+          <div className={'flex'}>
+            <span className={'mr-1'}>{deleteIcon}</span>
+            <span>Excluir</span>
+          </div>
         </button>
       </div>
     </td>

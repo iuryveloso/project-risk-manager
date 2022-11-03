@@ -11,7 +11,7 @@ import {
   CustomerInterface,
   OrderInterface,
   empty,
-} from '@interfaces/customerInterface'
+} from '@interfaces/customerInterfaces'
 
 export default function Clientes() {
   const [mode, setMode] = useState<'main' | 'create' | 'edit'>('main')

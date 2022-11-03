@@ -1,5 +1,5 @@
 import { dontLookIcon, lookIcon } from '@components/icons'
-import UserInterface from '@interfaces/userInterface'
+import UserInterface from '@interfaces/userInterfaces'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 interface EditPasswordInterface {

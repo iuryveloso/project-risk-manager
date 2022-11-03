@@ -1,17 +1,8 @@
-import { CustomerInterface } from '@interfaces/customerInterface'
+import { CustomerInterface } from '@interfaces/customerInterfaces'
 
 class CustomerApi {
-  public async index() {
+  public async get() {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/customer`
-    const response = await fetch(url, {
-      method: 'GET',
-      credentials: 'include',
-    }).then((e) => e.json())
-    return response
-  }
-
-  public async get(customerID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/customer/${customerID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',

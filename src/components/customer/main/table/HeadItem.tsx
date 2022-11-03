@@ -1,5 +1,5 @@
 import { chevronDownIcon, chevronUpIcon } from '@components/icons'
-import { OrderInterface } from '@interfaces/customerInterface'
+import { OrderInterface } from '@interfaces/customerInterfaces'
 import { Dispatch, SetStateAction } from 'react'
 
 interface HeadItemInterface {

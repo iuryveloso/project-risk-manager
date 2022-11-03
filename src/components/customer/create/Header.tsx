@@ -1,5 +1,5 @@
 import { leftArrowIcon, saveIcon } from '@components/icons'
-import { CustomerInterface } from '@interfaces/customerInterface'
+import { CustomerInterface } from '@interfaces/customerInterfaces'
 import Error from '@components/customer/alerts/Error'
 import Message from '@components/customer/alerts/Message'
 

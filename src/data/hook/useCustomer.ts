@@ -3,7 +3,7 @@ import Customer from '@api/Customer'
 import {
   CustomerInterface,
   OrderInterface,
-} from '@interfaces/customerInterface'
+} from '@interfaces/customerInterfaces'
 import { faker } from '@faker-js/faker'
 
 interface useCustomerInterface {
@@ -30,7 +30,7 @@ export default function useCustomer({
   setOrder,
 }: useCustomerInterface) {
   function getAllCustomers() {
-    Customer.index().then((e) => {
+    Customer.get().then((e) => {
       if (setCustomers) {
         setCustomers(e)
       }

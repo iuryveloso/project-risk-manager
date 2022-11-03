@@ -1,4 +1,4 @@
-import UserInterface from '@interfaces/userInterface'
+import UserInterface from '@interfaces/userInterfaces'
 
 class UserApi {
   public async get() {

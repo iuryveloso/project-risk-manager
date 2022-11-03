@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import HeadItem from '@components/customer/main/table/HeadItem'
-import { OrderInterface } from '@interfaces/customerInterface'
+import { OrderInterface } from '@interfaces/customerInterfaces'
 
 interface HeaderInterface {
   order: OrderInterface
@@ -68,7 +68,7 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
           setOrder={setOrder}
         />
       </th>
-      <th className={'text-right pr-4'}>Ações</th>
+      <th className={'text-center pr-4'}>Ações</th>
     </tr>
   )
 }

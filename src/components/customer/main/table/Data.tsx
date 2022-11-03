@@ -1,6 +1,6 @@
-import { CustomerInterface } from '@interfaces/customerInterface'
+import { CustomerInterface } from '@interfaces/customerInterfaces'
 import { Dispatch, SetStateAction } from 'react'
-import Actions from './Actions'
+import Actions from '@components/customer/main/table/Actions'
 
 interface DataInterface {
   customer: CustomerInterface

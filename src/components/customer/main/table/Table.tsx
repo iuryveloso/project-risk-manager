@@ -4,7 +4,7 @@ import Data from '@components/customer/main/table/Data'
 import {
   CustomerInterface,
   OrderInterface,
-} from '@interfaces/customerInterface'
+} from '@interfaces/customerInterfaces'
 
 interface TableInterface {
   mode: 'main' | 'create' | 'edit'

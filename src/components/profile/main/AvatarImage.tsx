@@ -1,6 +1,6 @@
 import { imageIcon } from '@components/icons'
 import UserAvatar from '@components/template/UserAvatar'
-import UserInterface from '@interfaces/userInterface'
+import UserInterface from '@interfaces/userInterfaces'
 import { useRouter } from 'next/router'
 
 interface AvatarImageInterface {

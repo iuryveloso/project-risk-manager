@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Layout from '@components/template/Layout'
 import useUser from '@data/hook/useUser'
-import UserInterface, { empty } from '@interfaces/userInterface'
+import UserInterface, { empty } from '@interfaces/userInterfaces'
 import UserData from '@components/profile/main/UserData'
 import Header from '@components/profile/main/Header'
 import AvatarImage from '@components/profile/main/AvatarImage'

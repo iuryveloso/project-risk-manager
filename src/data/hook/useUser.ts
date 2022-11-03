@@ -1,5 +1,5 @@
 import User from '@api/User'
-import UserInterface from '@interfaces/userInterface'
+import UserInterface from '@interfaces/userInterfaces'
 import { Dispatch, SetStateAction } from 'react'
 
 interface useUserInterface {

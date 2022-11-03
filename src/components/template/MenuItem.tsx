@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 interface MenuItemProps {
   text: string
@@ -8,7 +9,15 @@ interface MenuItemProps {
   className?: string
 }
 
-export default function MenuItem(props: MenuItemProps) {
+export default function MenuItem({
+  icon,
+  text,
+  className,
+  onClick,
+  url,
+}: MenuItemProps) {
+  const router = useRouter()
+  const currentPage = router.pathname.split('/')[1]
   function renderLink() {
     return (
       <a
@@ -16,25 +25,28 @@ export default function MenuItem(props: MenuItemProps) {
             flex flex-col justify-center items-center 
             w-20 h-20 mx-1
             ${
-              props.className
-                ? props.className
-                : `
+              className ||
+              `
                 text-slate-700
                 dark:text-slate-300 
             `
             }`}
       >
-        {props.icon}
-        <span className={'text-xs font-light '}>{props.text}</span>
+        {icon}
+        <span className={'text-xs font-light '}>{text}</span>
       </a>
     )
   }
   return (
     <li
-      onClick={props.onClick}
-      className={' hover:bg-slate-300 cursor-pointer dark:hover:bg-slate-800'}
+      onClick={onClick}
+      className={
+        currentPage === url?.split('/')[1]
+          ? 'bg-slate-300 dark:bg-slate-800'
+          : 'hover:bg-slate-300 dark:hover:bg-slate-800'
+      }
     >
-      {props.url ? <Link href={props.url}>{renderLink()}</Link> : renderLink()}
+      {url ? <Link href={url}>{renderLink()}</Link> : renderLink()}
     </li>
   )
 }
