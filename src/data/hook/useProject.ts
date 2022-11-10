@@ -4,7 +4,7 @@ import { ProjectInterface, OrderInterface } from '@interfaces/projectInterfaces'
 import { faker } from '@faker-js/faker'
 
 interface useProjectInterface {
-  setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit' | 'view'>>
+  setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
   projectID?: string
   setProject?: Dispatch<SetStateAction<ProjectInterface>>
   projects?: ProjectInterface[]
@@ -29,7 +29,7 @@ export default function useProject({
   setOrder,
 }: useProjectInterface) {
   function getAllProjects() {
-    Project.index().then((e) => {
+    Project.list().then((e) => {
       if (setProjects) {
         setProjects(e)
       }
@@ -172,7 +172,7 @@ export default function useProject({
     }
   }
 
-  function switchMode(mode: 'main' | 'create' | 'edit' | 'view') {
+  function switchMode(mode: 'main' | 'create' | 'edit') {
     if (setMode) {
       setMode(mode)
       if (mode === 'main') {

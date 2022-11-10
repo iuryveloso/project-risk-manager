@@ -14,7 +14,7 @@ import {
 } from '@interfaces/taskInterfaces'
 import { useRouter } from 'next/router'
 
-export default function subTarefas() {
+export default function subTasks() {
   const [mode, setMode] = useState<'main' | 'create' | 'edit'>('main')
   const [task, setTask] = useState<TaskInterface>(empty())
   const [parentTask, setParentTask] = useState<TaskInterface>(empty())

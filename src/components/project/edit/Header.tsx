@@ -4,8 +4,8 @@ import Error from '@components/project/alerts/Error'
 import Message from '@components/project/alerts/Message'
 
 interface HeaderInterface {
-  mode: 'main' | 'create' | 'edit' | 'view'
-  switchMode: (mode: 'main' | 'create' | 'edit' | 'view') => void
+  mode: 'main' | 'create' | 'edit'
+  switchMode: (mode: 'main' | 'create' | 'edit') => void
   project: ProjectInterface
   saveProject: (project: ProjectInterface) => void
   error: string | null

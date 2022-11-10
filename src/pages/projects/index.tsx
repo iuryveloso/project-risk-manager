@@ -13,8 +13,8 @@ import {
   empty,
 } from '@interfaces/projectInterfaces'
 
-export default function Projetos() {
-  const [mode, setMode] = useState<'main' | 'create' | 'edit' | 'view'>('main')
+export default function Projects() {
+  const [mode, setMode] = useState<'main' | 'create' | 'edit'>('main')
   const [project, setProject] = useState<ProjectInterface>(empty())
   const [projects, setProjects] = useState<ProjectInterface[]>([])
   const [allProjects, setAllProjects] = useState<ProjectInterface[]>([])

@@ -1,7 +1,7 @@
 import { TaskInterface } from '@interfaces/taskInterfaces'
 
 class TaskApi {
-  public async get(projectID: string) {
+  public async list(projectID: string) {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/${projectID}`
     const response = await fetch(url, {
       method: 'GET',
@@ -10,7 +10,7 @@ class TaskApi {
     return response
   }
 
-  public async getWithParent(projectID: string, parentTaskID: string) {
+  public async listSubTasks(projectID: string, parentTaskID: string) {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/${projectID}/${parentTaskID}`
     const response = await fetch(url, {
       method: 'GET',
@@ -19,8 +19,17 @@ class TaskApi {
     return response
   }
 
-  public async getOne(id: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/one/${id}`
+  public async listAllSubTasks(projectID: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/subtasks/${projectID}`
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((e) => e.json())
+    return response
+  }
+
+  public async get(id: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/get/${id}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',

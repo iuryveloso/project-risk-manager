@@ -30,7 +30,7 @@ export default function useCustomer({
   setOrder,
 }: useCustomerInterface) {
   function getAllCustomers() {
-    Customer.get().then((e) => {
+    Customer.list().then((e) => {
       if (setCustomers) {
         setCustomers(e)
       }

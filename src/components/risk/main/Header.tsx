@@ -1,42 +1,44 @@
 import { leftArrowIcon, plusIcon } from '@components/icons'
-import Error from '@components/task/alerts/Error'
-import Message from '@components/task/alerts/Message'
-import Delete from '@components/task/alerts/Delete'
+import Error from '@components/risk/alerts/Error'
+import Message from '@components/risk/alerts/Message'
+import Delete from '@components/risk/alerts/Delete'
+import { useRouter } from 'next/router'
 
 interface HeaderInterface {
-  mode: 'main' | 'create' | 'edit' | 'view'
-  newTask: () => void
-  back: () => void
+  projectID: string
+  mode: 'main' | 'create' | 'edit' | 'task'
+  newRisk: () => void
   search: (searchTag: string) => void
   error: string | null
   message: string | null
   deleteMessage: string | null
-  tasksLength: number
-  allTasksLength: number
+  risksLength: number
+  allRisksLength: number
 }
 
 export default function Header({
-  newTask,
-  back,
+  projectID,
+  newRisk,
   search,
   mode,
   error,
   message,
   deleteMessage,
-  tasksLength,
-  allTasksLength,
+  risksLength,
+  allRisksLength,
 }: HeaderInterface) {
+  const router = useRouter()
   return (
     <div className={mode === 'main' ? '' : 'hidden'}>
       <div className={`flex`}>
         <div className={'w-1/3'}>
           <button
+            onClick={() => router.push(`/projects/${projectID}`)}
             className={`
-                    focus:border-indigo-700 dark:focus:border-indigo-600
-                    text-slate-50 px-3 py-2 mt-2 mr-2 rounded-lg
-                    bg-red-700 hover:bg-red-800
-                `}
-            onClick={() => back()}
+                            focus:border-indigo-700 dark:focus:border-indigo-600
+                            bg-red-700 text-slate-50 px-3 py-2  mt-2 mr-2
+                            rounded-lg hover:bg-red-800
+                            `}
           >
             <div className={'flex'}>
               <span className={'mr-2'}>{leftArrowIcon}</span>
@@ -50,11 +52,11 @@ export default function Header({
                     bg-green-600 hover:bg-green-700
                     dark:bg-green-500 dark:hover:bg-green-600
                 `}
-            onClick={() => newTask()}
+            onClick={() => newRisk()}
           >
             <div className={'flex'}>
               <span className={'mr-2'}>{plusIcon}</span>
-              <span>Nova Tarefa</span>
+              <span>Novo Risco</span>
             </div>
           </button>
         </div>
@@ -67,7 +69,7 @@ export default function Header({
               !(error || message || deleteMessage) ? '' : 'hidden'
             }`}
           >
-            Mostrando {tasksLength} de {allTasksLength} Tarefas Cadastradas
+            Mostrando {risksLength} de {allRisksLength} Riscos Cadastrados
           </div>
         </div>
         <div className={'flex justify-end w-1/3'}>

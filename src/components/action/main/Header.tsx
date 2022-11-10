@@ -1,31 +1,35 @@
 import { leftArrowIcon, plusIcon } from '@components/icons'
-import Error from '@components/task/alerts/Error'
-import Message from '@components/task/alerts/Message'
-import Delete from '@components/task/alerts/Delete'
+import Error from '@components/action/alerts/Error'
+import Message from '@components/action/alerts/Message'
+import Delete from '@components/action/alerts/Delete'
+import { useRouter } from 'next/router'
 
 interface HeaderInterface {
   mode: 'main' | 'create' | 'edit' | 'view'
-  newTask: () => void
-  back: () => void
+  newAction: () => void
   search: (searchTag: string) => void
   error: string | null
   message: string | null
   deleteMessage: string | null
-  tasksLength: number
-  allTasksLength: number
+  actionsLength: number
+  allActionsLength: number
+  riskID: string
+  projectID: string
 }
 
 export default function Header({
-  newTask,
-  back,
+  newAction,
   search,
   mode,
   error,
   message,
   deleteMessage,
-  tasksLength,
-  allTasksLength,
+  actionsLength,
+  allActionsLength,
+  riskID,
+  projectID,
 }: HeaderInterface) {
+  const router = useRouter()
   return (
     <div className={mode === 'main' ? '' : 'hidden'}>
       <div className={`flex`}>
@@ -36,7 +40,9 @@ export default function Header({
                     text-slate-50 px-3 py-2 mt-2 mr-2 rounded-lg
                     bg-red-700 hover:bg-red-800
                 `}
-            onClick={() => back()}
+            onClick={() =>
+              router.push(`/projects/${projectID}/risks/${riskID}`)
+            }
           >
             <div className={'flex'}>
               <span className={'mr-2'}>{leftArrowIcon}</span>
@@ -50,11 +56,11 @@ export default function Header({
                     bg-green-600 hover:bg-green-700
                     dark:bg-green-500 dark:hover:bg-green-600
                 `}
-            onClick={() => newTask()}
+            onClick={() => newAction()}
           >
             <div className={'flex'}>
               <span className={'mr-2'}>{plusIcon}</span>
-              <span>Nova Tarefa</span>
+              <span>Nova Ação</span>
             </div>
           </button>
         </div>
@@ -67,7 +73,7 @@ export default function Header({
               !(error || message || deleteMessage) ? '' : 'hidden'
             }`}
           >
-            Mostrando {tasksLength} de {allTasksLength} Tarefas Cadastradas
+            Mostrando {actionsLength} de {allActionsLength} Ações Cadastradas
           </div>
         </div>
         <div className={'flex justify-end w-1/3'}>

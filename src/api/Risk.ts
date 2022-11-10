@@ -1,8 +1,8 @@
-import { ProjectInterface } from '@interfaces/projectInterfaces'
+import { RiskInterface } from '@interfaces/riskInterfaces'
 
-class ProjectApi {
-  public async list() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project`
+class RiskApi {
+  public async list(projectID: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/risk/${projectID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -10,8 +10,8 @@ class ProjectApi {
     return response
   }
 
-  public async get(projectID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project/${projectID}`
+  public async get(riskID: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/risk/get/${riskID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -19,30 +19,30 @@ class ProjectApi {
     return response
   }
 
-  public async create(project: ProjectInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project`
+  public async create(risk: RiskInterface) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/risk`
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify(project),
+      body: JSON.stringify(risk),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     }).then((e) => e.json())
     return response
   }
 
-  public async update(project: ProjectInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project/${project._id}`
+  public async update(risk: RiskInterface) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/risk/${risk._id}`
     const response = await fetch(url, {
       method: 'PATCH',
       credentials: 'include',
-      body: JSON.stringify(project),
+      body: JSON.stringify(risk),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     }).then((e) => e.json())
     return response
   }
 
-  public async delete(projectID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project/${projectID}`
+  public async delete(riskID: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/risk/${riskID}`
     const response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include',
@@ -51,4 +51,4 @@ class ProjectApi {
   }
 }
 
-export default new ProjectApi()
+export default new RiskApi()

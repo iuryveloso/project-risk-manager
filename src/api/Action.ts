@@ -1,8 +1,8 @@
-import { CustomerInterface } from '@interfaces/customerInterfaces'
+import { ActionInterface } from '@interfaces/actionInterfaces'
 
-class CustomerApi {
-  public async list() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/customer`
+class ActionApi {
+  public async list(actionID: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/${actionID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -10,30 +10,30 @@ class CustomerApi {
     return response
   }
 
-  public async create(customer: CustomerInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/customer`
+  public async create(action: ActionInterface) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action`
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify(customer),
+      body: JSON.stringify(action),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     }).then((e) => e.json())
     return response
   }
 
-  public async update(customer: CustomerInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/customer/${customer._id}`
+  public async update(action: ActionInterface) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/${action._id}`
     const response = await fetch(url, {
       method: 'PATCH',
       credentials: 'include',
-      body: JSON.stringify(customer),
+      body: JSON.stringify(action),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     }).then((e) => e.json())
     return response
   }
 
-  public async delete(customerID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/customer/${customerID}`
+  public async delete(actionID: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/${actionID}`
     const response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include',
@@ -42,4 +42,4 @@ class CustomerApi {
   }
 }
 
-export default new CustomerApi()
+export default new ActionApi()

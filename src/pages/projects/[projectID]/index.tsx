@@ -6,7 +6,7 @@ import useProjectData from '@data/hook/useProject'
 import { ProjectInterface, empty } from '@interfaces/projectInterfaces'
 import { useRouter } from 'next/router'
 
-export default function Projetos() {
+export default function Project() {
   const router = useRouter()
   const [project, setProject] = useState<ProjectInterface>(empty())
   const projectID = router.query.projectID as string

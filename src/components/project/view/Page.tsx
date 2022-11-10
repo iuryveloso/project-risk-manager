@@ -69,7 +69,7 @@ export default function Page({ project }: PageInterface) {
                     bg-amber-600 hover:bg-amber-700 
                     dark:bg-amber-500 dark:hover:bg-amber-600
                 `}
-            // onClick={() => }
+            onClick={() => router.push(`/projects/${project._id}/risks`)}
           >
             <div className={'flex'}>
               <span className={'mr-2'}>{alertCircleIcon}</span>

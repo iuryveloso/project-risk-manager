@@ -1,13 +1,13 @@
 import { leftArrowIcon, saveIcon } from '@components/icons'
-import { ProjectInterface } from '@interfaces/projectInterfaces'
-import Error from '@components/project/alerts/Error'
-import Message from '@components/project/alerts/Message'
+import { RiskInterface } from '@interfaces/riskInterfaces'
+import Error from '@components/risk/alerts/Error'
+import Message from '@components/risk/alerts/Message'
 
 interface HeaderInterface {
   mode: 'main' | 'create' | 'edit'
   switchMode: (mode: 'main' | 'create' | 'edit') => void
-  project: ProjectInterface
-  saveProject: (project: ProjectInterface) => void
+  risk: RiskInterface
+  saveRisk: (risk: RiskInterface) => void
   error: string | null
   message: string | null
 }
@@ -15,8 +15,8 @@ interface HeaderInterface {
 export default function Header({
   mode,
   switchMode,
-  project,
-  saveProject,
+  risk,
+  saveRisk,
   error,
   message,
 }: HeaderInterface) {
@@ -44,7 +44,7 @@ export default function Header({
         </div>
         <div className={'flex justify-end w-1/3'}>
           <button
-            onClick={() => saveProject(project)}
+            onClick={() => saveRisk(risk)}
             className={`
                             focus:border-indigo-700 dark:focus:border-indigo-600
                             bg-green-700 text-slate-50 px-3 py-2 

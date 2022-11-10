@@ -1,26 +1,24 @@
 import { useEffect, useState } from 'react'
 import Layout from '@components/template/Layout'
-import HeaderMain from '@components/project/main/Header'
-import MainTable from '@components/project/main/table/Table'
-import HeaderView from '@components/project/view/Header'
-import PageView from '@components/project/view/Page'
-import HeaderCreate from '@components/project/create/Header'
-import FormCreate from '@components/project/create/Form'
-import HeaderEdit from '@components/project/edit/Header'
-import FormEdit from '@components/project/edit/Form'
-import useProjectData from '@data/hook/useProject'
+import HeaderMain from '@components/risk/main/Header'
+import MainTable from '@components/risk/main/table/Table'
+import HeaderCreate from '@components/risk/create/Header'
+import FormCreate from '@components/risk/create/Form'
+import HeaderEdit from '@components/risk/edit/Header'
+import FormEdit from '@components/risk/edit/Form'
+import useRiskData from '@data/hook/useRisk'
 import {
-  ProjectInterface,
+  RiskInterface,
   OrderInterface,
   empty,
-} from '@interfaces/projectInterfaces'
+} from '@interfaces/riskInterfaces'
 import { useRouter } from 'next/router'
 
-export default function Projetos() {
-  const [mode, setMode] = useState<'main' | 'create' | 'edit' | 'view'>('main')
-  const [project, setProject] = useState<ProjectInterface>(empty())
-  const [projects, setProjects] = useState<ProjectInterface[]>([])
-  const [allProjects, setAllProjects] = useState<ProjectInterface[]>([])
+export default function Risks() {
+  const [mode, setMode] = useState<'main' | 'create' | 'edit'>('main')
+  const [risk, setRisk] = useState<RiskInterface>(empty())
+  const [risks, setRisks] = useState<RiskInterface[]>([])
+  const [allRisks, setAllRisks] = useState<RiskInterface[]>([])
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
   const [deleteMessage, setDeleteMessage] = useState<string | null>(null)
@@ -28,73 +26,66 @@ export default function Projetos() {
     column: 'title',
     direction: 'asc',
   })
+
   const router = useRouter()
+  const projectID = router.query.projectID as string
 
   const {
-    newProject,
+    newRisk,
     search,
-    viewProject,
-    selectProject,
-    deleteProject,
+    selectRisk,
+    deleteRisk,
     switchMode,
-    saveProject,
-    getAllProjects,
+    saveRisk,
+    getAllRisks,
     orderBy,
-  } = useProjectData({
+  } = useRiskData({
+    projectID,
     setMode,
-    projects,
-    setProject,
-    setProjects,
-    allProjects,
-    setAllProjects,
+    risks,
+    setRisk,
+    setRisks,
+    allRisks,
+    setAllRisks,
     setError,
     setMessage,
     setOrder,
   })
 
   useEffect(() => {
-    getAllProjects()
-  }, [])
+    getAllRisks()
+  }, [projectID])
 
   return (
     <Layout
-      page={'Projetos'}
-      title={`Projetos Cadastrados project=${router.query.projectID}`}
-      subtitle={
-        'Visualize, edite e adicione novas informações aos seus projetos'
-      }
+      page={'Riscos'}
+      title={'Riscos do Projeto'}
+      subtitle={'Visualize, edite e adicione novas informações aos riscos'}
       globalHeader={
         <>
           <HeaderMain
-            newProject={newProject}
+            projectID={projectID}
+            newRisk={newRisk}
             search={search}
             mode={mode}
             error={error}
             message={message}
             deleteMessage={deleteMessage}
-            projectsLength={projects.length}
-            allProjectsLength={allProjects.length}
-          />
-          <HeaderView
-            mode={mode}
-            project={project}
-            saveProject={saveProject}
-            switchMode={switchMode}
-            error={error}
-            message={message}
+            risksLength={risks.length}
+            allRisksLength={allRisks.length}
           />
           <HeaderCreate
             mode={mode}
-            project={project}
-            saveProject={saveProject}
+            risk={risk}
+            saveRisk={saveRisk}
             switchMode={switchMode}
             error={error}
             message={message}
           />
           <HeaderEdit
             mode={mode}
-            project={project}
-            saveProject={saveProject}
+            risk={risk}
+            saveRisk={saveRisk}
             switchMode={switchMode}
             error={error}
             message={message}
@@ -103,35 +94,24 @@ export default function Projetos() {
       }
     >
       <MainTable
-        projects={projects}
-        deleteProject={deleteProject}
+        projectID={projectID}
+        risks={risks}
+        deleteRisk={deleteRisk}
         mode={mode}
-        viewProject={viewProject}
-        selectProject={selectProject}
+        selectRisk={selectRisk}
         order={order}
         setOrder={setOrder}
         orderBy={orderBy}
         deleteMessage={deleteMessage}
         setDeleteMessage={setDeleteMessage}
       />
-      <PageView
-        project={project}
-        setProject={setProject}
-        mode={mode}
-        saveProject={saveProject}
-      />
       <FormCreate
-        project={project}
-        setProject={setProject}
+        risk={risk}
+        setRisk={setRisk}
         mode={mode}
-        saveProject={saveProject}
+        saveRisk={saveRisk}
       />
-      <FormEdit
-        project={project}
-        setProject={setProject}
-        mode={mode}
-        saveProject={saveProject}
-      />
+      <FormEdit risk={risk} setRisk={setRisk} mode={mode} saveRisk={saveRisk} />
     </Layout>
   )
 }

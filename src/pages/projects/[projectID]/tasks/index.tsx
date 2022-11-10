@@ -14,7 +14,7 @@ import {
 } from '@interfaces/taskInterfaces'
 import { useRouter } from 'next/router'
 
-export default function Tarefas() {
+export default function Tasks() {
   const [mode, setMode] = useState<'main' | 'create' | 'edit'>('main')
   const [task, setTask] = useState<TaskInterface>(empty())
   const [tasks, setTasks] = useState<TaskInterface[]>([])
@@ -59,8 +59,8 @@ export default function Tarefas() {
   return (
     <Layout
       page={'Tarefas'}
-      title={`Tarefas Cadastradas`}
-      subtitle={'Visualize, edite e adicione novas informações às suas tarefas'}
+      title={`Tarefas do Projeto`}
+      subtitle={'Visualize, edite e adicione novas informações às tarefas'}
       globalHeader={
         <>
           <HeaderMain

@@ -38,7 +38,7 @@ export default function useTask({
   const router = useRouter()
   function getAllTasks() {
     if (parentTaskID) {
-      Task.getWithParent(projectID, parentTaskID).then((e) => {
+      Task.listSubTasks(projectID, parentTaskID).then((e) => {
         if (setTasks) {
           setTasks(e)
         }
@@ -47,7 +47,7 @@ export default function useTask({
         }
       })
     } else {
-      Task.get(projectID).then((e) => {
+      Task.list(projectID).then((e) => {
         if (setTasks) {
           setTasks(e)
         }
@@ -59,7 +59,7 @@ export default function useTask({
   }
   function getParentTask() {
     if (parentTaskID && setParentTask) {
-      Task.getOne(parentTaskID).then((e) => {
+      Task.get(parentTaskID).then((e) => {
         setParentTask(e)
       })
     }
