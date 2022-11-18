@@ -21,7 +21,7 @@ export default function Project() {
       page={'Projeto'}
       title={'Informações do Projeto'}
       subtitle={'Visualize e gerencie seu projeto'}
-      globalHeader={<HeaderView />}
+      contentHeader={<HeaderView projectID={projectID} />}
     >
       <PageView project={project} />
     </Layout>

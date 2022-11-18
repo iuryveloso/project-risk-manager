@@ -1,8 +1,17 @@
 import { ActionInterface } from '@interfaces/actionInterfaces'
 
 class ActionApi {
-  public async list(actionID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/${actionID}`
+  public async list(riskID: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/${riskID}`
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((e) => e.json())
+    return response
+  }
+
+  public async listAll() {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',

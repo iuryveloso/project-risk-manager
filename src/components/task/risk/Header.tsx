@@ -4,16 +4,23 @@ import { useRouter } from 'next/router'
 
 interface HeaderInterface {
   projectID: string
+  subTaskID?: string
   message: string | null
 }
 
-export default function Header({ message, projectID }: HeaderInterface) {
+export default function Header({
+  message,
+  projectID,
+  subTaskID,
+}: HeaderInterface) {
   const router = useRouter()
   return (
     <div className={`flex`}>
       <div className={'w-1/3'}>
         <button
-          onClick={() => router.push(`/projects/${projectID}/risks`)}
+          onClick={() =>
+            router.push(`/projects/${projectID}/tasks/${subTaskID || ''}`)
+          }
           className={`
                             focus:border-indigo-700 dark:focus:border-indigo-600
                             bg-red-700 text-slate-50 px-3 py-2  mt-2

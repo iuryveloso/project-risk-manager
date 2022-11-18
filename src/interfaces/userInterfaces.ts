@@ -1,5 +1,7 @@
 export default interface UserInterface {
   email?: string
+  occupation?: string
+  company?: string
   firstName?: string
   lastName?: string
   avatar?: File
@@ -11,6 +13,8 @@ export default interface UserInterface {
 export function empty() {
   const user: UserInterface = {
     email: '',
+    occupation: '',
+    company: '',
     firstName: '',
     lastName: '',
     avatar: undefined,

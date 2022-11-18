@@ -39,6 +39,7 @@ export default function Risks() {
     saveRisk,
     getAllRisks,
     orderBy,
+    getChartLevel,
   } = useRiskData({
     projectID,
     setMode,
@@ -56,12 +57,16 @@ export default function Risks() {
     getAllRisks()
   }, [projectID])
 
+  useEffect(() => {
+    if (mode === 'main') setRisk(empty())
+  }, [mode])
+
   return (
     <Layout
       page={'Riscos'}
       title={'Riscos do Projeto'}
       subtitle={'Visualize, edite e adicione novas informações aos riscos'}
-      globalHeader={
+      contentHeader={
         <>
           <HeaderMain
             projectID={projectID}
@@ -104,14 +109,22 @@ export default function Risks() {
         orderBy={orderBy}
         deleteMessage={deleteMessage}
         setDeleteMessage={setDeleteMessage}
+        getChartLevel={getChartLevel}
       />
       <FormCreate
         risk={risk}
         setRisk={setRisk}
         mode={mode}
         saveRisk={saveRisk}
+        getChartLevel={getChartLevel}
       />
-      <FormEdit risk={risk} setRisk={setRisk} mode={mode} saveRisk={saveRisk} />
+      <FormEdit
+        risk={risk}
+        setRisk={setRisk}
+        mode={mode}
+        saveRisk={saveRisk}
+        getChartLevel={getChartLevel}
+      />
     </Layout>
   )
 }

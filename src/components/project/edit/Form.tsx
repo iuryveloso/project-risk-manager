@@ -67,6 +67,21 @@ export default function Form({
           />
         </div>
         <div className={'flex flex-col mb-4'}>
+          <label>Área de Atuação</label>
+          <input
+            type={'text'}
+            value={project.occupationArea}
+            placeholder={'ex: Oliveira'}
+            onChange={(value) =>
+              setProject({ ...project, occupationArea: value.target.value })
+            }
+            onKeyPress={(e) => {
+              return e.key === 'Enter' ? saveProject(project) : false
+            }}
+            className={classNameInput}
+          />
+        </div>
+        <div className={'flex flex-col mb-4'}>
           <label>Início</label>
           <input
             type={'date'}

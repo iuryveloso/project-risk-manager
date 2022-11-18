@@ -2,6 +2,7 @@ export interface TaskInterface {
   _id?: string
   title: string
   description: string
+  responsible: string
   begin: string
   end: string
   projectID?: string
@@ -9,7 +10,7 @@ export interface TaskInterface {
 }
 
 export interface OrderInterface {
-  column: 'title' | 'description' | 'begin' | 'end'
+  column: 'title' | 'description' | 'responsible' | 'begin' | 'end'
   direction: 'asc' | 'desc'
 }
 
@@ -17,6 +18,7 @@ export function empty() {
   const task: TaskInterface = {
     title: '',
     description: '',
+    responsible: '',
     begin: '',
     end: '',
   }

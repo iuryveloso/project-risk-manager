@@ -33,7 +33,7 @@ export default function Profile() {
       page={'Perfil'}
       title={'Perfil do Usuário'}
       subtitle={'Personalize aqui o seu perfil de usuário'}
-      globalHeader={
+      contentHeader={
         <>
           <Header
             mode={mode}

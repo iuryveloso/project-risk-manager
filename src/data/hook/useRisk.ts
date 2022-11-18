@@ -1,11 +1,13 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, ReactElement, RefObject, SetStateAction } from 'react'
 import Risk from '@api/Risk'
-import Task from '@api/Task'
-import RiskTask from '@api/RiskTask'
-import { RiskInterface, OrderInterface } from '@interfaces/riskInterfaces'
+import {
+  RiskInterface,
+  OrderInterface,
+  chartRefInterface,
+} from '@interfaces/riskInterfaces'
 import { faker } from '@faker-js/faker'
-import { TaskInterface } from '@interfaces/taskInterfaces'
-import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
+import { renderToString } from 'react-dom/server'
+import JsPDF from 'jspdf'
 
 interface useRiskInterface {
   setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
@@ -14,9 +16,6 @@ interface useRiskInterface {
   setRisk?: Dispatch<SetStateAction<RiskInterface>>
   risks?: RiskInterface[]
   setRisks?: Dispatch<SetStateAction<RiskInterface[]>>
-  setTasks?: Dispatch<SetStateAction<TaskInterface[]>>
-  setSubTasks?: Dispatch<SetStateAction<TaskInterface[]>>
-  setRiskTasks?: Dispatch<SetStateAction<RiskTaskInterface[]>>
   allRisks?: RiskInterface[]
   setAllRisks?: Dispatch<SetStateAction<RiskInterface[]>>
   setError?: Dispatch<SetStateAction<string | null>>
@@ -31,9 +30,6 @@ export default function useRisk({
   setRisk,
   risks,
   setRisks,
-  setTasks,
-  setSubTasks,
-  setRiskTasks,
   allRisks,
   setAllRisks,
   setError,
@@ -70,8 +66,14 @@ export default function useRisk({
         description: faker.lorem.paragraph(),
         category: faker.word.noun(),
         causes: faker.lorem.words(),
-        probability: faker.datatype.float({ max: 100, precision: 0.01 }),
-        impact: faker.datatype.float({ max: 100, precision: 0.01 }),
+        probabilityPositive: faker.datatype.number({
+          max: 100,
+        }),
+        probabilityNegative: faker.datatype.number({
+          max: 100,
+        }),
+        impactPositive: faker.datatype.number({ max: 100 }),
+        impactNegative: faker.datatype.number({ max: 100 }),
         observations: faker.lorem.words(),
       }
       setRisk(risk)
@@ -84,26 +86,193 @@ export default function useRisk({
     direction: OrderInterface['direction']
   ) {
     if (setRisks && risks && setOrder) {
+      function getSortNumber(a: string | number, b: string | number) {
+        if (a > b) {
+          if (direction === 'asc') {
+            return 1
+          } else {
+            return -1
+          }
+        } else if (a < b) {
+          if (direction === 'desc') {
+            return 1
+          } else {
+            return -1
+          }
+        } else {
+          return 0
+        }
+      }
       setRisks(
         risks.sort((a, b) => {
-          if (a[column].toLowerCase() > b[column].toLowerCase()) {
-            if (direction === 'asc') {
-              return 1
-            } else {
-              return -1
-            }
-          } else if (a[column].toLowerCase() < b[column].toLowerCase()) {
-            if (direction === 'desc') {
-              return 1
-            } else {
-              return -1
-            }
+          if (
+            column !== 'probabilityPositive' &&
+            column !== 'probabilityNegative' &&
+            column !== 'impactPositive' &&
+            column !== 'impactNegative'
+          ) {
+            return getSortNumber(
+              a[column].toLowerCase(),
+              b[column].toLowerCase()
+            )
+          } else if (
+            column === 'probabilityPositive' ||
+            column === 'impactPositive'
+          ) {
+            return getSortNumber(
+              a.probabilityPositive * a.impactPositive,
+              b.probabilityPositive * b.impactPositive
+            )
           } else {
-            return 0
+            return getSortNumber(
+              a.probabilityNegative * a.impactNegative,
+              b.probabilityNegative * b.impactNegative
+            )
           }
         })
       )
     }
+  }
+
+  function getChartLevel(
+    impact: number,
+    probability: number,
+    type: 'negative' | 'positive'
+  ) {
+    const result = (impact * probability) / 100
+    if (result <= 5) {
+      return {
+        label: 'Muito Baixo',
+        hexColor: type === 'negative' ? '#16a34a' : '#dc2626',
+      }
+    } else if (result > 5 && result <= 16) {
+      return {
+        label: 'Baixo',
+        hexColor: type === 'negative' ? '#84cc16' : '#f97316',
+      }
+    } else if (result > 16 && result <= 36) {
+      return {
+        label: 'Médio',
+        hexColor: '#eab308',
+      }
+    } else if (result > 36 && result <= 64) {
+      return {
+        label: 'Alto',
+        hexColor: type === 'negative' ? '#f97316' : '#84cc16',
+      }
+    } else {
+      return {
+        label: 'Muito Alto',
+        hexColor: type === 'negative' ? '#dc2626' : '#16a34a',
+      }
+    }
+  }
+
+  function generatePDF(
+    action: ReactElement,
+    task: ReactElement,
+    main: ReactElement,
+    negativeChartRef: RefObject<chartRefInterface>,
+    positiveChartRef: RefObject<chartRefInterface>,
+    getChartLevel: (
+      impact: number,
+      probability: number,
+      type: 'negative' | 'positive'
+    ) => {
+      label: string
+      hexColor: string
+    }
+  ) {
+    const mainRisk = main.props.risk
+    const getTextColor = (
+      impact: number,
+      probability: number,
+      type: 'negative' | 'positive'
+    ) => getChartLevel(impact, probability, type).hexColor
+    const getTextLabel = (
+      impact: number,
+      probability: number,
+      type: 'negative' | 'positive'
+    ) => getChartLevel(impact, probability, type).label
+
+    const staticMain = renderToString(main)
+    const staticTask = renderToString(task)
+    const staticAction = renderToString(action)
+    const doc = new JsPDF('portrait', 'pt', 'a4')
+
+    doc
+      .html(staticMain + staticAction + staticTask, {
+        autoPaging: 'text',
+        margin: 25,
+      })
+      .then(() => {
+        doc.addPage('a4', 'portrait')
+        doc.setTextColor('#000')
+        doc.setFontSize(20)
+        doc.text('Matrizes de Probabilidade x Impacto', 135, 40)
+        doc.setFontSize(15)
+        doc.text('Ameaça', 270, 80)
+        doc.setFontSize(10)
+        doc.text('Nivel:', 80, 95)
+        doc.setTextColor(
+          getTextColor(
+            mainRisk.impactNegative,
+            mainRisk.probabilityNegative,
+            'negative'
+          )
+        )
+        doc.text(
+          getTextLabel(
+            mainRisk.impactNegative,
+            mainRisk.probabilityNegative,
+            'negative'
+          ),
+          108,
+          95
+        )
+        doc.setTextColor('#000')
+        doc.addImage(
+          `
+        ${negativeChartRef.current?.toBase64Image()}`,
+          'PNG',
+          45,
+          95,
+          510,
+          255
+        )
+
+        doc.setFontSize(15)
+        doc.text('Oportunidade', 270, 400)
+        doc.setFontSize(10)
+        doc.text('Nivel:', 80, 415)
+        doc.setTextColor(
+          getTextColor(
+            mainRisk.impactPositive,
+            mainRisk.probabilityPositive,
+            'positive'
+          )
+        )
+        doc.text(
+          getTextLabel(
+            mainRisk.impactPositive,
+            mainRisk.probabilityPositive,
+            'positive'
+          ),
+          108,
+          415
+        )
+        doc.setTextColor('#000')
+        doc.addImage(
+          `
+        ${positiveChartRef.current?.toBase64Image()}`,
+          'PNG',
+          45,
+          415,
+          510,
+          255
+        )
+        doc.save('Relatório de Risco.pdf')
+      })
   }
 
   function selectRisk(risk: RiskInterface) {
@@ -113,40 +282,7 @@ export default function useRisk({
     switchMode('edit')
   }
 
-  function getRiskTask(riskID: string) {
-    RiskTask.list(riskID).then((e) => {
-      if (setRiskTasks) {
-        setRiskTasks(e)
-      }
-    })
-    Risk.get(riskID).then((e) => {
-      if (setRisk) {
-        setRisk(e)
-      }
-    })
-  }
-  function getTasks() {
-    Task.list(projectID as string).then((e) => {
-      if (setTasks) {
-        setTasks(e)
-      }
-    })
-    Task.listAllSubTasks(projectID as string).then((e) => {
-      if (setSubTasks) {
-        setSubTasks(e)
-      }
-    })
-  }
-
-  function saveRiskTask(riskTask: RiskTaskInterface) {
-    RiskTask.create(riskTask).then((e) => showMessage(e.message))
-  }
-  function deleteRiskTask(riskTask: RiskTaskInterface) {
-    RiskTask.delete(riskTask).then((e) => showMessage(e.message))
-  }
-
   function saveRisk(risk: RiskInterface) {
-    console.log(projectID)
     if (!risk._id) {
       Risk.create({ ...risk, projectID }).then((e) => setAlert(e))
     } else {
@@ -217,10 +353,7 @@ export default function useRisk({
   return {
     newRisk,
     selectRisk,
-    getRiskTask,
-    getTasks,
-    saveRiskTask,
-    deleteRiskTask,
+    generatePDF,
     saveRisk,
     deleteRisk,
     search,
@@ -228,5 +361,6 @@ export default function useRisk({
     getRisk,
     getAllRisks,
     orderBy,
+    getChartLevel,
   }
 }

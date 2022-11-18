@@ -51,6 +51,7 @@ export default function useProject({
   function newProject() {
     if (setProject && setMode) {
       const titleGenerated = faker.lorem.words()
+      const occupationAreaGenerated = faker.lorem.words()
       const beginFullDate = new Date(faker.date.birthdate())
       const beginYear = beginFullDate.toLocaleString('default', {
         year: 'numeric',
@@ -72,6 +73,9 @@ export default function useProject({
           1
         )}`,
         description: faker.lorem.paragraph(),
+        occupationArea: `${occupationAreaGenerated
+          .charAt(0)
+          .toUpperCase()}${occupationAreaGenerated.slice(1)}`,
         begin: `${beginYear}-${beginMonth}-${beginDay}`,
         end: `${endYear}-${endMonth}-${endDay}`,
       }

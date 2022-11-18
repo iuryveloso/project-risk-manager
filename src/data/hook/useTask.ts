@@ -9,6 +9,7 @@ interface useTaskInterface {
   setTask?: Dispatch<SetStateAction<TaskInterface>>
   tasks?: TaskInterface[]
   setTasks?: Dispatch<SetStateAction<TaskInterface[]>>
+  setSubTasks?: Dispatch<SetStateAction<TaskInterface[]>>
   parentTask?: TaskInterface
   setParentTask?: Dispatch<SetStateAction<TaskInterface>>
   allTasks?: TaskInterface[]
@@ -18,6 +19,7 @@ interface useTaskInterface {
   setOrder?: Dispatch<SetStateAction<OrderInterface>>
   projectID: string
   parentTaskID?: string
+  taskID?: string
 }
 
 export default function useTask({
@@ -25,6 +27,7 @@ export default function useTask({
   setTask,
   tasks,
   setTasks,
+  setSubTasks,
   parentTask,
   setParentTask,
   allTasks,
@@ -34,6 +37,7 @@ export default function useTask({
   setOrder,
   projectID,
   parentTaskID,
+  taskID,
 }: useTaskInterface) {
   const router = useRouter()
   function getAllTasks() {
@@ -57,10 +61,32 @@ export default function useTask({
       })
     }
   }
+
+  function getTasks() {
+    Task.list(projectID as string).then((e) => {
+      if (setTasks) {
+        setTasks(e)
+      }
+    })
+    Task.listAllSubTasks(projectID as string).then((e) => {
+      if (setSubTasks) {
+        setSubTasks(e)
+      }
+    })
+  }
+
   function getParentTask() {
     if (parentTaskID && setParentTask) {
       Task.get(parentTaskID).then((e) => {
         setParentTask(e)
+      })
+    }
+  }
+
+  function getTask() {
+    if (taskID && setTask) {
+      Task.get(taskID).then((e) => {
+        setTask(e)
       })
     }
   }
@@ -89,6 +115,7 @@ export default function useTask({
           1
         )}`,
         description: faker.lorem.paragraph(),
+        responsible: `${faker.name.firstName()} ${faker.name.lastName()}`,
         begin: `${beginYear}-${beginMonth}-${beginDay}`,
         end: `${endYear}-${endMonth}-${endDay}`,
       }
@@ -225,6 +252,8 @@ export default function useTask({
   return {
     newTask,
     selectTask,
+    getTask,
+    getTasks,
     saveTask,
     deleteTask,
     back,

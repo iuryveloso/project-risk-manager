@@ -63,12 +63,16 @@ export default function subTasks() {
     getParentTask()
   }, [projectID, parentTaskID])
 
+  useEffect(() => {
+    if (mode === 'main') setTask(empty())
+  }, [mode])
+
   return (
     <Layout
       page={'Tarefas'}
       title={`Subtarefas de ${parentTask.title}`}
       subtitle={'Visualize, edite e adicione novas informações às subtarefas'}
-      globalHeader={
+      contentHeader={
         <>
           <HeaderMain
             newTask={newTask}
@@ -111,6 +115,7 @@ export default function subTasks() {
         orderBy={orderBy}
         deleteMessage={deleteMessage}
         setDeleteMessage={setDeleteMessage}
+        typeTask={'1'}
       />
       <FormCreate
         task={task}

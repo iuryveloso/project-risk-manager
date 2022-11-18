@@ -51,6 +51,10 @@ export default function Projects() {
     getAllProjects()
   }, [])
 
+  useEffect(() => {
+    if (mode === 'main') setProject(empty())
+  }, [mode])
+
   return (
     <Layout
       page={'Projetos'}
@@ -58,7 +62,7 @@ export default function Projects() {
       subtitle={
         'Visualize, edite e adicione novas informações aos seus projetos'
       }
-      globalHeader={
+      contentHeader={
         <>
           <HeaderMain
             newProject={newProject}

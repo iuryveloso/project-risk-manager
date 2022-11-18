@@ -56,7 +56,7 @@ export default function Clientes() {
       page={'Clientes'}
       title={'Clientes Cadastrados'}
       subtitle={'Visualize, edite e adicione novas informações aos clientes'}
-      globalHeader={
+      contentHeader={
         <>
           <HeaderMain
             newCustomer={newCustomer}

@@ -62,6 +62,21 @@ export default function Form({ mode, task, setTask, saveTask }: FormInterface) {
           />
         </div>
         <div className={'flex flex-col mb-4'}>
+          <label>Responsável</label>
+          <input
+            type={'text'}
+            value={task.responsible}
+            placeholder={'ex: Oliveira'}
+            onChange={(value) =>
+              setTask({ ...task, responsible: value.target.value })
+            }
+            onKeyPress={(e) => {
+              return e.key === 'Enter' ? saveTask(task) : false
+            }}
+            className={classNameInput}
+          />
+        </div>
+        <div className={'flex flex-col mb-4'}>
           <label>Início</label>
           <input
             type={'date'}

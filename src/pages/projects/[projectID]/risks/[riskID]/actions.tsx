@@ -57,12 +57,16 @@ export default function Actions() {
     getAllActions()
   }, [riskID])
 
+  useEffect(() => {
+    if (mode === 'main') setAction(empty())
+  }, [mode])
+
   return (
     <Layout
       page={'Ações'}
       title={'Ações do Risco'}
       subtitle={'Visualize, edite e adicione novas informações às ações'}
-      globalHeader={
+      contentHeader={
         <>
           <HeaderMain
             riskID={riskID}

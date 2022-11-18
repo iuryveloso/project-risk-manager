@@ -39,6 +39,14 @@ export default function useAction({
     })
   }
 
+  function getLiterallyAllActions() {
+    Action.listAll().then((e) => {
+      if (setActions) {
+        setActions(e)
+      }
+    })
+  }
+
   function newAction() {
     if (setAction && setMode) {
       const titleGenerated = faker.lorem.words()
@@ -168,6 +176,7 @@ export default function useAction({
     search,
     switchMode,
     getAllActions,
+    getLiterallyAllActions,
     orderBy,
   }
 }

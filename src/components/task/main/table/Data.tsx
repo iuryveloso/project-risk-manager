@@ -4,40 +4,28 @@ import Actions from '@components/task/main/table/Actions'
 
 interface DataInterface {
   task: TaskInterface
-  index: number
   selectTask: (task: TaskInterface) => void
   deleteTask: (task: TaskInterface) => void
   deleteMessage: string | null
   setDeleteMessage: Dispatch<SetStateAction<string | null>>
   projectID: string
+  typeTask?: string
 }
 
 export default function Data({
   task,
-  index,
   selectTask,
   deleteTask,
   deleteMessage,
   setDeleteMessage,
   projectID,
+  typeTask,
 }: DataInterface) {
   return (
-    <tr
-      key={task._id}
-      className={`${
-        index % 2 === 0
-          ? `
-                bg-slate-100
-                dark:bg-slate-600
-            `
-          : `
-                bg-slate-200
-                dark:bg-slate-700
-            `
-      }`}
-    >
+    <tr key={task._id}>
       <td className={'text-left p-1 pl-4'}>{task.title}</td>
       <td className={'text-justify p-1'}>{task.description}</td>
+      <td className={'text-justify p-1'}>{task.responsible}</td>
       <td className={'text-left p-1'}>{`${task.begin.split('-')[2]}/${
         task.begin.split('-')[1]
       }/${task.begin.split('-')[0]}`}</td>
@@ -51,6 +39,7 @@ export default function Data({
         selectTask={selectTask}
         deleteMessage={deleteMessage}
         setDeleteMessage={setDeleteMessage}
+        typeTask={typeTask}
       />
     </tr>
   )

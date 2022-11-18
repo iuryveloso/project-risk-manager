@@ -4,7 +4,6 @@ import Actions from '@components/action/main/table/Actions'
 
 interface DataInterface {
   action: ActionInterface
-  index: number
   selectAction: (action: ActionInterface) => void
   deleteAction: (action: ActionInterface) => void
   deleteMessage: string | null
@@ -13,27 +12,13 @@ interface DataInterface {
 
 export default function Data({
   action,
-  index,
   selectAction,
   deleteAction,
   deleteMessage,
   setDeleteMessage,
 }: DataInterface) {
   return (
-    <tr
-      key={action._id}
-      className={`${
-        index % 2 === 0
-          ? `
-                bg-slate-100
-                dark:bg-slate-600
-            `
-          : `
-                bg-slate-200
-                dark:bg-slate-700
-            `
-      }`}
-    >
+    <tr key={action._id}>
       <td className={'text-left p-1 pl-4'}>{action.title}</td>
       <td className={'text-justify p-1'}>{action.description}</td>
       <td className={'text-justify p-1'}>{action.type}</td>

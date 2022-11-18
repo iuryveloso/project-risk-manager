@@ -47,6 +47,24 @@ export default function EditUser({ setUser, user, mode }: EditUserInterface) {
             onChange={(e) => setUser({ ...user, lastName: e.target.value })}
           />
         </div>
+        <div className={'flex flex-col mt-3'}>
+          <label>Empresa </label>
+          <input
+            type="text"
+            className={classname}
+            value={user?.company ?? ''}
+            onChange={(e) => setUser({ ...user, company: e.target.value })}
+          />
+        </div>
+        <div className={'flex flex-col mt-3'}>
+          <label>Cargo </label>
+          <input
+            type="text"
+            className={classname}
+            value={user?.occupation ?? ''}
+            onChange={(e) => setUser({ ...user, occupation: e.target.value })}
+          />
+        </div>
       </div>
     </div>
   )

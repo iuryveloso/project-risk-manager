@@ -1,24 +1,20 @@
 import { checkIcon, xmarkIcon } from '@components/icons'
+import { RiskInterface } from '@interfaces/riskInterfaces'
 import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
-import { TaskInterface } from '@interfaces/taskInterfaces'
 import { useEffect, useState } from 'react'
 
 interface SubTaskInterface {
-  riskID: string
-  task: TaskInterface
-  tasks: TaskInterface[]
-  subTasks: TaskInterface[]
+  taskID: string
+  risk: RiskInterface
   riskTasks: RiskTaskInterface[]
   saveRiskTask: (riskTask: RiskTaskInterface) => void
   deleteRiskTask: (riskTask: RiskTaskInterface) => void
 }
 
-export default function Task({
-  riskID,
-  task,
-  tasks,
+export default function Risk({
+  taskID,
+  risk,
   riskTasks,
-  subTasks,
   saveRiskTask,
   deleteRiskTask,
 }: SubTaskInterface) {
@@ -26,7 +22,7 @@ export default function Task({
   useEffect(() => {
     setSaveORDelete(
       riskTasks.filter((riskTask) =>
-        riskTask.taskID.includes(task._id as string)
+        riskTask.riskID.includes(risk._id as string)
       ).length > 0
         ? 'delete'
         : 'save'
@@ -40,11 +36,11 @@ export default function Task({
             'flex items-center bg-slate-300 dark:bg-slate-600 px-2 py-2 my-1 rounded-md '
           }
         >
-          <div className={'flex-grow'}>{task.title}</div>
+          <div className={'flex-grow'}>{risk.title}</div>
           {saveORDelete === 'save' ? (
             <button
               onClick={() => {
-                saveRiskTask({ taskID: task._id as string, riskID })
+                saveRiskTask({ taskID, riskID: risk._id as string })
                 setSaveORDelete('delete')
               }}
               className={`
@@ -61,7 +57,7 @@ export default function Task({
           ) : (
             <button
               onClick={() => {
-                deleteRiskTask({ taskID: task._id as string, riskID })
+                deleteRiskTask({ taskID, riskID: risk._id as string })
                 setSaveORDelete('save')
               }}
               className={`
@@ -76,31 +72,6 @@ export default function Task({
               </div>
             </button>
           )}
-        </div>
-        <div className={''}>
-          <ul
-            className={
-              'ml-4 pl-3 border-l border-gray-700 dark:border-gray-400'
-            }
-          >
-            {tasks.map((task, index) => {
-              const riskSubTasks = subTasks.filter((subTask) =>
-                subTask.parentTaskID?.includes(task._id as string)
-              )
-              return (
-                <Task
-                  key={index}
-                  riskID={riskID}
-                  task={task}
-                  riskTasks={riskTasks}
-                  subTasks={subTasks}
-                  tasks={riskSubTasks}
-                  saveRiskTask={saveRiskTask}
-                  deleteRiskTask={deleteRiskTask}
-                />
-              )
-            })}
-          </ul>
         </div>
       </div>
     </li>

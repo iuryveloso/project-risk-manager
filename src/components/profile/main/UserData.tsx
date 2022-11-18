@@ -26,6 +26,14 @@ export default function UserData({ user, mode }: UserDataInterface) {
         <label className={'text-xl mr-2 my-2'}>Sobrenome: </label>
         <span className={classname}>{user.lastName}</span>
       </div>
+      <div className={'flex items-center mt-2'}>
+        <label className={'text-xl mr-2 my-2'}>Empresa: </label>
+        <span className={classname}>{user.company}</span>
+      </div>
+      <div className={'flex items-center'}>
+        <label className={'text-xl mr-2 my-2'}>Cargo: </label>
+        <span className={classname}>{user.occupation}</span>
+      </div>
     </div>
   )
 }

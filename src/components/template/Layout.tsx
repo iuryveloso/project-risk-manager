@@ -11,7 +11,7 @@ interface LayoutProps {
   title: string
   subtitle: string
   children?: any
-  globalHeader?: ReactElement
+  contentHeader?: ReactElement
 }
 
 export default function Layout({
@@ -19,7 +19,7 @@ export default function Layout({
   title,
   subtitle,
   children,
-  globalHeader,
+  contentHeader,
 }: LayoutProps) {
   const { theme } = useAppData()
 
@@ -39,7 +39,7 @@ export default function Layout({
         <SideMenu />
         <div className={'flex flex-col w-full p-5 bg-white dark:bg-slate-800'}>
           <Header title={title} subtitle={subtitle} />
-          <div className={`mt-3 mb-2`}>{globalHeader}</div>
+          <div className={`mt-3 mb-2`}>{contentHeader}</div>
           <Content>{children}</Content>
         </div>
       </div>

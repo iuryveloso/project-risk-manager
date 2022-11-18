@@ -34,6 +34,15 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
       </th>
       <th className={'px-1'}>
         <HeadItem
+          tag={'Área de Atuação'}
+          column={'occupationArea'}
+          order={order}
+          orderBy={orderBy}
+          setOrder={setOrder}
+        />
+      </th>
+      <th className={'px-1'}>
+        <HeadItem
           tag={'Início'}
           column={'begin'}
           order={order}

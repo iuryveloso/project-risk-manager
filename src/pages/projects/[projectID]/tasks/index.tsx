@@ -56,12 +56,16 @@ export default function Tasks() {
     getAllTasks()
   }, [projectID])
 
+  useEffect(() => {
+    if (mode === 'main') setTask(empty())
+  }, [mode])
+
   return (
     <Layout
       page={'Tarefas'}
       title={`Tarefas do Projeto`}
       subtitle={'Visualize, edite e adicione novas informações às tarefas'}
-      globalHeader={
+      contentHeader={
         <>
           <HeaderMain
             newTask={newTask}

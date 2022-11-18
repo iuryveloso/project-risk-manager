@@ -32,7 +32,8 @@ export default function Table({
   return (
     <div className={`${mode === 'main' ? '' : 'hidden'}`}>
       <table
-        className={'w-full  overflow-hidden text-slate-900 dark:text-slate-300'}
+        className={`w-full  overflow-hidden text-slate-900 dark:text-slate-300 border-8 
+        border-slate-300 dark:border-slate-900 bg-slate-100 dark:bg-slate-700`}
       >
         <thead
           className={`
@@ -46,7 +47,6 @@ export default function Table({
             return (
               <Data
                 key={index}
-                index={index}
                 project={project}
                 deleteProject={deleteProject}
                 selectProject={selectProject}
