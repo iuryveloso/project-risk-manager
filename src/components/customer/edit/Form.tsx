@@ -41,7 +41,6 @@ export default function Form({
           <input
             type={'text'}
             value={customer.firstName}
-            placeholder={'ex: João'}
             onChange={(value) =>
               setCustomer({ ...customer, firstName: value.target.value })
             }
@@ -56,7 +55,6 @@ export default function Form({
           <input
             type={'text'}
             value={customer.lastName}
-            placeholder={'ex: Oliveira'}
             onChange={(value) =>
               setCustomer({ ...customer, lastName: value.target.value })
             }
@@ -71,7 +69,6 @@ export default function Form({
           <input
             type={'email'}
             value={customer.email}
-            placeholder={'ex: joao.oliveira@gmail.com'}
             onChange={(value) =>
               setCustomer({ ...customer, email: value.target.value })
             }
@@ -86,9 +83,6 @@ export default function Form({
           <input
             type={'text'}
             value={customer.address}
-            placeholder={
-              'ex: Rua dos Bobos, nº 0, Bairro Fictício, Cidade Invisível - SS'
-            }
             onChange={(value) =>
               setCustomer({ ...customer, address: value.target.value })
             }
@@ -103,7 +97,6 @@ export default function Form({
           <input
             type={'text'}
             value={customer.phone}
-            placeholder={'ex: (11) 91234-5678'}
             onChange={(value) =>
               setCustomer({ ...customer, phone: value.target.value })
             }
@@ -118,7 +111,6 @@ export default function Form({
           <input
             type={'date'}
             value={customer.birthDate}
-            placeholder={'ex: 11/11/2001'}
             onChange={(value) =>
               setCustomer({ ...customer, birthDate: value.target.value })
             }

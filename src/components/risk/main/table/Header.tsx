@@ -15,19 +15,10 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
   return (
     <>
       <tr>
-        <th className={'px-1 pl-4'} rowSpan={2}>
+        <th className={'px-1 pl-4 w-5/12 2xl:w-7/12'} rowSpan={2}>
           <HeadItem
             tag={'Título'}
             column={'title'}
-            order={order}
-            orderBy={orderBy}
-            setOrder={setOrder}
-          />
-        </th>
-        <th className={'px-1'} rowSpan={2}>
-          <HeadItem
-            tag={'Descrição'}
-            column={'description'}
             order={order}
             orderBy={orderBy}
             setOrder={setOrder}
@@ -42,25 +33,7 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
             setOrder={setOrder}
           />
         </th>
-        <th className={'px-1'} rowSpan={2}>
-          <HeadItem
-            tag={'Causas'}
-            column={'causes'}
-            order={order}
-            orderBy={orderBy}
-            setOrder={setOrder}
-          />
-        </th>
         <th colSpan={2}>Probabilidade x Impacto</th>
-        <th className={'px-1'} rowSpan={2}>
-          <HeadItem
-            tag={'Observações'}
-            column={'observations'}
-            order={order}
-            orderBy={orderBy}
-            setOrder={setOrder}
-          />
-        </th>
         <th className={'text-center pr-4'} rowSpan={2}>
           Ações
         </th>

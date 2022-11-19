@@ -2,9 +2,9 @@ export interface ActionInterface {
   _id?: ''
   title: string
   description: string
-  type: string
+  type: 'Oportunidade' | 'Ameaça'
   responsible: string
-  status: string
+  status: 'Pendente' | 'Em Andamento' | 'Concluído'
   observation: string
   riskID?: string
 }
@@ -24,9 +24,9 @@ export function empty() {
   const action: ActionInterface = {
     title: '',
     description: '',
-    type: '',
+    type: 'Ameaça',
     responsible: '',
-    status: '',
+    status: 'Pendente',
     observation: '',
   }
   return action

@@ -16,6 +16,8 @@ interface TableInterface {
     column: OrderInterface['column'],
     direction: OrderInterface['direction']
   ) => void
+  projectID: string
+  riskID: string
 }
 
 export default function Table({
@@ -28,6 +30,8 @@ export default function Table({
   orderBy,
   deleteMessage,
   setDeleteMessage,
+  projectID,
+  riskID,
 }: TableInterface) {
   return (
     <div className={`${mode === 'main' ? '' : 'hidden'}`}>
@@ -46,6 +50,8 @@ export default function Table({
           {actions?.map((action, index) => {
             return (
               <Data
+                projectID={projectID}
+                riskID={riskID}
                 key={index}
                 action={action}
                 deleteAction={deleteAction}

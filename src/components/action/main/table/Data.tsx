@@ -8,6 +8,8 @@ interface DataInterface {
   deleteAction: (action: ActionInterface) => void
   deleteMessage: string | null
   setDeleteMessage: Dispatch<SetStateAction<string | null>>
+  projectID: string
+  riskID: string
 }
 
 export default function Data({
@@ -16,16 +18,18 @@ export default function Data({
   deleteAction,
   deleteMessage,
   setDeleteMessage,
+  projectID,
+  riskID,
 }: DataInterface) {
   return (
     <tr key={action._id}>
       <td className={'text-left p-1 pl-4'}>{action.title}</td>
-      <td className={'text-justify p-1'}>{action.description}</td>
       <td className={'text-justify p-1'}>{action.type}</td>
       <td className={'text-justify p-1'}>{action.responsible}</td>
       <td className={'text-justify p-1'}>{action.status}</td>
-      <td className={'text-justify p-1'}>{action.observation}</td>
       <Actions
+        projectID={projectID}
+        riskID={riskID}
         action={action}
         deleteAction={deleteAction}
         selectAction={selectAction}

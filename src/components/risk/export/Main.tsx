@@ -2,13 +2,15 @@ import { RiskInterface } from '@interfaces/riskInterfaces'
 import logo from '@public/images/logo.png'
 import Image from 'next/image'
 import { ProjectInterface } from '@interfaces/projectInterfaces'
+import UserInterface from '@interfaces/userInterfaces'
 
 interface ExportInteface {
   risk: RiskInterface
   project: ProjectInterface
+  user: UserInterface
 }
 
-export default function Export({ risk, project }: ExportInteface) {
+export default function Export({ risk, project, user }: ExportInteface) {
   return (
     <div style={{ width: '34rem' }}>
       <div className={'flex flex-col text-black'}>
@@ -29,6 +31,17 @@ export default function Export({ risk, project }: ExportInteface) {
 
       <div className={'mt-7 text-black'}>
         <ul className={'flex flex-col'}>
+          <div className={'mb-5'}>
+            <li className={'flex text-xs justify-center'}>
+              <span>{`Emitido por ${user.firstName} ${user.lastName} - ${user.occupation}`}</span>
+            </li>
+            <li className={'flex text-xs justify-center'}>
+              <span>{user.email}</span>
+            </li>
+            <li className={'flex text-xs justify-center'}>
+              <span>{`${user.company}`}</span>
+            </li>
+          </div>
           <li className={'flex mb-5 text-sm justify-center'}>
             <label className={'font-bold mr-2 text-'}>Projeto: </label>
             <span>{project.title}</span>
@@ -39,7 +52,11 @@ export default function Export({ risk, project }: ExportInteface) {
           </li>
           <li className={'flex text-xs'}>
             <label className={'font-bold mr-2'}>Descrição: </label>
-            <span className={'text-justify'}>{risk.description}</span>
+            <div className={'flex flex-col'}>
+              {risk.description.split('\n').map((descriptionLine, index) => (
+                <div key={index}>{descriptionLine}</div>
+              ))}
+            </div>
           </li>
           <li className={'flex text-xs'}>
             <label className={'font-bold mr-2'}>Categoria: </label>

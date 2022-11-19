@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction } from 'react'
 import Task from '@api/Task'
 import { TaskInterface, OrderInterface } from '@interfaces/taskInterfaces'
 import { faker } from '@faker-js/faker'
-import { useRouter } from 'next/router'
 
 interface useTaskInterface {
   setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
@@ -39,7 +38,6 @@ export default function useTask({
   parentTaskID,
   taskID,
 }: useTaskInterface) {
-  const router = useRouter()
   function getAllTasks() {
     if (parentTaskID) {
       Task.listSubTasks(projectID, parentTaskID).then((e) => {
@@ -192,12 +190,12 @@ export default function useTask({
   function back() {
     if (parentTaskID && parentTask) {
       if (parentTask.parentTaskID) {
-        router.push(`/projects/${projectID}/tasks/${parentTask.parentTaskID}`)
+        return `/projects/${projectID}/tasks/${parentTask.parentTaskID}`
       } else {
-        router.push(`/projects/${projectID}/tasks`)
+        return `/projects/${projectID}/tasks`
       }
     } else {
-      router.push(`/projects/${projectID}`)
+      return `/projects/${projectID}`
     }
   }
 

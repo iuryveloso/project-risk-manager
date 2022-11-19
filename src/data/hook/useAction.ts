@@ -5,6 +5,7 @@ import { faker } from '@faker-js/faker'
 
 interface useActionInterface {
   setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
+  actionID?: string
   riskID?: string
   setAction?: Dispatch<SetStateAction<ActionInterface>>
   actions?: ActionInterface[]
@@ -18,6 +19,7 @@ interface useActionInterface {
 
 export default function useAction({
   setMode,
+  actionID,
   riskID,
   setAction,
   actions,
@@ -47,7 +49,39 @@ export default function useAction({
     })
   }
 
+  function getAction() {
+    Action.get(actionID as string).then((e) => {
+      if (setAction) {
+        setAction(e)
+      }
+    })
+  }
+
   function newAction() {
+    const randomType = () => {
+      const number = Math.round(Math.random()) + 1
+      switch (number) {
+        case 1:
+          return 'Ameaça'
+        case 2:
+          return 'Oportunidade'
+        default:
+          return 'Ameaça'
+      }
+    }
+    const randomStatus = () => {
+      const number = Math.round(Math.random() * 2) + 1
+      switch (number) {
+        case 1:
+          return 'Pendente'
+        case 2:
+          return 'Em Andamento'
+        case 3:
+          return 'Concluído'
+        default:
+          return 'Pendente'
+      }
+    }
     if (setAction && setMode) {
       const titleGenerated = faker.lorem.words()
       const action: ActionInterface = {
@@ -55,9 +89,9 @@ export default function useAction({
           1
         )}`,
         description: faker.lorem.paragraph(),
-        type: faker.word.noun(),
+        type: randomType(),
         responsible: `${faker.name.firstName()} ${faker.name.lastName()}`,
-        status: faker.word.adjective(),
+        status: randomStatus(),
         observation: faker.lorem.words(),
       }
       setAction(action)
@@ -175,6 +209,7 @@ export default function useAction({
     deleteAction,
     search,
     switchMode,
+    getAction,
     getAllActions,
     getLiterallyAllActions,
     orderBy,

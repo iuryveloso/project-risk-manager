@@ -19,6 +19,15 @@ class ActionApi {
     return response
   }
 
+  public async get(actionID: string) {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/get/${actionID}`
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((e) => e.json())
+    return response
+  }
+
   public async create(action: ActionInterface) {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action`
     const response = await fetch(url, {

@@ -1,6 +1,6 @@
 import { deleteIcon, editIcon, searchIcon } from '@components/icons'
 import { ProjectInterface } from '@interfaces/projectInterfaces'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 interface ActionsInterface {
@@ -18,8 +18,6 @@ export default function Actions({
   deleteMessage,
   setDeleteMessage,
 }: ActionsInterface) {
-  const router = useRouter()
-
   const [isClicked, setIsClicked] = useState(false)
   function deleteProjectClick() {
     if (deleteMessage) {
@@ -36,47 +34,52 @@ export default function Actions({
   }
   return (
     <td className={'text-right pr-4'}>
-      <div className={'flex flex-col  justify-center items-center'}>
-        <button
-          onClick={() => router.push(`/projects/${project._id}`)}
-          className={`
-                      text-violet-600 hover:bg-slate-300 hover:text-violet-700
-                      dark:text-violet-400 dark:hover:bg-slate-800 dark:hover:text-violet-200 p-1
-                  `}
-        >
-          <div className={'flex'}>
-            <span className={'mr-1'}>{searchIcon}</span>
-            <span>Ver</span>
-          </div>
-        </button>
-        <button
-          onClick={() => selectProject(project)}
-          className={`
-                      text-sky-600 hover:bg-slate-300 hover:text-sky-700
-                      dark:text-sky-500 dark:hover:bg-slate-800 dark:hover:text-sky-300 p-1
-                  `}
-        >
-          <div className={'flex'}>
-            <span className={'mr-1'}>{editIcon}</span>
-            <span>Editar</span>
-          </div>
-        </button>
-        <button
-          onClick={deleteProjectClick}
-          className={`
-                      text-red-600 hover:bg-slate-300 hover:text-red-700 ${
-                        isClicked
-                          ? 'bg-slate-300 dark:bg-slate-800 text-red-700 dark:text-red-300'
-                          : ''
-                      }
-                      dark:text-red-500 dark:hover:bg-slate-800 dark:hover:text-red-300 p-1
-                  `}
-        >
-          <div className={'flex'}>
-            <span className={'mr-1'}>{deleteIcon}</span>
-            <span>Excluir</span>
-          </div>
-        </button>
+      <div className={'flex flex-col justify-end'}>
+        <div className={'flex justify-end items-center'}>
+          <Link href={`/projects/${project._id}`}>
+            <button
+              className={`
+                          text-violet-600 hover:bg-slate-300 hover:text-violet-700 rounded-lg
+                          dark:text-violet-400 dark:hover:bg-slate-800 dark:hover:text-violet-200 py-1 px-2
+                      `}
+            >
+              <div className={'flex'}>
+                <span className={'mr-1'}>{searchIcon}</span>
+                <span>Ver</span>
+              </div>
+            </button>
+          </Link>
+          <button
+            onClick={() => selectProject(project)}
+            className={`
+                        text-sky-600 hover:bg-slate-300 hover:text-sky-700 rounded-lg
+                        dark:text-sky-500 dark:hover:bg-slate-800 dark:hover:text-sky-300 py-1 px-2
+                    `}
+          >
+            <div className={'flex'}>
+              <span className={'mr-1'}>{editIcon}</span>
+              <span>Editar</span>
+            </div>
+          </button>
+        </div>
+        <div className={'flex justify-end'}>
+          <button
+            onClick={deleteProjectClick}
+            className={`
+                        text-red-600 hover:bg-slate-300 hover:text-red-700 rounded-lg ${
+                          isClicked
+                            ? 'bg-slate-300 dark:bg-slate-800 text-red-700 dark:text-red-300'
+                            : ''
+                        }
+                        dark:text-red-500 dark:hover:bg-slate-800 dark:hover:text-red-300 py-1 px-2
+                    `}
+          >
+            <div className={'flex'}>
+              <span className={'mr-1'}>{deleteIcon}</span>
+              <span>Excluir</span>
+            </div>
+          </button>
+        </div>
       </div>
     </td>
   )

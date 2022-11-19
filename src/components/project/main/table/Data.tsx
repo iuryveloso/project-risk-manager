@@ -20,7 +20,6 @@ export default function Data({
   return (
     <tr key={project._id}>
       <td className={'text-left p-1 pl-4'}>{project.title}</td>
-      <td className={'text-justify p-1'}>{project.description}</td>
       <td className={'text-justify p-1'}>{project.occupationArea}</td>
       <td className={'text-left p-1'}>{`${project.begin.split('-')[2]}/${
         project.begin.split('-')[1]

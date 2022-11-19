@@ -23,7 +23,13 @@ export default function Export({ actions }: ExportInteface) {
               </li>
               <li className={'flex text-xs'}>
                 <label className={'font-bold mr-2'}>Descrição: </label>
-                <span className={'text-justify'}>{action.description}</span>
+                <div className={'flex flex-col'}>
+                  {action.description
+                    .split('\n')
+                    .map((descriptionLine, index) => (
+                      <div key={index}>{descriptionLine}</div>
+                    ))}
+                </div>
               </li>
               <li className={'flex text-xs'}>
                 <label className={'font-bold mr-2'}>Tipo: </label>

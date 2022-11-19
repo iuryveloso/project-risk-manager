@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import {
-  settingsIcon,
-  customerIcon,
   homeIcon,
-  notificationsIcon,
   exitIcon,
   userIcon,
   clipboardDocumentList,
+  bookIcon,
 } from '@components/icons'
 import LogoutModal from '@components/template/LogoutModal'
 import MenuItem from '@components/template/MenuItem'
@@ -35,14 +33,8 @@ export default function SideMenu() {
       >
         <ul>
           <MenuItem url={'/'} text={'Início'} icon={homeIcon} />
-          <MenuItem url={'/settings'} text={'Ajustes'} icon={settingsIcon} />
-          <MenuItem
-            url={'/notifications'}
-            text={'Notificações'}
-            icon={notificationsIcon}
-          />
           <MenuItem url={'/profile'} text={'Perfil'} icon={userIcon} />
-          <MenuItem url={'/customers'} text={'Clientes'} icon={customerIcon} />
+          <MenuItem url={'/instructions'} text={'Instruções'} icon={bookIcon} />
           <MenuItem
             url={'/projects'}
             text={'Projetos'}

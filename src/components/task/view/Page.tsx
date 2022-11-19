@@ -1,10 +1,10 @@
-import { ProjectInterface } from '@interfaces/projectInterfaces'
+import { TaskInterface } from '@interfaces/taskInterfaces'
 
 interface PageInterface {
-  project: ProjectInterface
+  task: TaskInterface
 }
 
-export default function Page({ project }: PageInterface) {
+export default function Page({ task }: PageInterface) {
   return (
     <div
       className={`
@@ -15,13 +15,13 @@ export default function Page({ project }: PageInterface) {
     >
       <h1></h1>
       <div className={'flex flex-col mb-4'}>
-        <p className={'text-2xl font-bold text-center'}> {project.title}</p>
+        <p className={'text-2xl font-bold text-center'}> {task.title}</p>
       </div>
       <div className={'flex flex-col mb-4'}>
         <div className={'flex text-xl text-justify'}>
           <label className={'font-bold mr-1'}>Descrição: </label>
           <div className={'flex flex-col'}>
-            {project.description.split('\n').map((descriptionLine, index) => (
+            {task.description.split('\n').map((descriptionLine, index) => (
               <div key={index}>{descriptionLine}</div>
             ))}
           </div>
@@ -29,23 +29,23 @@ export default function Page({ project }: PageInterface) {
       </div>
       <div className={'flex flex-col mb-4'}>
         <p className={'text-xl text-justify'}>
-          <label className={'font-bold'}>Área de Atuação: </label>
-          {project.occupationArea}
+          <label className={'font-bold'}>Responsável: </label>
+          {task.responsible}
         </p>
       </div>
       <div className={'flex flex-col mb-4'}>
         <p className={'text-xl'}>
           <label className={'font-bold'}> Início: </label>
-          {`${project.begin.split('-')[2]}/${project.begin.split('-')[1]}/${
-            project.begin.split('-')[0]
+          {`${task.begin.split('-')[2]}/${task.begin.split('-')[1]}/${
+            task.begin.split('-')[0]
           }`}
         </p>
       </div>
       <div className={'flex flex-col mb-4'}>
         <p className={'text-xl'}>
           <label className={'font-bold'}> Término: </label>
-          {`${project.end.split('-')[2]}/${project.end.split('-')[1]}/${
-            project.end.split('-')[0]
+          {`${task.end.split('-')[2]}/${task.end.split('-')[1]}/${
+            task.end.split('-')[0]
           }`}
         </p>
       </div>

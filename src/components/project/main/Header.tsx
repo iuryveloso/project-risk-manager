@@ -67,8 +67,8 @@ export default function Header({
                       focus:border-indigo-700 dark:focus:border-indigo-600 
 
                   `}
-            type="text"
-            placeholder="Pesquisar..."
+            type={'search'}
+            placeholder={'Filtrar...'}
             onChange={(e) => search(e.target.value)}
           />
         </div>

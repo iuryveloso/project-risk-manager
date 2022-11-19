@@ -2,7 +2,7 @@ export interface RiskInterface {
   _id?: string
   title: string
   description: string
-  category: string
+  category: 'Gestão do Projeto' | 'Técnico' | 'Organizacional' | 'Externo'
   causes: string
   probabilityPositive: number
   impactPositive: number
@@ -30,7 +30,7 @@ export function empty() {
   const risk: RiskInterface = {
     title: '',
     description: '',
-    category: '',
+    category: 'Gestão do Projeto',
     causes: '',
     probabilityPositive: 0,
     impactPositive: 0,

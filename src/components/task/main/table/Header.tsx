@@ -14,19 +14,10 @@ interface HeaderInterface {
 export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
   return (
     <tr>
-      <th className={'px-1 pl-4'}>
+      <th className={'px-1 pl-4 w-5/12 2xl:w-7/12'}>
         <HeadItem
           tag={'Título'}
           column={'title'}
-          order={order}
-          orderBy={orderBy}
-          setOrder={setOrder}
-        />
-      </th>
-      <th className={'px-1'}>
-        <HeadItem
-          tag={'Descrição'}
-          column={'description'}
           order={order}
           orderBy={orderBy}
           setOrder={setOrder}
@@ -59,7 +50,7 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
           setOrder={setOrder}
         />
       </th>
-      <th className={'text-center pr-4'}>Ações</th>
+      <th className={'text-center pr-6'}>Ações</th>
     </tr>
   )
 }

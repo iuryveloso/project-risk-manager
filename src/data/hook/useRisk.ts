@@ -57,6 +57,22 @@ export default function useRisk({
   }
 
   function newRisk() {
+    const randomCategory = () => {
+      const number = Math.round(Math.random() * 3) + 1
+      switch (number) {
+        case 1:
+          return 'Gestão do Projeto'
+        case 2:
+          return 'Técnico'
+        case 3:
+          return 'Organizacional'
+        case 4:
+          return 'Externo'
+
+        default:
+          return 'Gestão do Projeto'
+      }
+    }
     if (setRisk && setMode) {
       const titleGenerated = faker.lorem.words()
       const risk: RiskInterface = {
@@ -64,7 +80,7 @@ export default function useRisk({
           1
         )}`,
         description: faker.lorem.paragraph(),
-        category: faker.word.noun(),
+        category: randomCategory(),
         causes: faker.lorem.words(),
         probabilityPositive: faker.datatype.number({
           max: 100,

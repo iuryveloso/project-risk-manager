@@ -36,7 +36,6 @@ export default function Form({ mode, task, setTask, saveTask }: FormInterface) {
           <input
             type={'text'}
             value={task.title}
-            placeholder={'ex: João'}
             onChange={(value) =>
               setTask({ ...task, title: value.target.value })
             }
@@ -48,17 +47,13 @@ export default function Form({ mode, task, setTask, saveTask }: FormInterface) {
         </div>
         <div className={'flex flex-col mb-4'}>
           <label>Descrição</label>
-          <input
-            type={'text'}
+          <textarea
+            rows={3}
             value={task.description}
-            placeholder={'ex: Oliveira'}
             onChange={(value) =>
               setTask({ ...task, description: value.target.value })
             }
-            onKeyPress={(e) => {
-              return e.key === 'Enter' ? saveTask(task) : false
-            }}
-            className={classNameInput}
+            className={`${classNameInput} scrollbar dark:scrollbar-dark`}
           />
         </div>
         <div className={'flex flex-col mb-4'}>
@@ -66,7 +61,6 @@ export default function Form({ mode, task, setTask, saveTask }: FormInterface) {
           <input
             type={'text'}
             value={task.responsible}
-            placeholder={'ex: Oliveira'}
             onChange={(value) =>
               setTask({ ...task, responsible: value.target.value })
             }
@@ -81,7 +75,6 @@ export default function Form({ mode, task, setTask, saveTask }: FormInterface) {
           <input
             type={'date'}
             value={task.begin}
-            placeholder={'ex: 12/12/2022'}
             onChange={(value) =>
               setTask({ ...task, begin: value.target.value })
             }
@@ -96,7 +89,6 @@ export default function Form({ mode, task, setTask, saveTask }: FormInterface) {
           <input
             type={'date'}
             value={task.end}
-            placeholder={'ex: 12/12/2022'}
             onChange={(value) => setTask({ ...task, end: value.target.value })}
             onKeyPress={(e) => {
               return e.key === 'Enter' ? saveTask(task) : false

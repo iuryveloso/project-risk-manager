@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Layout from '@components/template/Layout'
-import Headertask from '@components/task/risk/Header'
-import Formtask from '@components/task/risk/Form'
+import HeaderRisk from '@components/task/risk/Header'
+import FormRisk from '@components/task/risk/Form'
 import useRiskData from '@data/hook/useRisk'
 import useTaskData from '@data/hook/useTask'
 import useRiskTaskData from '@data/hook/useRiskTask'
@@ -52,18 +52,18 @@ export default function Risks() {
       contentHeader={
         <>
           {typeTask === '1' ? (
-            <Headertask
+            <HeaderRisk
               projectID={projectID}
               message={message}
-              subTaskID={task.parentTaskID}
+              parentTaskID={task.parentTaskID}
             />
           ) : (
-            <Headertask projectID={projectID} message={message} />
+            <HeaderRisk projectID={projectID} message={message} />
           )}
         </>
       }
     >
-      <Formtask
+      <FormRisk
         risks={risks}
         saveRiskTask={saveRiskTask}
         deleteRiskTask={deleteRiskTask}

@@ -14,7 +14,7 @@ interface HeaderInterface {
 export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
   return (
     <tr>
-      <th className={'px-1 pl-4'}>
+      <th className={'px-1 pl-4 w-5/12 2xl:w-7/12'}>
         <HeadItem
           tag={'Título'}
           column={'title'}
@@ -25,16 +25,7 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
       </th>
       <th className={'px-1'}>
         <HeadItem
-          tag={'Descrição'}
-          column={'description'}
-          order={order}
-          orderBy={orderBy}
-          setOrder={setOrder}
-        />
-      </th>
-      <th className={'px-1'}>
-        <HeadItem
-          tag={'Tipo'}
+          tag={'Tipo de Abordagem'}
           column={'type'}
           order={order}
           orderBy={orderBy}
@@ -54,15 +45,6 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
         <HeadItem
           tag={'Status'}
           column={'status'}
-          order={order}
-          orderBy={orderBy}
-          setOrder={setOrder}
-        />
-      </th>
-      <th className={'px-1'}>
-        <HeadItem
-          tag={'Observação'}
-          column={'observation'}
           order={order}
           orderBy={orderBy}
           setOrder={setOrder}

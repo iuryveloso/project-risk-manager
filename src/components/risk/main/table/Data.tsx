@@ -31,9 +31,7 @@ export default function Data({
   return (
     <tr key={risk._id}>
       <td className={'text-left p-1 pl-4'}>{risk.title}</td>
-      <td className={'text-justify p-1'}>{risk.description}</td>
       <td className={'text-justify p-1'}>{risk.category}</td>
-      <td className={'text-justify p-1'}>{risk.causes}</td>
       <td
         className={'text-justify p-1'}
         style={{
@@ -70,7 +68,6 @@ export default function Data({
           ).label
         }
       </td>
-      <td className={'text-justify p-1'}>{risk.observations}</td>
       <Actions
         projectID={projectID}
         risk={risk}

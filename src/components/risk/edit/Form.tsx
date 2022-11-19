@@ -52,7 +52,6 @@ export default function Form({
           <input
             type={'text'}
             value={risk.title}
-            placeholder={'ex: João'}
             onChange={(value) =>
               setRisk({ ...risk, title: value.target.value })
             }
@@ -64,40 +63,44 @@ export default function Form({
         </div>
         <div className={'flex flex-col mb-4'}>
           <label>Descrição</label>
-          <input
-            type={'text'}
+          <textarea
+            rows={3}
             value={risk.description}
-            placeholder={'ex: Oliveira'}
             onChange={(value) =>
               setRisk({ ...risk, description: value.target.value })
             }
-            onKeyPress={(e) => {
-              return e.key === 'Enter' ? saveRisk(risk) : false
-            }}
-            className={classNameInput}
+            className={`${classNameInput} scrollbar dark:scrollbar-dark`}
           />
         </div>
         <div className={'flex flex-col mb-4'}>
           <label>Categoria</label>
-          <input
-            type={'text'}
+          <select
             value={risk.category}
-            placeholder={'ex: Oliveira'}
-            onChange={(value) =>
-              setRisk({ ...risk, category: value.target.value })
-            }
+            onChange={(value) => {
+              if (
+                value.target.value === 'Gestão do Projeto' ||
+                value.target.value === 'Técnico' ||
+                value.target.value === 'Organizacional' ||
+                value.target.value === 'Externo'
+              )
+                setRisk({ ...risk, category: value.target.value })
+            }}
             onKeyPress={(e) => {
               return e.key === 'Enter' ? saveRisk(risk) : false
             }}
             className={classNameInput}
-          />
+          >
+            <option value={'Gestão do Projeto'}>Gestão do Projeto</option>
+            <option value={'Técnico'}>Técnico</option>
+            <option value={'Organizacional'}>Organizacional</option>
+            <option value={'Externo'}>Externo</option>
+          </select>
         </div>
         <div className={'flex flex-col mb-4'}>
           <label>Causas</label>
           <input
             type={'text'}
             value={risk.causes}
-            placeholder={'ex: Oliveira'}
             onChange={(value) =>
               setRisk({ ...risk, causes: value.target.value })
             }
@@ -112,7 +115,6 @@ export default function Form({
           <input
             type={'text'}
             value={risk.observations}
-            placeholder={'ex: Oliveira'}
             onChange={(value) =>
               setRisk({ ...risk, observations: value.target.value })
             }

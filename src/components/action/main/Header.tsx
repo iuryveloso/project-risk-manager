@@ -2,7 +2,7 @@ import { leftArrowIcon, plusIcon } from '@components/icons'
 import Error from '@components/action/alerts/Error'
 import Message from '@components/action/alerts/Message'
 import Delete from '@components/action/alerts/Delete'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 interface HeaderInterface {
   mode: 'main' | 'create' | 'edit' | 'view'
@@ -29,26 +29,24 @@ export default function Header({
   riskID,
   projectID,
 }: HeaderInterface) {
-  const router = useRouter()
   return (
     <div className={mode === 'main' ? '' : 'hidden'}>
       <div className={`flex`}>
         <div className={'w-1/3'}>
-          <button
-            className={`
-                    focus:border-indigo-700 dark:focus:border-indigo-600
-                    text-slate-50 px-3 py-2 mt-2 mr-2 rounded-lg
-                    bg-red-700 hover:bg-red-800
-                `}
-            onClick={() =>
-              router.push(`/projects/${projectID}/risks/${riskID}`)
-            }
-          >
-            <div className={'flex'}>
-              <span className={'mr-2'}>{leftArrowIcon}</span>
-              <span>Voltar</span>
-            </div>
-          </button>
+          <Link href={`/projects/${projectID}/risks/${riskID}`}>
+            <button
+              className={`
+                      focus:border-indigo-700 dark:focus:border-indigo-600
+                      text-slate-50 px-3 py-2 mt-2 mr-2 rounded-lg
+                      bg-red-700 hover:bg-red-800
+                  `}
+            >
+              <div className={'flex'}>
+                <span className={'mr-2'}>{leftArrowIcon}</span>
+                <span>Voltar</span>
+              </div>
+            </button>
+          </Link>
           <button
             className={`
                     focus:border-indigo-700 dark:focus:border-indigo-600
@@ -87,8 +85,8 @@ export default function Header({
                       focus:border-indigo-700 dark:focus:border-indigo-600 
 
                   `}
-            type="text"
-            placeholder="Pesquisar..."
+            type={'search'}
+            placeholder={'Filtrar...'}
             onChange={(e) => search(e.target.value)}
           />
         </div>

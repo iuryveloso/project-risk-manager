@@ -34,10 +34,14 @@ export default function Page({
         <p className={'text-2xl font-bold'}> {risk.title}</p>
       </div>
       <div className={'flex mb-4'}>
-        <p className={'text-xl text-justify'}>
-          <label className={'font-bold'}>Descrição: </label>
-          {risk.description}
-        </p>
+        <div className={'flex text-xl text-justify'}>
+          <label className={'font-bold mr-1'}>Descrição: </label>
+          <div className={'flex flex-col'}>
+            {risk.description.split('\n').map((descriptionLine, index) => (
+              <div key={index}>{descriptionLine}</div>
+            ))}
+          </div>
+        </div>
       </div>
       <div className={'flex mb-4'}>
         <p className={'text-xl text-justify'}>
@@ -76,33 +80,6 @@ export default function Page({
           </div>
         </div>
         <div className={'flex'}>
-          <div className={'w-1/2'}>
-            <div className={'mr-1'}>
-              <ChartPI
-                getChartLevel={getChartLevel}
-                impact={risk.impactNegative}
-                probability={risk.probabilityNegative}
-                type={'negative'}
-                // chartRef={negativeChartRef}
-              />
-            </div>
-          </div>
-          <div className={'w-1/2'}>
-            <div className={'ml-1'}>
-              <ChartPI
-                getChartLevel={getChartLevel}
-                impact={risk.impactPositive}
-                probability={risk.probabilityPositive}
-                type={'positive'}
-                // chartRef={positiveChartRef}
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          className={' absolute left-30 top-20 invisible'}
-          style={{ width: '80rem' }}
-        >
           <div className={'w-1/2'}>
             <div className={'mr-1'}>
               <ChartPI

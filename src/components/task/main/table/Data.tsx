@@ -24,7 +24,6 @@ export default function Data({
   return (
     <tr key={task._id}>
       <td className={'text-left p-1 pl-4'}>{task.title}</td>
-      <td className={'text-justify p-1'}>{task.description}</td>
       <td className={'text-justify p-1'}>{task.responsible}</td>
       <td className={'text-left p-1'}>{`${task.begin.split('-')[2]}/${
         task.begin.split('-')[1]

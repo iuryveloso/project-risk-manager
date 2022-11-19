@@ -1,21 +1,15 @@
 import { leftArrowIcon } from '@components/icons'
-import Message from '@components/risk/alerts/Message'
 import Link from 'next/link'
 
 interface HeaderInterface {
   projectID: string
   parentTaskID?: string
-  message: string | null
 }
 
-export default function Header({
-  message,
-  projectID,
-  parentTaskID,
-}: HeaderInterface) {
+export default function Header({ projectID, parentTaskID }: HeaderInterface) {
   return (
     <div className={`flex`}>
-      <div className={'w-1/3'}>
+      <div className={'w-1/4'}>
         <Link href={`/projects/${projectID}/tasks/${parentTaskID || ''}`}>
           <button
             className={`
@@ -30,9 +24,6 @@ export default function Header({
             </div>
           </button>
         </Link>
-      </div>
-      <div className={'flex justify-center w-1/3'}>
-        <Message message={message} />
       </div>
     </div>
   )

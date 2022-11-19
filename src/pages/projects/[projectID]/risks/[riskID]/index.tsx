@@ -6,6 +6,7 @@ import useRiskData from '@data/hook/useRisk'
 import useTaskData from '@data/hook/useTask'
 import useRiskTaskData from '@data/hook/useRiskTask'
 import useProjectData from '@data/hook/useProject'
+import useUserData from '@data/hook/useUser'
 import useActionData from '@data/hook/useAction'
 import {
   RiskInterface,
@@ -20,6 +21,7 @@ import {
   empty as emptyProject,
 } from '@interfaces/projectInterfaces'
 import { ActionInterface } from '@interfaces/actionInterfaces'
+import UserInterface, { empty as emptyUser } from '@interfaces/userInterfaces'
 
 export default function Risk() {
   const router = useRouter()
@@ -33,6 +35,7 @@ export default function Risk() {
   const [tasks, setTasks] = useState<TaskInterface[]>([])
   const [project, setProject] = useState<ProjectInterface>(emptyProject())
   const [actions, setActions] = useState<ActionInterface[]>([])
+  const [user, setUser] = useState<UserInterface>(emptyUser())
 
   const negativeChartRef: ForwardedRef<chartRefInterface> = useRef(null)
   const positiveChartRef: ForwardedRef<chartRefInterface> = useRef(null)
@@ -51,7 +54,10 @@ export default function Risk() {
 
   const { getAllActions } = useActionData({ riskID, setActions })
 
+  const { get } = useUserData({ setUser })
+
   useEffect(() => {
+    get()
     getRisk()
     getTasks()
     getProject()
@@ -76,6 +82,7 @@ export default function Risk() {
           positiveChartRef={positiveChartRef}
           project={project}
           actions={actions}
+          user={user}
         />
       }
     >

@@ -41,7 +41,6 @@ export default function Form({
           <input
             type={'text'}
             value={project.title}
-            placeholder={'ex: João'}
             onChange={(value) =>
               setProject({ ...project, title: value.target.value })
             }
@@ -53,17 +52,13 @@ export default function Form({
         </div>
         <div className={'flex flex-col mb-4'}>
           <label>Descrição</label>
-          <input
-            type={'text'}
+          <textarea
+            rows={3}
             value={project.description}
-            placeholder={'ex: Oliveira'}
             onChange={(value) =>
               setProject({ ...project, description: value.target.value })
             }
-            onKeyPress={(e) => {
-              return e.key === 'Enter' ? saveProject(project) : false
-            }}
-            className={classNameInput}
+            className={`${classNameInput} scrollbar dark:scrollbar-dark`}
           />
         </div>
         <div className={'flex flex-col mb-4'}>
@@ -71,7 +66,6 @@ export default function Form({
           <input
             type={'text'}
             value={project.occupationArea}
-            placeholder={'ex: Oliveira'}
             onChange={(value) =>
               setProject({ ...project, occupationArea: value.target.value })
             }
@@ -86,7 +80,6 @@ export default function Form({
           <input
             type={'date'}
             value={project.begin}
-            placeholder={'ex: 12/12/2022'}
             onChange={(value) =>
               setProject({ ...project, begin: value.target.value })
             }
@@ -101,7 +94,6 @@ export default function Form({
           <input
             type={'date'}
             value={project.end}
-            placeholder={'ex: 12/12/2022'}
             onChange={(value) =>
               setProject({ ...project, end: value.target.value })
             }

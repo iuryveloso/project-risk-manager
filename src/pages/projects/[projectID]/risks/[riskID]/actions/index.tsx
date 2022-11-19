@@ -64,7 +64,7 @@ export default function Actions() {
   return (
     <Layout
       page={'Ações'}
-      title={'Ações do Risco'}
+      title={'Ações para o Risco'}
       subtitle={'Visualize, edite e adicione novas informações às ações'}
       contentHeader={
         <>
@@ -100,6 +100,8 @@ export default function Actions() {
       }
     >
       <MainTable
+        projectID={projectID}
+        riskID={riskID}
         actions={actions}
         deleteAction={deleteAction}
         mode={mode}
