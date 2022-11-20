@@ -1,16 +1,14 @@
-import { RiskInterface } from '@interfaces/riskInterfaces'
 import logo from '@public/images/logo.png'
 import Image from 'next/image'
 import { ProjectInterface } from '@interfaces/projectInterfaces'
 import UserInterface from '@interfaces/userInterfaces'
 
-interface ExportInteface {
-  risk: RiskInterface
+interface ExportMainInteface {
   project: ProjectInterface
   user: UserInterface
 }
 
-export default function Export({ risk, project, user }: ExportInteface) {
+export default function ExportMain({ project, user }: ExportMainInteface) {
   return (
     <div style={{ width: '34rem' }}>
       <div className={'flex flex-col text-black'}>
@@ -18,14 +16,14 @@ export default function Export({ risk, project, user }: ExportInteface) {
           <div className={'mr-3 flex justify-center'}>
             <Image src={logo} width={60} height={60} />
           </div>
-          <div className={'flex pt-2'}>
+          <div className={'flex pt-3'}>
             <h1 className={'text-2xl font-bold '}>
               Gerenciador de Riscos de Projetos
             </h1>
           </div>
         </div>
         <div className={'flex justify-center'}>
-          <h3 className={'text-xl font-bold'}>Relatório de Risco</h3>
+          <h3 className={'text-xl font-bold'}>Relatório de Projeto</h3>
         </div>
       </div>
 
@@ -42,33 +40,33 @@ export default function Export({ risk, project, user }: ExportInteface) {
               <span>{`${user.company}`}</span>
             </li>
           </div>
-          <li className={'flex mb-5 text-sm justify-center'}>
-            <label className={'font-bold mr-2 text-'}>Projeto: </label>
-            <span>{project.title}</span>
-          </li>
           <li className={'flex text-xs'}>
-            <label className={'font-bold mr-2'}>Risco: </label>
-            <span>{risk.title}</span>
+            <label className={'font-bold mr-2'}>Projeto: </label>
+            <span>{project.title}</span>
           </li>
           <li className={'flex text-xs'}>
             <label className={'font-bold mr-2'}>Descrição: </label>
             <div className={'flex flex-col'}>
-              {risk.description.split('\n').map((descriptionLine, index) => (
+              {project.description.split('\n').map((descriptionLine, index) => (
                 <div key={index}>{descriptionLine}</div>
               ))}
             </div>
           </li>
           <li className={'flex text-xs'}>
-            <label className={'font-bold mr-2'}>Categoria: </label>
-            <span className={'text-justify'}>{risk.category}</span>
+            <label className={'font-bold mr-2'}>Área de Atuação: </label>
+            <span className={'text-justify'}>{project.occupationArea}</span>
           </li>
           <li className={'flex text-xs'}>
-            <label className={'font-bold mr-2'}>Causas: </label>
-            <span className={'text-justify'}>{risk.causes}</span>
-          </li>
-          <li className={'flex text-xs'}>
-            <label className={'font-bold mr-2'}>Observação: </label>
-            <span className={'text-justify'}>{risk.observations}</span>
+            <label className={'font-bold mr-2'}>Início: </label>
+            <span className={'text-justify mr-2'}>
+              {`${project.begin.split('-')[2]} / ${
+                project.begin.split('-')[1]
+              } / ${project.begin.split('-')[0]}`}
+            </span>
+            <label className={'font-bold mx-2'}>Término: </label>
+            <span className={'text-justify'}>{`${project.end.split('-')[2]} / ${
+              project.end.split('-')[1]
+            } / ${project.end.split('-')[0]}`}</span>
           </li>
         </ul>
       </div>

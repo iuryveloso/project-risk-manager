@@ -23,10 +23,10 @@ export default function ForceAuth(props: { children: any }) {
     return (
       <div
         className={`
-                flex justify-center items-center h-screen
+                flex justify-center items-center h-screen z-50 bg-white dark:bg-slate-800
             `}
       >
-        <Image src={loadingImage} alt="Loading" />
+        <Image src={loadingImage} alt="Loading" width={100} height={100} />
       </div>
     )
   }

@@ -37,6 +37,7 @@ export default function Form({
               <Risk
                 key={index}
                 taskID={task._id as string}
+                projectID={task.projectID as string}
                 risk={risk}
                 riskTasks={riskTasks}
                 saveRiskTask={saveRiskTask}

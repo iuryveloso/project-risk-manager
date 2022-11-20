@@ -33,13 +33,13 @@ export default function SideMenu() {
       >
         <ul>
           <MenuItem url={'/'} text={'Início'} icon={homeIcon} />
-          <MenuItem url={'/profile'} text={'Perfil'} icon={userIcon} />
-          <MenuItem url={'/instructions'} text={'Instruções'} icon={bookIcon} />
           <MenuItem
             url={'/projects'}
             text={'Projetos'}
             icon={clipboardDocumentList}
           />
+          <MenuItem url={'/instructions'} text={'Instruções'} icon={bookIcon} />
+          <MenuItem url={'/profile'} text={'Perfil'} icon={userIcon} />
         </ul>
       </div>
       <div>

@@ -1,7 +1,9 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, ReactElement, SetStateAction } from 'react'
 import Project from '@api/Project'
 import { ProjectInterface, OrderInterface } from '@interfaces/projectInterfaces'
 import { faker } from '@faker-js/faker'
+import { renderToString } from 'react-dom/server'
+import JsPDF from 'jspdf'
 
 interface useProjectInterface {
   setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
@@ -110,6 +112,27 @@ export default function useProject({
       )
     }
   }
+
+  function generatePDF(
+    risk: ReactElement,
+    task: ReactElement,
+    main: ReactElement
+  ) {
+    const staticMain = renderToString(main)
+    const staticTask = renderToString(task)
+    const staticRisk = renderToString(risk)
+    const doc = new JsPDF('portrait', 'pt', 'a4')
+
+    doc
+      .html(staticMain + staticRisk + staticTask, {
+        autoPaging: 'text',
+        margin: 25,
+      })
+      .then(() => {
+        doc.save('Relatório de Projeto.pdf')
+      })
+  }
+
   function selectProject(project: ProjectInterface) {
     if (setProject) {
       setProject(project)
@@ -189,6 +212,7 @@ export default function useProject({
     selectProject,
     saveProject,
     deleteProject,
+    generatePDF,
     search,
     switchMode,
     getProject,

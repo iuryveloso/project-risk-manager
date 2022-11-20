@@ -26,8 +26,8 @@ export default function HeadItem({
         <button
           className={
             order.column === column && order.direction === 'asc'
-              ? ' text-slate-300 dark:text-slate-900'
-              : ' hover:bg-slate-400 dark:hover:bg-slate-700'
+              ? ' text-slate-300 dark:text-slate-900 rounded-t-full'
+              : ' hover:bg-slate-400 dark:hover:bg-slate-700 rounded-t-full'
           }
           onClick={(e) => {
             orderBy(column, 'asc')
@@ -40,8 +40,8 @@ export default function HeadItem({
         <button
           className={
             order.column === column && order.direction === 'desc'
-              ? ' text-slate-300 dark:text-slate-900'
-              : ' hover:bg-slate-400 dark:hover:bg-slate-700'
+              ? ' text-slate-300 dark:text-slate-900 rounded-b-full'
+              : ' hover:bg-slate-400 dark:hover:bg-slate-700 rounded-b-full'
           }
           onClick={(e) => {
             orderBy(column, 'desc')

@@ -24,25 +24,27 @@ export default function Layout({
   const { theme } = useAppData()
 
   return (
-    <ForceAuth>
-      <div
-        className={`${theme === 'dark' ? 'dark' : ''} flex h-screen w-screen `}
-      >
-        <Head>
-          <link
-            rel={'shortcut icon'}
-            type={'image/png'}
-            href={'images/logo.png'}
-          />
-          <title>{page}</title>
-        </Head>
-        <SideMenu />
-        <div className={'flex flex-col w-full p-5 bg-white dark:bg-slate-800'}>
-          <Header title={title} subtitle={subtitle} />
-          <div className={`mt-3 mb-2`}>{contentHeader}</div>
-          <Content>{children}</Content>
+    <div className={`${theme === 'dark' ? 'dark' : ''}`}>
+      <ForceAuth>
+        <div className={` flex h-screen w-screen `}>
+          <Head>
+            <link
+              rel={'shortcut icon'}
+              type={'image/png'}
+              href={'images/logo.png'}
+            />
+            <title>{page}</title>
+          </Head>
+          <SideMenu />
+          <div
+            className={'flex flex-col w-full p-5 bg-white dark:bg-slate-800'}
+          >
+            <Header title={title} subtitle={subtitle} />
+            <div className={`mt-3 mb-2`}>{contentHeader}</div>
+            <Content>{children}</Content>
+          </div>
         </div>
-      </div>
-    </ForceAuth>
+      </ForceAuth>
+    </div>
   )
 }

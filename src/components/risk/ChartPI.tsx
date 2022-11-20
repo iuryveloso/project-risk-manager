@@ -33,17 +33,6 @@ export default function ChartPI({
   getChartLevel,
   chartRef,
 }: ChartPIInterface) {
-  // const plugin = {
-  //   id: 'custom_canvas_background_color',
-  //   beforeDraw: (chart: any) => {
-  //     const { ctx } = chart
-  //     ctx.save()
-  //     ctx.globalCompositeOperation = 'destination-over'
-  //     ctx.fillStyle = 'white'
-  //     ctx.fillRect(0, 0, chart.width, chart.height)
-  //     ctx.restore()
-  //   },
-  // }
   const options = {
     scales: {
       x: {
@@ -63,17 +52,6 @@ export default function ChartPI({
         },
       },
     },
-    // plugins: {
-    //   title: {
-    //     display: true,
-    //     text: 'Custom Chart Title',
-    //     color: getChartLevel(impact, probability, type).hexColor,
-    //     padding: {
-    //       top: 10,
-    //       bottom: 30,
-    //     },
-    //   },
-    // },
   }
   const data = {
     datasets: [
@@ -101,12 +79,7 @@ export default function ChartPI({
         </label>
       </div>
       <div>
-        <Scatter
-          data={data}
-          options={options}
-          // plugins={[plugin]}
-          ref={chartRef}
-        />
+        <Scatter data={data} options={options} ref={chartRef} />
       </div>
     </div>
   )

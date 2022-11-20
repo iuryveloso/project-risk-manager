@@ -1,6 +1,7 @@
-import { checkIcon, xmarkIcon } from '@components/icons'
+import { checkIcon, docLookIcon, xmarkIcon } from '@components/icons'
 import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
 import { TaskInterface } from '@interfaces/taskInterfaces'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 interface SubTaskInterface {
@@ -41,6 +42,25 @@ export default function Task({
           }
         >
           <div className={'flex-grow'}>{task.title}</div>
+          <Link
+            href={`/projects/${task.projectID}/tasks/${task._id}/${
+              task.parentTaskID ? '1' : '2'
+            }/view`}
+          >
+            <a target={'_blank'}>
+              <button
+                className={`
+                              text-cyan-600 hover:bg-slate-200 hover:text-cyan-700 rounded-lg mr-1
+                              dark:text-cyan-400 dark:hover:bg-slate-800 dark:hover:text-cyan-200 py-1 px-2
+                          `}
+              >
+                <div className={'flex'}>
+                  <span className={'mr-1'}>{docLookIcon}</span>
+                  <span>Detalhes</span>
+                </div>
+              </button>
+            </a>
+          </Link>
           {saveORDelete === 'save' ? (
             <button
               onClick={() => {
@@ -48,9 +68,8 @@ export default function Task({
                 setSaveORDelete('delete')
               }}
               className={`
-                          focus:border-indigo-700 dark:focus:border-indigo-600
-                          bg-emerald-700 text-slate-50 px-2
-                          rounded-md hover:bg-emerald-800
+                        text-emerald-600 hover:bg-slate-200 hover:text-emerald-700 rounded-lg ml-1
+                        dark:text-emerald-400 dark:hover:bg-slate-800 dark:hover:text-emerald-200 py-1 px-2
                           `}
             >
               <div className={'flex'}>
@@ -65,10 +84,9 @@ export default function Task({
                 setSaveORDelete('save')
               }}
               className={`
-                            focus:border-indigo-700 dark:focus:border-indigo-600
-                            bg-rose-700 text-slate-50 px-2
-                            rounded-md hover:bg-rose-800
-                            `}
+                          text-red-600 hover:bg-slate-200 hover:text-red-700 rounded-lg ml-1
+                          dark:text-red-500 dark:hover:bg-slate-800 dark:hover:text-red-400 py-1 px-2
+                        `}
             >
               <div className={'flex'}>
                 <span className={'mr-2'}>{xmarkIcon}</span>

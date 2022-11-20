@@ -103,7 +103,7 @@ export default function Actions({
             >
               <div className={'flex'}>
                 <span className={'mr-1'}>{alertCircleIcon}</span>
-                <span>Vincular Riscos</span>
+                <span>Riscos</span>
               </div>
             </button>
           </Link>

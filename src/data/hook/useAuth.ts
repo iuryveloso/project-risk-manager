@@ -20,7 +20,7 @@ export default function useAuth({
 }: UseAuthInterface) {
   const router = useRouter()
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   function getGoogleOAuthURl() {
     const rootURL = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -44,12 +44,12 @@ export default function useAuth({
 
   function check() {
     try {
-      setLoading(true)
+      // setLoading(true)
       Auth.check().then((e) => {
         if (setCheckAuth) setCheckAuth(e)
       })
     } finally {
-      setLoading(false)
+      setTimeout(() => setLoading(false), 300)
     }
   }
 
