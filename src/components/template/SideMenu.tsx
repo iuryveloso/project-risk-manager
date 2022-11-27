@@ -22,7 +22,7 @@ export default function SideMenu() {
   }
 
   return (
-    <aside className={'flex flex-col h-screen bg-slate-100 dark:bg-slate-900 '}>
+    <aside className={'flex flex-col h-screen bg-slate-300 dark:bg-slate-900 '}>
       <div className={`h-16 w-16 mt-4 mx-3`}>
         <Image src={logo} alt={'Logo'} />
       </div>

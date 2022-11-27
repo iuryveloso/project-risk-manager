@@ -67,7 +67,7 @@ export default function Header({
           <Message message={message} />
           <Delete deleteMessage={deleteMessage} />
           <div
-            className={`italic font-semibold ${
+            className={`italic font-semibold text-slate-900 dark:text-slate-200 ${
               !(error || message || deleteMessage) ? '' : 'hidden'
             }`}
           >

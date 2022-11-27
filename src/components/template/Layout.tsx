@@ -31,13 +31,13 @@ export default function Layout({
             <link
               rel={'shortcut icon'}
               type={'image/png'}
-              href={'images/logo.png'}
+              href={`${process.env.NEXT_PUBLIC_DOMAIN_NAME}/images/logo.png`}
             />
             <title>{page}</title>
           </Head>
           <SideMenu />
           <div
-            className={'flex flex-col w-full p-5 bg-white dark:bg-slate-800'}
+            className={'flex flex-col w-full p-5 bg-slate-50 dark:bg-slate-800'}
           >
             <Header title={title} subtitle={subtitle} />
             <div className={`mt-3 mb-2`}>{contentHeader}</div>
