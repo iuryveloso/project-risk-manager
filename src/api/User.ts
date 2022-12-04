@@ -1,8 +1,17 @@
 import UserInterface from '@interfaces/userInterfaces'
 
 class UserApi {
-  public async get() {
+  public async list() {
     const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/user`
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((e) => e.json())
+    return response
+  }
+
+  public async get() {
+    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/user/get`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',

@@ -5,7 +5,10 @@ import { Dispatch, SetStateAction } from 'react'
 interface useUserInterface {
   mode?: 'login' | 'singup'
   user?: UserInterface
+  users?: UserInterface[]
   setUser?: Dispatch<SetStateAction<UserInterface>>
+  setUsers?: Dispatch<SetStateAction<UserInterface[]>>
+  setSearchedUsers?: Dispatch<SetStateAction<UserInterface[]>>
   setError?: Dispatch<SetStateAction<string | null>>
   setMessage?: Dispatch<SetStateAction<string | null>>
   setCheckAuth?: Dispatch<SetStateAction<boolean>>
@@ -16,12 +19,41 @@ export default function useUser({
   setError,
   setMessage,
   user,
+  users,
   setUser,
+  setUsers,
+  setSearchedUsers,
   setMode,
 }: useUserInterface) {
+  function getAll() {
+    if (setUsers) {
+      User.list().then((e) => setUsers(e))
+    }
+  }
+
   function get() {
     if (setUser) {
       User.get().then((e) => setUser(e))
+    }
+  }
+
+  function search(searchTag: string) {
+    if (searchTag === '') {
+      if (setSearchedUsers) {
+        setSearchedUsers([])
+      }
+    } else {
+      const query = users?.filter(
+        (user) =>
+          user?.firstName?.toLowerCase().includes(searchTag.toLowerCase()) ||
+          user?.lastName?.toLowerCase().includes(searchTag.toLowerCase()) ||
+          user?.email?.toLowerCase().includes(searchTag.toLowerCase()) ||
+          user?.occupation?.toLowerCase().includes(searchTag.toLowerCase()) ||
+          user?.company?.toLowerCase().includes(searchTag.toLowerCase())
+      )
+      if (setSearchedUsers) {
+        setSearchedUsers(query ?? [])
+      }
     }
   }
 
@@ -68,6 +100,8 @@ export default function useUser({
     }
   }
   return {
+    getAll,
+    search,
     get,
     update,
     updateAvatar,

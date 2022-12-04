@@ -6,6 +6,7 @@ import useProjectData from '@data/hook/useProject'
 import useRiskData from '@data/hook/useRisk'
 import useTaskData from '@data/hook/useTask'
 import useUserData from '@data/hook/useUser'
+import useProjectUserData from '@data/hook/useProjectUser'
 import useActionData from '@data/hook/useAction'
 import { ProjectInterface, empty } from '@interfaces/projectInterfaces'
 import { useRouter } from 'next/router'
@@ -13,11 +14,21 @@ import UserInterface, { empty as emptyUser } from '@interfaces/userInterfaces'
 import { RiskInterface } from '@interfaces/riskInterfaces'
 import { TaskInterface } from '@interfaces/taskInterfaces'
 import { ActionInterface } from '@interfaces/actionInterfaces'
+import {
+  ProjectUserInterface,
+  empty as emptyprojectUser,
+} from '@interfaces/projectUserInterfaces'
 
 export default function Project() {
   const router = useRouter()
   const [project, setProject] = useState<ProjectInterface>(empty())
   const [user, setUser] = useState<UserInterface>(emptyUser())
+  const [projectUserSelected, setprojectUserSelected] =
+    useState<ProjectUserInterface>(emptyprojectUser())
+  const [users, setUsers] = useState<UserInterface[]>([])
+  const [searchedUsers, setSearchedUsers] = useState<UserInterface[]>([])
+  const [projectUsers, setProjectUsers] = useState<ProjectUserInterface[]>([])
+  const [reRender, setReRender] = useState(0)
   const [risks, setRisks] = useState<RiskInterface[]>([])
   const [actions, setActions] = useState<ActionInterface[]>([])
   const [tasks, setTasks] = useState<TaskInterface[]>([])
@@ -32,7 +43,18 @@ export default function Project() {
 
   const { getTasks } = useTaskData({ setTasks, setSubTasks, projectID })
 
-  const { get } = useUserData({ setUser })
+  const { get, getAll, search } = useUserData({
+    setUser,
+    setUsers,
+    users,
+    setSearchedUsers,
+  })
+
+  const { getAllProjectUserByProject, saveProjectUser, deleteProjectUser } =
+    useProjectUserData({
+      projectID,
+      setProjectUsers,
+    })
 
   useEffect(() => {
     get()
@@ -41,7 +63,10 @@ export default function Project() {
     getAllRisks()
     getLiterallyAllActions()
   }, [projectID])
-
+  useEffect(() => {
+    getAll()
+    getAllProjectUserByProject()
+  }, [reRender, projectID])
   return (
     <Layout
       page={'Projeto'}
@@ -61,7 +86,20 @@ export default function Project() {
         />
       }
     >
-      <PageView project={project} />
+      <PageView
+        project={project}
+        user={user}
+        users={users}
+        projectUserSelected={projectUserSelected}
+        setprojectUserSelected={setprojectUserSelected}
+        projectUsers={projectUsers}
+        searchedUsers={searchedUsers}
+        search={search}
+        saveProjectUser={saveProjectUser}
+        deleteProjectUser={deleteProjectUser}
+        reRender={reRender}
+        setReRender={setReRender}
+      />
     </Layout>
   )
 }

@@ -14,7 +14,7 @@ import UserInterface from '@interfaces/userInterfaces'
 interface HeaderInterface {
   negativeChartRef: RefObject<chartRefInterface>
   positiveChartRef: RefObject<chartRefInterface>
-  risk: RiskInterface
+  risk?: RiskInterface
   tasks: TaskInterface[]
   subTasks: TaskInterface[]
   riskTasks: RiskTaskInterface[]
@@ -62,7 +62,7 @@ export default function Header({
   return (
     <div className={`flex`}>
       <div className={'w-1/4'}>
-        <Link href={`/projects/${risk.projectID}/risks`}>
+        <Link href={`/projects/${risk?.projectID}/risks`}>
           <button
             className={`
                       focus:border-indigo-700 dark:focus:border-indigo-600
@@ -87,19 +87,21 @@ export default function Header({
                       dark:bg-rose-500 dark:hover:bg-rose-600
                   `}
           onClick={() =>
-            generatePDF(
-              <ExportAction actions={actions} />,
-              <ExportTask
-                risk={risk}
-                tasks={tasks}
-                subTasks={subTasks}
-                riskTasks={riskTasks}
-              />,
-              <ExportMain risk={risk} project={project} user={user} />,
-              negativeChartRef,
-              positiveChartRef,
-              getChartLevel
-            )
+            risk
+              ? generatePDF(
+                  <ExportAction actions={actions} />,
+                  <ExportTask
+                    risk={risk}
+                    tasks={tasks}
+                    subTasks={subTasks}
+                    riskTasks={riskTasks}
+                  />,
+                  <ExportMain risk={risk} project={project} user={user} />,
+                  negativeChartRef,
+                  positiveChartRef,
+                  getChartLevel
+                )
+              : false
           }
         >
           <div className={'flex'}>
@@ -107,7 +109,7 @@ export default function Header({
             <span>Relatório de Risco</span>
           </div>
         </button>
-        <Link href={`/projects/${risk.projectID}/risks/${risk._id}/actions`}>
+        <Link href={`/projects/${risk?.projectID}/risks/${risk?._id}/actions`}>
           <button
             className={`
                         focus:border-indigo-700 dark:focus:border-indigo-600

@@ -5,7 +5,7 @@ import { RefObject } from 'react'
 interface PageInterface {
   negativeChartRef: RefObject<chartRefInterface>
   positiveChartRef: RefObject<chartRefInterface>
-  risk: RiskInterface
+  risk?: RiskInterface
   getChartLevel: (
     impact: number,
     probability: number,
@@ -31,13 +31,13 @@ export default function Page({
         `}
     >
       <div className={'flex mb-4 justify-center'}>
-        <p className={'text-2xl font-bold'}> {risk.title}</p>
+        <p className={'text-2xl font-bold'}> {risk?.title}</p>
       </div>
       <div className={'flex mb-4'}>
         <div className={'flex text-xl text-justify'}>
           <label className={'font-bold mr-1'}>Descrição: </label>
           <div className={'flex flex-col'}>
-            {risk.description.split('\n').map((descriptionLine, index) => (
+            {risk?.description?.split('\n').map((descriptionLine, index) => (
               <div key={index}>{descriptionLine}</div>
             ))}
           </div>
@@ -46,19 +46,19 @@ export default function Page({
       <div className={'flex mb-4'}>
         <p className={'text-xl text-justify'}>
           <label className={'font-bold'}>Categoria: </label>
-          {risk.category}
+          {risk?.category}
         </p>
       </div>
       <div className={'flex mb-4'}>
         <p className={'text-xl text-justify'}>
           <label className={'font-bold'}>Causas: </label>
-          {risk.causes}
+          {risk?.causes}
         </p>
       </div>
       <div className={'flex mb-4'}>
         <p className={'text-xl text-justify'}>
           <label className={'font-bold'}>Observações: </label>
-          {risk.observations}
+          {risk?.observations}
         </p>
       </div>
       <div className={'flex flex-col mb-4'}>
@@ -82,24 +82,32 @@ export default function Page({
         <div className={'flex'}>
           <div className={'w-1/2'}>
             <div className={'mr-1'}>
-              <ChartPI
-                getChartLevel={getChartLevel}
-                impact={risk.impactNegative}
-                probability={risk.probabilityNegative}
-                type={'negative'}
-                chartRef={negativeChartRef}
-              />
+              {risk ? (
+                <ChartPI
+                  getChartLevel={getChartLevel}
+                  impact={risk.impactNegative}
+                  probability={risk.probabilityNegative}
+                  type={'negative'}
+                  chartRef={negativeChartRef}
+                />
+              ) : (
+                false
+              )}
             </div>
           </div>
           <div className={'w-1/2'}>
             <div className={'ml-1'}>
-              <ChartPI
-                getChartLevel={getChartLevel}
-                impact={risk.impactPositive}
-                probability={risk.probabilityPositive}
-                type={'positive'}
-                chartRef={positiveChartRef}
-              />
+              {risk ? (
+                <ChartPI
+                  getChartLevel={getChartLevel}
+                  impact={risk.impactPositive}
+                  probability={risk.probabilityPositive}
+                  type={'positive'}
+                  chartRef={positiveChartRef}
+                />
+              ) : (
+                false
+              )}
             </div>
           </div>
         </div>

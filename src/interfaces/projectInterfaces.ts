@@ -6,6 +6,7 @@ export interface ProjectInterface {
   begin: string
   end: string
   userID?: string
+  message?: string
 }
 
 export interface OrderInterface {

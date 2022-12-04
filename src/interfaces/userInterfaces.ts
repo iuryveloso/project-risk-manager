@@ -1,10 +1,11 @@
 export default interface UserInterface {
+  _id?: string
   email?: string
   occupation?: string
   company?: string
   firstName?: string
   lastName?: string
-  avatar?: File
+  avatar?: File | string
   password?: string
   confirmPassword?: string
   newPassword?: string
