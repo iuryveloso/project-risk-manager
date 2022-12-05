@@ -65,7 +65,6 @@ export default function Actions() {
     <Layout
       page={'Ações'}
       title={'Ações para o Risco'}
-      subtitle={'Visualize, edite e adicione novas informações às ações'}
       contentHeader={
         <>
           <HeaderMain

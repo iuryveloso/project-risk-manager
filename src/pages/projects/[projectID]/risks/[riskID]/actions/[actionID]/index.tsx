@@ -24,7 +24,6 @@ export default function Risk() {
     <Layout
       page={'Ação'}
       title={'Informações da Ação'}
-      subtitle={'Visualize as informações da ação'}
       contentHeader={<HeaderView projectID={projectID} riskID={riskID} />}
     >
       <PageView action={action} />

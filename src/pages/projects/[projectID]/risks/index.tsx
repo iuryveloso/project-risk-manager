@@ -65,7 +65,6 @@ export default function Risks() {
     <Layout
       page={'Riscos'}
       title={'Riscos do Projeto'}
-      subtitle={'Visualize, edite e adicione novas informações aos riscos'}
       contentHeader={
         <>
           <HeaderMain

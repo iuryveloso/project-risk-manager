@@ -59,9 +59,6 @@ export default function Projects() {
     <Layout
       page={'Projetos'}
       title={'Projetos Cadastrados'}
-      subtitle={
-        'Visualize, edite e adicione novas informações aos seus projetos'
-      }
       contentHeader={
         <>
           <HeaderMain

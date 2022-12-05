@@ -71,7 +71,6 @@ export default function subTasks() {
     <Layout
       page={'Tarefas'}
       title={`Subtarefas de ${parentTask.title}`}
-      subtitle={'Visualize, edite e adicione novas informações às subtarefas'}
       contentHeader={
         <>
           <HeaderMain

@@ -15,7 +15,7 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
   return (
     <>
       <tr>
-        <th className={'px-1 pl-4 w-5/12 2xl:w-7/12'} rowSpan={2}>
+        <th className={'px-1 pl-4 w-5/12 2xl:w-7/12'}>
           <HeadItem
             tag={'Título'}
             column={'title'}
@@ -24,7 +24,7 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
             setOrder={setOrder}
           />
         </th>
-        <th className={'px-1'} rowSpan={2}>
+        <th className={'px-1'}>
           <HeadItem
             tag={'Categoria'}
             column={'category'}
@@ -33,12 +33,6 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
             setOrder={setOrder}
           />
         </th>
-        <th colSpan={2}>Probabilidade x Impacto</th>
-        <th className={'text-center pr-4'} rowSpan={2}>
-          Ações
-        </th>
-      </tr>
-      <tr>
         <th className={'px-1'}>
           <HeadItem
             tag={'Ameaça'}
@@ -57,6 +51,7 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
             setOrder={setOrder}
           />
         </th>
+        <th className={'text-end pr-6'}>Ações</th>
       </tr>
     </>
   )

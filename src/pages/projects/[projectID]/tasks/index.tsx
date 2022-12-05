@@ -64,7 +64,6 @@ export default function Tasks() {
     <Layout
       page={'Tarefas'}
       title={`Tarefas do Projeto`}
-      subtitle={'Visualize, edite e adicione novas informações às tarefas'}
       contentHeader={
         <>
           <HeaderMain

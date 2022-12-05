@@ -28,7 +28,6 @@ export default function View() {
     <Layout
       page={'Tarefas'}
       title={`Informações da Tarefa`}
-      subtitle={'Visualize as informações da tarefa'}
       contentHeader={
         <>
           {typeTask === '1' ? (

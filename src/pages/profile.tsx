@@ -32,7 +32,6 @@ export default function Profile() {
     <Layout
       page={'Perfil'}
       title={'Perfil do Usuário'}
-      subtitle={'Personalize aqui o seu perfil de usuário'}
       contentHeader={
         <>
           <Header

@@ -69,7 +69,6 @@ export default function Risk() {
     <Layout
       page={'Risco'}
       title={'Informações do Risco'}
-      subtitle={'Visualize e gerencie o risco'}
       contentHeader={
         <HeaderView
           generatePDF={generatePDF}

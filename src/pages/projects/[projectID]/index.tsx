@@ -71,7 +71,6 @@ export default function Project() {
     <Layout
       page={'Projeto'}
       title={'Informações do Projeto'}
-      subtitle={'Visualize e gerencie seu projeto'}
       contentHeader={
         <HeaderView
           getChartLevel={getChartLevel}

@@ -32,7 +32,7 @@ export default function SearchedUser({
     )
       .then((response) => response.blob())
       .then((imageBlob) => setImage(URL.createObjectURL(imageBlob)))
-  }, [])
+  }, [searchedUser.avatar])
   return (
     <li
       className={`px-2 py-1 ${

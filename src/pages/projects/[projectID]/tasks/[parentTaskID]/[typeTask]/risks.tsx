@@ -48,7 +48,6 @@ export default function Risks() {
     <Layout
       page={'Tarefas'}
       title={`Vincular Riscos à ${task.title}`}
-      subtitle={'Adicione e remova riscos à tarefa'}
       contentHeader={
         <>
           {typeTask === '1' ? (
