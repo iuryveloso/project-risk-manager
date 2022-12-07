@@ -64,7 +64,7 @@ export default function Actions() {
   return (
     <Layout
       page={'Ações'}
-      title={'Ações para o Risco'}
+      title={`Ações do Risco`}
       contentHeader={
         <>
           <HeaderMain

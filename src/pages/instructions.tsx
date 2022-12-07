@@ -10,9 +10,9 @@ export default function Instructions() {
             bg-slate-200 dark:bg-slate-700 p-4 
         `}
       >
-        <div className={'mb-3'}>
-          <h3 className={'font-bold text-xl text-center'}>Projetos</h3>
-          <div className={'flex flex-col text-lg mt-2 text-justify'}>
+        <div className={'mb-5'}>
+          <h3 className={'font-bold text-2xl'}>Projetos</h3>
+          <div className={'flex flex-col text-lg ml-3 text-justify'}>
             <p>
               Em projetos, você pode gerenciar os projetos criados por você ou
               outros usuários do sistema, desde que tenha permissão para
@@ -31,7 +31,7 @@ export default function Instructions() {
               <strong className={'font-bold'}>Excluir</strong>.
             </p>
           </div>
-          <div className={'flex flex-col text-lg mt-2 text-justify'}>
+          <div className={'flex flex-col text-lg ml-3 mt-2 text-justify'}>
             <p>
               Ao clicar em <strong className={'font-bold'}>Ver</strong>,
               aparecerá uma página com diversas informações do projeto:
@@ -61,9 +61,9 @@ export default function Instructions() {
             </p>
           </div>
         </div>
-        <div className={'mb-3'}>
-          <h3 className={'font-bold text-xl text-center'}>Riscos</h3>
-          <div className={'flex flex-col text-lg mt-2 text-justify'}>
+        <div className={'mb-5'}>
+          <h3 className={'font-bold text-2xl'}>Riscos</h3>
+          <div className={'flex flex-col text-lg ml-3 text-justify'}>
             <p>
               Em riscos, você pode gerenciar os riscos criados por você ou
               outros usuários do sistema:
@@ -95,7 +95,7 @@ export default function Instructions() {
               possua alguma relação com as mesmas.
             </p>
           </div>
-          <div className={'flex flex-col text-lg mt-2 text-justify'}>
+          <div className={'flex flex-col text-lg ml-3 mt-2 text-justify'}>
             <p>
               Ao clicar em <strong className={'font-bold'}>Ver</strong>,
               aparecerá uma página com diversas informações do risco:
@@ -118,9 +118,9 @@ export default function Instructions() {
             </p>
           </div>
         </div>
-        <div className={'mb-3'}>
-          <h3 className={'font-bold text-xl text-center'}>Tarefas</h3>
-          <div className={'flex flex-col text-lg mt-2 text-justify'}>
+        <div className={'mb-5'}>
+          <h3 className={'font-bold text-2xl'}>Tarefas</h3>
+          <div className={'flex flex-col text-lg ml-3 text-justify'}>
             <p>
               Em tarefas, você pode gerenciar as tarefas criadas por você ou
               outros usuários do sistema, desde que tenha permissão para
@@ -155,7 +155,7 @@ export default function Instructions() {
               projeto diretamente.
             </p>
           </div>
-          <div className={'flex flex-col text-lg mt-2 text-justify'}>
+          <div className={'flex flex-col text-lg ml-3 mt-2 text-justify'}>
             <p>
               Ao clicar em <strong className={'font-bold'}>Ver</strong>,
               aparecerá uma página com as informações detalhadas da tarefa:
@@ -166,9 +166,9 @@ export default function Instructions() {
             </p>
           </div>
         </div>
-        <div className={'mb-3'}>
-          <h3 className={'font-bold text-xl text-center'}>Ações dos Riscos</h3>
-          <div className={'flex flex-col text-lg mt-2 text-justify'}>
+        <div>
+          <h3 className={'font-bold text-2xl'}>Ações dos Riscos</h3>
+          <div className={'flex flex-col text-lg ml-3 text-justify'}>
             <p>
               Em ações do risco, você pode gerenciar as ações do risco criadas
               por você ou outros usuários do sistema:
@@ -186,7 +186,7 @@ export default function Instructions() {
               <strong className={'font-bold'}>Excluir</strong>.
             </p>
           </div>
-          <div className={'flex flex-col text-lg mt-2 text-justify'}>
+          <div className={'flex flex-col text-lg ml-3 mt-2 text-justify'}>
             <p>
               Ao clicar em <strong className={'font-bold'}>Ver</strong>,
               aparecerá uma página com as informações detalhadas da ação do

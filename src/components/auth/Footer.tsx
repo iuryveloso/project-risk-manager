@@ -67,7 +67,7 @@ export default function Footer({
           </p>
         )}
 
-        {/* <p>
+        <p>
           <a
             onClick={() => setMode('login')}
             className={`
@@ -77,7 +77,7 @@ export default function Footer({
           >
             Esqueci minha senha
           </a>
-        </p> */}
+        </p>
       </div>
     </div>
   )

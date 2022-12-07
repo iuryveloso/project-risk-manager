@@ -53,7 +53,7 @@ export default function Header({
           >
             <div className={'flex'}>
               <span className={'mr-2'}>{saveIcon}</span>
-              <span>Alterar</span>
+              <span>Salvar</span>
             </div>
           </button>
         </div>
