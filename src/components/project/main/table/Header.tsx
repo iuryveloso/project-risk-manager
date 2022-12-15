@@ -50,7 +50,8 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
           setOrder={setOrder}
         />
       </th>
-      <th className={'text-end pr-6'}>Ações</th>
+      <th className={'text-end px-1'}>Cargo</th>
+      <th className={'text-end pr-4'}>Ações</th>
     </tr>
   )
 }

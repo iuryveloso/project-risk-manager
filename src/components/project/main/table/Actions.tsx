@@ -49,36 +49,44 @@ export default function Actions({
               </div>
             </button>
           </Link>
-          <button
-            onClick={() => selectProject(project)}
-            className={`
-                        text-sky-600 hover:bg-slate-300 hover:text-sky-700 rounded-lg
-                        dark:text-sky-500 dark:hover:bg-slate-800 dark:hover:text-sky-300 py-1 px-2
-                    `}
-          >
-            <div className={'flex'}>
-              <span className={'mr-1'}>{editIcon}</span>
-              <span>Editar</span>
-            </div>
-          </button>
+          {project.functionProject === 'manager' ? (
+            <button
+              onClick={() => selectProject(project)}
+              className={`
+                          text-sky-600 hover:bg-slate-300 hover:text-sky-700 rounded-lg
+                          dark:text-sky-500 dark:hover:bg-slate-800 dark:hover:text-sky-300 py-1 px-2
+                      `}
+            >
+              <div className={'flex'}>
+                <span className={'mr-1'}>{editIcon}</span>
+                <span>Editar</span>
+              </div>
+            </button>
+          ) : (
+            false
+          )}
         </div>
         <div className={'flex justify-end'}>
-          <button
-            onClick={deleteProjectClick}
-            className={`
-                        text-red-600 hover:bg-slate-300 hover:text-red-700 rounded-lg ${
-                          isClicked
-                            ? 'bg-slate-300 dark:bg-slate-800 text-red-700 dark:text-red-300'
-                            : ''
-                        }
-                        dark:text-red-500 dark:hover:bg-slate-800 dark:hover:text-red-300 py-1 px-2
-                    `}
-          >
-            <div className={'flex'}>
-              <span className={'mr-1'}>{deleteIcon}</span>
-              <span>Excluir</span>
-            </div>
-          </button>
+          {project.functionProject === 'manager' ? (
+            <button
+              onClick={deleteProjectClick}
+              className={`
+                          text-red-600 hover:bg-slate-300 hover:text-red-700 rounded-lg ${
+                            isClicked
+                              ? 'bg-slate-300 dark:bg-slate-800 text-red-700 dark:text-red-300'
+                              : ''
+                          }
+                          dark:text-red-500 dark:hover:bg-slate-800 dark:hover:text-red-300 py-1 px-2
+                      `}
+            >
+              <div className={'flex'}>
+                <span className={'mr-1'}>{deleteIcon}</span>
+                <span>Excluir</span>
+              </div>
+            </button>
+          ) : (
+            false
+          )}
         </div>
       </div>
     </td>

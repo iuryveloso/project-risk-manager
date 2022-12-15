@@ -27,6 +27,9 @@ export default function Project() {
     useState<ProjectUserInterface>(emptyprojectUser())
   const [users, setUsers] = useState<UserInterface[]>([])
   const [searchedUsers, setSearchedUsers] = useState<UserInterface[]>([])
+  const [projectUser, setProjectUser] = useState<ProjectUserInterface>(
+    emptyprojectUser()
+  )
   const [projectUsers, setProjectUsers] = useState<ProjectUserInterface[]>([])
   const [reRender, setReRender] = useState(0)
   const [risks, setRisks] = useState<RiskInterface[]>([])
@@ -35,7 +38,11 @@ export default function Project() {
   const [subTasks, setSubTasks] = useState<TaskInterface[]>([])
   const projectID = router.query.projectID as string
 
-  const { getProject, generatePDF } = useProjectData({ setProject, projectID })
+  const { getProject, generatePDF } = useProjectData({
+    setProject,
+    projectID,
+    projectUser,
+  })
 
   const { getAllRisks, getChartLevel } = useRiskData({ setRisks, projectID })
 
@@ -50,19 +57,36 @@ export default function Project() {
     setSearchedUsers,
   })
 
-  const { getAllProjectUserByProject, saveProjectUser, deleteProjectUser } =
-    useProjectUserData({
-      projectID,
-      setProjectUsers,
-    })
+  const {
+    getAllProjectUserByProject,
+    saveProjectUser,
+    deleteProjectUser,
+    getProjectUser,
+  } = useProjectUserData({
+    projectID,
+    userID: user._id,
+    setProjectUser,
+    setProjectUsers,
+  })
 
   useEffect(() => {
     get()
+    getLiterallyAllActions()
+  }, [])
+
+  useEffect(() => {
+    getProjectUser()
+  }, [projectID, user])
+
+  useEffect(() => {
     getProject()
+  }, [projectID, projectUser])
+
+  useEffect(() => {
     getTasks()
     getAllRisks()
-    getLiterallyAllActions()
   }, [projectID])
+
   useEffect(() => {
     getAll()
     getAllProjectUserByProject()
@@ -82,6 +106,7 @@ export default function Project() {
           tasks={tasks}
           subTasks={subTasks}
           actions={actions}
+          projectUser={projectUser}
         />
       }
     >
@@ -98,6 +123,7 @@ export default function Project() {
         deleteProjectUser={deleteProjectUser}
         reRender={reRender}
         setReRender={setReRender}
+        projectUser={projectUser}
       />
     </Layout>
   )

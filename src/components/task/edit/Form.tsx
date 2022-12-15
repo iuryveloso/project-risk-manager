@@ -18,85 +18,88 @@ export default function Form({ mode, task, setTask, saveTask }: FormInterface) {
   focus:border-indigo-700 dark:focus:border-indigo-600 
   `
   return (
-    <div
-      className={`
-        flex flex-col justify-center
-        ${mode === 'edit' ? '' : 'hidden'}
-    `}
-    >
-      <div
-        className={`
+    <>
+      {mode === 'edit' ? (
+        <div className={`flex flex-col justify-center`}>
+          <div
+            className={`
             w-full
             flex-grow
             bg-slate-200 dark:bg-slate-700 p-4 
         `}
-      >
-        <div className={'flex flex-col mb-4'}>
-          <label>Título</label>
-          <input
-            type={'text'}
-            value={task.title}
-            onChange={(value) =>
-              setTask({ ...task, title: value.target.value })
-            }
-            onKeyPress={(e) => {
-              return e.key === 'Enter' ? saveTask(task) : false
-            }}
-            className={classNameInput}
-          />
+          >
+            <div className={'flex flex-col mb-4'}>
+              <label>Título</label>
+              <input
+                type={'text'}
+                value={task.title}
+                onChange={(value) =>
+                  setTask({ ...task, title: value.target.value })
+                }
+                onKeyDown={(e) => {
+                  return e.key === 'Enter' ? saveTask(task) : false
+                }}
+                className={classNameInput}
+              />
+            </div>
+            <div className={'flex flex-col mb-4'}>
+              <label>Descrição</label>
+              <textarea
+                rows={3}
+                value={task.description}
+                onChange={(value) =>
+                  setTask({ ...task, description: value.target.value })
+                }
+                className={`${classNameInput} scrollbar dark:scrollbar-dark`}
+              />
+            </div>
+            <div className={'flex flex-col mb-4'}>
+              <label>Responsável</label>
+              <input
+                type={'text'}
+                value={task.responsible}
+                onChange={(value) =>
+                  setTask({ ...task, responsible: value.target.value })
+                }
+                onKeyDown={(e) => {
+                  return e.key === 'Enter' ? saveTask(task) : false
+                }}
+                className={classNameInput}
+              />
+            </div>
+            <div className={'flex flex-col mb-4'}>
+              <label>Início</label>
+              <input
+                type={'date'}
+                value={task.begin}
+                onChange={(value) =>
+                  setTask({ ...task, begin: value.target.value })
+                }
+                onKeyDown={(e) => {
+                  return e.key === 'Enter' ? saveTask(task) : false
+                }}
+                className={classNameInput}
+              />
+            </div>
+            <div className={'flex flex-col mb-4'}>
+              <label>Término</label>
+              <input
+                type={'date'}
+                value={task.end}
+                onChange={(value) =>
+                  setTask({ ...task, end: value.target.value })
+                }
+                onKeyDown={(e) => {
+                  return e.key === 'Enter' ? saveTask(task) : false
+                }}
+                className={classNameInput}
+              />
+            </div>
+          </div>
         </div>
-        <div className={'flex flex-col mb-4'}>
-          <label>Descrição</label>
-          <textarea
-            rows={3}
-            value={task.description}
-            onChange={(value) =>
-              setTask({ ...task, description: value.target.value })
-            }
-            className={`${classNameInput} scrollbar dark:scrollbar-dark`}
-          />
-        </div>
-        <div className={'flex flex-col mb-4'}>
-          <label>Responsável</label>
-          <input
-            type={'text'}
-            value={task.responsible}
-            onChange={(value) =>
-              setTask({ ...task, responsible: value.target.value })
-            }
-            onKeyPress={(e) => {
-              return e.key === 'Enter' ? saveTask(task) : false
-            }}
-            className={classNameInput}
-          />
-        </div>
-        <div className={'flex flex-col mb-4'}>
-          <label>Início</label>
-          <input
-            type={'date'}
-            value={task.begin}
-            onChange={(value) =>
-              setTask({ ...task, begin: value.target.value })
-            }
-            onKeyPress={(e) => {
-              return e.key === 'Enter' ? saveTask(task) : false
-            }}
-            className={classNameInput}
-          />
-        </div>
-        <div className={'flex flex-col mb-4'}>
-          <label>Término</label>
-          <input
-            type={'date'}
-            value={task.end}
-            onChange={(value) => setTask({ ...task, end: value.target.value })}
-            onKeyPress={(e) => {
-              return e.key === 'Enter' ? saveTask(task) : false
-            }}
-            className={classNameInput}
-          />
-        </div>
-      </div>
-    </div>
+      ) : (
+        false
+      )}
+    </>
   )
 }

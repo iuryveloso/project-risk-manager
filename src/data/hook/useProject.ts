@@ -4,10 +4,13 @@ import { ProjectInterface, OrderInterface } from '@interfaces/projectInterfaces'
 import { faker } from '@faker-js/faker'
 import { renderToString } from 'react-dom/server'
 import JsPDF from 'jspdf'
+import { ProjectUserInterface } from '@interfaces/projectUserInterfaces'
 
 interface useProjectInterface {
   setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
   projectID?: string
+  projectUser?: ProjectUserInterface
+  projectUsers?: ProjectUserInterface[]
   setProject?: Dispatch<SetStateAction<ProjectInterface>>
   projects?: ProjectInterface[]
   setProjects?: Dispatch<SetStateAction<ProjectInterface[]>>
@@ -22,6 +25,8 @@ export default function useProject({
   setMode,
   projectID,
   setProject,
+  projectUser,
+  projectUsers,
   projects,
   setProjects,
   allProjects,
@@ -31,19 +36,38 @@ export default function useProject({
   setOrder,
 }: useProjectInterface) {
   function getAllProjects() {
-    Project.list().then((e) => {
-      if (setProjects) {
-        setProjects(e)
-      }
-      if (setAllProjects) {
-        setAllProjects(e)
+    Project.list().then((e: ProjectInterface[]) => {
+      if (projectUsers) {
+        const projectsFiltered = e
+          .filter((project) => {
+            return projectUsers.filter((projectUser) => {
+              return projectUser.projectID.includes(project._id as string)
+            }).length
+          })
+          .map((project) => {
+            const projectUsersFiltered = projectUsers.filter((projectUser) => {
+              return projectUser.projectID.includes(project._id as string)
+            })[0]
+            const projectWithFunctionProject: ProjectInterface = {
+              ...project,
+              functionProject: projectUsersFiltered.functionProject,
+            }
+            return projectWithFunctionProject
+          })
+
+        if (setProjects) {
+          setProjects(projectsFiltered)
+        }
+        if (setAllProjects) {
+          setAllProjects(projectsFiltered)
+        }
       }
     })
   }
   function getProject() {
-    if (projectID) {
-      Project.get(projectID as string).then((e) => {
-        if (setProject) {
+    if (projectID && projectUser) {
+      Project.get(projectID as string).then((e: ProjectInterface) => {
+        if (setProject && projectUser.projectID === e._id) {
           setProject(e)
         }
       })
@@ -168,7 +192,9 @@ export default function useProject({
       const query = allProjects?.filter(
         (project) =>
           project.title.toLowerCase().includes(searchTag.toLowerCase()) ||
-          project.description.toLowerCase().includes(searchTag.toLowerCase()) ||
+          project.occupationArea
+            .toLowerCase()
+            .includes(searchTag.toLowerCase()) ||
           project.begin.toLowerCase().includes(searchTag.toLowerCase()) ||
           project.end.toLowerCase().includes(searchTag.toLowerCase())
       )

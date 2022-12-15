@@ -7,6 +7,7 @@ export interface ProjectInterface {
   end: string
   userID?: string
   message?: string
+  functionProject?: 'manager' | 'collaborator'
 }
 
 export interface OrderInterface {

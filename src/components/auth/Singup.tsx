@@ -28,6 +28,14 @@ export default function Singup({
   submit,
 }: SingupInterface) {
   const [page, setPage] = useState<'personal' | 'credentials'>('personal')
+
+  function getUserAvatarName() {
+    if (typeof user?.avatar !== 'string' && user?.avatar?.name) {
+      return user?.avatar?.name
+    }
+    return 'Nenhuma Imagem Selecionada'
+  }
+
   return (
     <div className={`${mode === 'singup' ? '' : 'hidden'} `}>
       <Error error={error} />
@@ -116,9 +124,7 @@ export default function Singup({
                         border border-slate-300 focus:outline-none focus:border-indigo-500 
                       `}
               >
-                {user?.avatar?.name === undefined
-                  ? 'Nenhuma Imagem Selecionada'
-                  : user?.avatar?.name}
+                {getUserAvatarName()}
               </div>
             </label>
             <input

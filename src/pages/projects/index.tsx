@@ -7,16 +7,22 @@ import FormCreate from '@components/project/create/Form'
 import HeaderEdit from '@components/project/edit/Header'
 import FormEdit from '@components/project/edit/Form'
 import useProjectData from '@data/hook/useProject'
+import useProjectUserData from '@data/hook/useProjectUser'
+import useUserData from '@data/hook/useUser'
 import {
   ProjectInterface,
   OrderInterface,
   empty,
 } from '@interfaces/projectInterfaces'
+import UserInterface, { empty as emptyUser } from '@interfaces/userInterfaces'
+import { ProjectUserInterface } from '@interfaces/projectUserInterfaces'
 
 export default function Projects() {
   const [mode, setMode] = useState<'main' | 'create' | 'edit'>('main')
   const [project, setProject] = useState<ProjectInterface>(empty())
+  const [user, setUser] = useState<UserInterface>(emptyUser())
   const [projects, setProjects] = useState<ProjectInterface[]>([])
+  const [projectUsers, setProjectUsers] = useState<ProjectUserInterface[]>([])
   const [allProjects, setAllProjects] = useState<ProjectInterface[]>([])
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
@@ -25,6 +31,8 @@ export default function Projects() {
     column: 'title',
     direction: 'asc',
   })
+
+  const { get } = useUserData({ setUser })
 
   const {
     newProject,
@@ -36,6 +44,7 @@ export default function Projects() {
     getAllProjects,
     orderBy,
   } = useProjectData({
+    projectUsers,
     setMode,
     projects,
     setProject,
@@ -47,9 +56,20 @@ export default function Projects() {
     setOrder,
   })
 
+  const { getAllProjectUser } = useProjectUserData({
+    setProjectUsers,
+    userID: user._id,
+  })
+
+  useEffect(() => {
+    get()
+  }, [])
+  useEffect(() => {
+    getAllProjectUser()
+  }, [user])
   useEffect(() => {
     getAllProjects()
-  }, [])
+  }, [projectUsers])
 
   useEffect(() => {
     if (mode === 'main') setProject(empty())

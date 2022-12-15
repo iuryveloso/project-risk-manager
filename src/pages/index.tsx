@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   }, [])
 
   return (
-    <Layout page={'Inicio'} title={'Página Inicial'}>
+    <Layout page={'Inicio'}>
       <div className={'flex flex-col h-screen items-center justify-center'}>
         <h3
           className={'text-2xl font-medium'}
@@ -51,6 +51,7 @@ const Home: NextPage = () => {
           para editar seus dados de usuário
         </p>
       </div>
+      <div className={'my-7'} />
     </Layout>
   )
 }

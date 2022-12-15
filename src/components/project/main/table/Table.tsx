@@ -30,33 +30,39 @@ export default function Table({
   setDeleteMessage,
 }: TableInterface) {
   return (
-    <div className={`${mode === 'main' ? '' : 'hidden'}`}>
-      <table
-        className={`w-full  overflow-hidden text-slate-900 dark:text-slate-300 border-8 
-        border-slate-300 dark:border-slate-900 bg-slate-200 dark:bg-slate-700`}
-      >
-        <thead
-          className={`
-                    bg-slate-300 dark:bg-slate-900 
-                    `}
-        >
-          <Header order={order} orderBy={orderBy} setOrder={setOrder} />
-        </thead>
-        <tbody>
-          {projects?.map((project, index) => {
-            return (
-              <Data
-                key={index}
-                project={project}
-                deleteProject={deleteProject}
-                selectProject={selectProject}
-                deleteMessage={deleteMessage}
-                setDeleteMessage={setDeleteMessage}
-              />
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
+    <>
+      {mode === 'main' ? (
+        <div className={`${mode === 'main' ? '' : 'hidden'}`}>
+          <table
+            className={`w-full  overflow-hidden text-slate-900 dark:text-slate-300 border-8 
+            border-slate-300 dark:border-slate-900 bg-slate-200 dark:bg-slate-700`}
+          >
+            <thead
+              className={`
+                        bg-slate-300 dark:bg-slate-900 
+                        `}
+            >
+              <Header order={order} orderBy={orderBy} setOrder={setOrder} />
+            </thead>
+            <tbody>
+              {projects?.map((project, index) => {
+                return (
+                  <Data
+                    key={index}
+                    project={project}
+                    deleteProject={deleteProject}
+                    selectProject={selectProject}
+                    deleteMessage={deleteMessage}
+                    setDeleteMessage={setDeleteMessage}
+                  />
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        false
+      )}
+    </>
   )
 }

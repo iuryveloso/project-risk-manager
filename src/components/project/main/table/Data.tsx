@@ -27,6 +27,9 @@ export default function Data({
       <td className={'text-left p-1'}>{`${project.end.split('-')[2]}/${
         project.end.split('-')[1]
       }/${project.end.split('-')[0]}`}</td>
+      <td className={'text-right p-1'}>
+        {project.functionProject === 'manager' ? 'Gestor' : 'Colaborador'}
+      </td>
       <Actions
         project={project}
         deleteProject={deleteProject}

@@ -8,7 +8,7 @@ import ForceAuth from '@components/auth/ForceAuth'
 
 interface LayoutProps {
   page: string
-  title: string
+  title?: string
   subtitle?: string
   children?: any
   contentHeader?: ReactElement
@@ -26,7 +26,9 @@ export default function Layout({
   return (
     <div className={`${theme === 'dark' ? 'dark' : ''}`}>
       <ForceAuth>
-        <div className={` flex h-screen w-screen `}>
+        <div
+          className={` flex h-screen w-screen overflow-auto scrollbar dark:scrollbar-dark `}
+        >
           <Head>
             <link
               rel={'shortcut icon'}
@@ -39,8 +41,10 @@ export default function Layout({
           <div
             className={'flex flex-col w-full p-5 bg-slate-50 dark:bg-slate-800'}
           >
-            <Header title={title} subtitle={subtitle || ''} />
-            <div className={`mt-3 mb-2`}>{contentHeader}</div>
+            <Header title={title || ''} subtitle={subtitle || ''} />
+            <div className={contentHeader ? 'mt-3 mb-2' : ''}>
+              {contentHeader}
+            </div>
             <Content>{children}</Content>
           </div>
         </div>
