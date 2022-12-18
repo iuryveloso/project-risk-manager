@@ -2,7 +2,6 @@ import { checkIcon, docLookIcon, xmarkIcon } from '@components/icons'
 import { RiskInterface } from '@interfaces/riskInterfaces'
 import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 interface SubTaskInterface {
   taskID: string
@@ -21,22 +20,17 @@ export default function Risk({
   saveRiskTask,
   deleteRiskTask,
 }: SubTaskInterface) {
-  const [saveORDelete, setSaveORDelete] = useState<'save' | 'delete'>('save')
-  useEffect(() => {
-    setSaveORDelete(
-      riskTasks.filter((riskTask) =>
-        riskTask.riskID.includes(risk._id as string)
-      ).length > 0
-        ? 'delete'
-        : 'save'
-    )
-  }, [riskTasks])
+  const saveORDelete =
+    riskTasks.filter((riskTask) => riskTask.riskID.includes(risk._id as string))
+      .length > 0
+      ? 'delete'
+      : 'save'
   return (
     <li>
       <div className={'flex flex-col'}>
         <div
           className={
-            'flex items-center bg-slate-300 dark:bg-slate-600 px-2 py-2 my-1 rounded-md '
+            'flex items-center bg-slate-300 dark:bg-slate-600 px-2 my-1 rounded-md '
           }
         >
           <div className={'flex-grow'}>{risk.title}</div>
@@ -59,7 +53,6 @@ export default function Risk({
             <button
               onClick={() => {
                 saveRiskTask({ taskID, riskID: risk._id as string })
-                setSaveORDelete('delete')
               }}
               className={`
                         text-emerald-600 hover:bg-slate-200 hover:text-emerald-700 rounded-lg ml-1
@@ -75,7 +68,6 @@ export default function Risk({
             <button
               onClick={() => {
                 deleteRiskTask({ taskID, riskID: risk._id as string })
-                setSaveORDelete('save')
               }}
               className={`
                         text-red-600 hover:bg-slate-200 hover:text-red-700 rounded-lg ml-1

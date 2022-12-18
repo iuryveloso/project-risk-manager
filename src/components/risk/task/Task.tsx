@@ -2,7 +2,6 @@ import { checkIcon, docLookIcon, xmarkIcon } from '@components/icons'
 import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
 import { TaskInterface } from '@interfaces/taskInterfaces'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 interface SubTaskInterface {
   riskID: string
@@ -23,22 +22,17 @@ export default function Task({
   saveRiskTask,
   deleteRiskTask,
 }: SubTaskInterface) {
-  const [saveORDelete, setSaveORDelete] = useState<'save' | 'delete'>('save')
-  useEffect(() => {
-    setSaveORDelete(
-      riskTasks.filter((riskTask) =>
-        riskTask.taskID.includes(task._id as string)
-      ).length > 0
-        ? 'delete'
-        : 'save'
-    )
-  }, [riskTasks])
+  const saveORDelete =
+    riskTasks.filter((riskTask) => riskTask.taskID.includes(task._id as string))
+      .length > 0
+      ? 'delete'
+      : 'save'
   return (
     <li>
       <div className={'flex flex-col'}>
         <div
           className={
-            'flex items-center bg-slate-300 dark:bg-slate-600 px-2 py-2 my-1 rounded-md '
+            'flex items-center bg-slate-300 dark:bg-slate-600 px-2 my-1 rounded-md '
           }
         >
           <div className={'flex-grow'}>{task.title}</div>
@@ -65,12 +59,11 @@ export default function Task({
             <button
               onClick={() => {
                 saveRiskTask({ taskID: task._id as string, riskID })
-                setSaveORDelete('delete')
               }}
               className={`
-                        text-emerald-600 hover:bg-slate-200 hover:text-emerald-700 rounded-lg ml-1
-                        dark:text-emerald-400 dark:hover:bg-slate-800 dark:hover:text-emerald-200 py-1 px-2
-                          `}
+              text-emerald-600 hover:bg-slate-200 hover:text-emerald-700 rounded-lg ml-1
+              dark:text-emerald-400 dark:hover:bg-slate-800 dark:hover:text-emerald-200 py-1 px-2
+              `}
             >
               <div className={'flex'}>
                 <span className={'mr-2'}>{checkIcon}</span>
@@ -81,7 +74,6 @@ export default function Task({
             <button
               onClick={() => {
                 deleteRiskTask({ taskID: task._id as string, riskID })
-                setSaveORDelete('save')
               }}
               className={`
                           text-red-600 hover:bg-slate-200 hover:text-red-700 rounded-lg ml-1

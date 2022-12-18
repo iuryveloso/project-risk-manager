@@ -49,9 +49,7 @@ export default function Form({
               <input
                 type={'text'}
                 value={risk.title}
-                onChange={(value) =>
-                  setRisk({ ...risk, title: value.target.value })
-                }
+                onChange={(e) => setRisk({ ...risk, title: e.target.value })}
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveRisk(risk) : false
                 }}
@@ -63,8 +61,8 @@ export default function Form({
               <textarea
                 rows={3}
                 value={risk.description}
-                onChange={(value) =>
-                  setRisk({ ...risk, description: value.target.value })
+                onChange={(e) =>
+                  setRisk({ ...risk, description: e.target.value })
                 }
                 className={`${classNameInput} scrollbar dark:scrollbar-dark`}
               />
@@ -73,14 +71,14 @@ export default function Form({
               <label>Categoria</label>
               <select
                 value={risk.category}
-                onChange={(value) => {
+                onChange={(e) => {
                   if (
-                    value.target.value === 'Gestão do Projeto' ||
-                    value.target.value === 'Técnico' ||
-                    value.target.value === 'Organizacional' ||
-                    value.target.value === 'Externo'
+                    e.target.value === 'Gestão do Projeto' ||
+                    e.target.value === 'Técnico' ||
+                    e.target.value === 'Organizacional' ||
+                    e.target.value === 'Externo'
                   )
-                    setRisk({ ...risk, category: value.target.value })
+                    setRisk({ ...risk, category: e.target.value })
                 }}
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveRisk(risk) : false
@@ -98,9 +96,7 @@ export default function Form({
               <input
                 type={'text'}
                 value={risk.causes}
-                onChange={(value) =>
-                  setRisk({ ...risk, causes: value.target.value })
-                }
+                onChange={(e) => setRisk({ ...risk, causes: e.target.value })}
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveRisk(risk) : false
                 }}
@@ -112,8 +108,8 @@ export default function Form({
               <input
                 type={'text'}
                 value={risk.observations}
-                onChange={(value) =>
-                  setRisk({ ...risk, observations: value.target.value })
+                onChange={(e) =>
+                  setRisk({ ...risk, observations: e.target.value })
                 }
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveRisk(risk) : false
@@ -130,10 +126,10 @@ export default function Form({
                     min={'0'}
                     max={'100'}
                     value={risk.impactNegative}
-                    onChange={(value) =>
+                    onChange={(e) =>
                       setRisk({
                         ...risk,
-                        impactNegative: +value.target.value,
+                        impactNegative: +e.target.value,
                       })
                     }
                     onKeyDown={(e) => {
@@ -154,10 +150,10 @@ export default function Form({
                     min={'0'}
                     max={'100'}
                     value={risk.impactPositive}
-                    onChange={(value) =>
+                    onChange={(e) =>
                       setRisk({
                         ...risk,
-                        impactPositive: +value.target.value,
+                        impactPositive: +e.target.value,
                       })
                     }
                     onKeyDown={(e) => {
@@ -180,10 +176,10 @@ export default function Form({
                     min={'0'}
                     max={'100'}
                     value={risk.probabilityNegative}
-                    onChange={(value) =>
+                    onChange={(e) =>
                       setRisk({
                         ...risk,
-                        probabilityNegative: +value.target.value,
+                        probabilityNegative: +e.target.value,
                       })
                     }
                     onKeyDown={(e) => {
@@ -204,10 +200,10 @@ export default function Form({
                     min={'0'}
                     max={'100'}
                     value={risk.probabilityPositive}
-                    onChange={(value) =>
+                    onChange={(e) =>
                       setRisk({
                         ...risk,
-                        probabilityPositive: +value.target.value,
+                        probabilityPositive: +e.target.value,
                       })
                     }
                     onKeyDown={(e) => {

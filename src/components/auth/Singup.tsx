@@ -77,6 +77,9 @@ export default function Singup({
           <label className={'text-slate-700'}>Nome</label>
           <input
             type={'text'}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? submit() : false
+            }}
             value={user?.firstName}
             onChange={(e) => setUser({ ...user, firstName: e.target.value })}
             placeholder={'Digite o seu nome'}
@@ -90,6 +93,9 @@ export default function Singup({
           <label className={'text-slate-700'}>Sobrenome</label>
           <input
             type={'text'}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? submit() : false
+            }}
             value={user?.lastName}
             onChange={(e) => setUser({ ...user, lastName: e.target.value })}
             placeholder={'Digite o Seu sobrenome'}
@@ -105,8 +111,7 @@ export default function Singup({
               Imagem de Perfil
             </label>
             <label className={'flex items-end text-red-400 text-sm'}>
-              {' '}
-              *PNG ou JPG{' '}
+              *PNG ou JPG
             </label>
           </div>
           <div>
@@ -149,6 +154,9 @@ export default function Singup({
           <label className={'text-slate-700'}>Email</label>
           <input
             type={'email'}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? submit() : false
+            }}
             value={user?.email}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
             placeholder={'seu.email@email.com'}
@@ -163,6 +171,9 @@ export default function Singup({
           <div className={'flex mt-1'}>
             <input
               type={type}
+              onKeyDown={(e) => {
+                return e.key === 'Enter' ? submit() : false
+              }}
               value={user?.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
               placeholder={'Digite sua senha'}
@@ -189,6 +200,9 @@ export default function Singup({
           <div className={'flex mt-1'}>
             <input
               type={type}
+              onKeyDown={(e) => {
+                return e.key === 'Enter' ? submit() : false
+              }}
               value={user?.confirmPassword}
               onChange={(e) =>
                 setUser({ ...user, confirmPassword: e.target.value })

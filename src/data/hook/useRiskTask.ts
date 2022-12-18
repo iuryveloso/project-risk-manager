@@ -5,6 +5,8 @@ import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
 interface useRiskTaskInterface {
   riskID?: string
   taskID?: string
+  getTasks?: () => Promise<void>
+  getAllRisks?: () => Promise<void>
   setRiskTasks?: Dispatch<SetStateAction<RiskTaskInterface[]>>
   setMessage?: Dispatch<SetStateAction<string | null>>
 }
@@ -12,30 +14,48 @@ interface useRiskTaskInterface {
 export default function useRiskTask({
   riskID,
   taskID,
+  getTasks,
+  getAllRisks,
   setRiskTasks,
   setMessage,
 }: useRiskTaskInterface) {
-  function getRiskTask() {
-    RiskTask.list(riskID as string).then((e) => {
+  async function getRiskTask() {
+    await RiskTask.list(riskID as string).then((e) => {
       if (setRiskTasks) {
         setRiskTasks(e)
       }
     })
   }
 
-  function getRiskTaskByTask() {
-    RiskTask.listByTask(taskID as string).then((e) => {
+  async function getRiskTaskByTask() {
+    await RiskTask.listByTask(taskID as string).then((e) => {
       if (setRiskTasks) {
         setRiskTasks(e)
       }
     })
   }
 
-  function saveRiskTask(riskTask: RiskTaskInterface) {
-    RiskTask.create(riskTask).then((e) => showMessage(e.message))
+  async function saveRiskTask(riskTask: RiskTaskInterface) {
+    await RiskTask.create(riskTask).then((e) => showMessage(e.message))
+    if (getTasks) {
+      getTasks()
+      getRiskTask()
+    }
+    if (getAllRisks) {
+      getRiskTaskByTask()
+      getAllRisks()
+    }
   }
-  function deleteRiskTask(riskTask: RiskTaskInterface) {
-    RiskTask.delete(riskTask).then((e) => showMessage(e.message))
+  async function deleteRiskTask(riskTask: RiskTaskInterface) {
+    await RiskTask.delete(riskTask).then((e) => showMessage(e.message))
+    if (getTasks) {
+      getTasks()
+      getRiskTask()
+    }
+    if (getAllRisks) {
+      getRiskTaskByTask()
+      getAllRisks()
+    }
   }
   function showMessage(message: any, seconds = 3) {
     if (setMessage) {

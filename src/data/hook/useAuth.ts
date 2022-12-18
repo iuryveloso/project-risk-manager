@@ -42,10 +42,10 @@ export default function useAuth({
     return `${rootURL}?${queryString.toString()}`
   }
 
-  function check() {
+  async function check() {
     try {
       // setLoading(true)
-      Auth.check().then((e) => {
+      await Auth.check().then((e) => {
         if (setCheckAuth) setCheckAuth(e)
       })
     } finally {
@@ -53,11 +53,11 @@ export default function useAuth({
     }
   }
 
-  function submit() {
+  async function submit() {
     try {
       setLoading(true)
       if (mode === 'login') {
-        Auth.login(user ?? {}).then((e) => {
+        await Auth.login(user ?? {}).then((e) => {
           if (e.error) {
             showError(e.error)
           } else {
@@ -65,7 +65,7 @@ export default function useAuth({
           }
         })
       } else {
-        Auth.create(user ?? {}).then((e) => {
+        await Auth.create(user ?? {}).then((e) => {
           if (e.error) {
             showError(e.error)
           } else {
@@ -78,8 +78,8 @@ export default function useAuth({
     }
   }
 
-  function logout() {
-    Auth.logout()
+  async function logout() {
+    await Auth.logout()
     router.push('/auth')
   }
 

@@ -2,15 +2,21 @@ import logo from '@public/images/logo.png'
 import Image from 'next/image'
 import { ProjectInterface } from '@interfaces/projectInterfaces'
 import UserInterface from '@interfaces/userInterfaces'
+import { ProjectUserInterface } from '@interfaces/projectUserInterfaces'
 
 interface ExportMainInteface {
   project: ProjectInterface
-  user: UserInterface
+  users: UserInterface[]
+  projectUsers: ProjectUserInterface[]
 }
 
-export default function ExportMain({ project, user }: ExportMainInteface) {
+export default function ExportMain({
+  project,
+  users,
+  projectUsers,
+}: ExportMainInteface) {
   return (
-    <div style={{ width: '34rem' }}>
+    <div style={{ width: '34rem', fontFamily: 'sans-serif' }}>
       <div className={'flex flex-col text-black'}>
         <div className={'flex justify-center'}>
           <div className={'mr-3 flex justify-center'}>
@@ -30,15 +36,41 @@ export default function ExportMain({ project, user }: ExportMainInteface) {
       <div className={'mt-7 text-black'}>
         <ul className={'flex flex-col'}>
           <div className={'mb-5'}>
-            <li className={'flex text-xs justify-center'}>
-              <span>{`Emitido por ${user.firstName} ${user.lastName} - ${user.occupation}`}</span>
-            </li>
-            <li className={'flex text-xs justify-center'}>
-              <span>{user.email}</span>
-            </li>
-            <li className={'flex text-xs justify-center'}>
-              <span>{`${user.company}`}</span>
-            </li>
+            {users
+              .filter((user) => {
+                return (
+                  projectUsers.filter((projectUser) => {
+                    return (
+                      projectUser.userID.includes(user._id as string) &&
+                      projectUser.projectID.includes(project._id as string)
+                    )
+                  }).length > 0
+                )
+              })
+              .map((user, index) => {
+                const functionProject =
+                  projectUsers.filter((projectUser) => {
+                    return (
+                      projectUser.userID.includes(user._id as string) &&
+                      projectUser.projectID.includes(project._id as string)
+                    )
+                  })[0].functionProject === 'manager'
+                    ? 'Gestor'
+                    : 'Colaborador'
+                return (
+                  <div key={index}>
+                    <li className={'flex text-xs justify-center'}>
+                      <span>{`${user.firstName} ${user.lastName} (${functionProject}) - ${user.occupation}`}</span>
+                    </li>
+                    <li className={'flex text-xs justify-center'}>
+                      <span>{user.email}</span>
+                    </li>
+                    <li className={'flex text-xs justify-center'}>
+                      <span>{`${user.company}`}</span>
+                    </li>
+                  </div>
+                )
+              })}
           </div>
           <li className={'flex text-xs'}>
             <label className={'font-bold mr-2'}>Projeto: </label>
@@ -47,9 +79,11 @@ export default function ExportMain({ project, user }: ExportMainInteface) {
           <li className={'flex text-xs'}>
             <label className={'font-bold mr-2'}>Descrição: </label>
             <div className={'flex flex-col'}>
-              {project.description.split('\n').map((descriptionLine, index) => (
-                <div key={index}>{descriptionLine}</div>
-              ))}
+              {project?.description
+                ?.split('\n')
+                .map((descriptionLine, index) => (
+                  <div key={index}>{descriptionLine}</div>
+                ))}
             </div>
           </li>
           <li className={'flex text-xs'}>

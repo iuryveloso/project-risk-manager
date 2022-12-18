@@ -31,7 +31,6 @@ export default function Project() {
     emptyprojectUser()
   )
   const [projectUsers, setProjectUsers] = useState<ProjectUserInterface[]>([])
-  const [reRender, setReRender] = useState(0)
   const [risks, setRisks] = useState<RiskInterface[]>([])
   const [actions, setActions] = useState<ActionInterface[]>([])
   const [tasks, setTasks] = useState<TaskInterface[]>([])
@@ -67,10 +66,12 @@ export default function Project() {
     userID: user._id,
     setProjectUser,
     setProjectUsers,
+    getAll,
   })
 
   useEffect(() => {
     get()
+    getAll()
     getLiterallyAllActions()
   }, [])
 
@@ -85,46 +86,52 @@ export default function Project() {
   useEffect(() => {
     getTasks()
     getAllRisks()
+    getAllProjectUserByProject()
   }, [projectID])
 
-  useEffect(() => {
-    getAll()
-    getAllProjectUserByProject()
-  }, [reRender, projectID])
   return (
     <Layout
       page={'Projeto'}
       title={'Informações do Projeto'}
       contentHeader={
-        <HeaderView
-          getChartLevel={getChartLevel}
-          projectID={projectID}
-          generatePDF={generatePDF}
-          project={project}
-          risks={risks}
-          user={user}
-          tasks={tasks}
-          subTasks={subTasks}
-          actions={actions}
-          projectUser={projectUser}
-        />
+        <>
+          {projectUser ? (
+            <HeaderView
+              getChartLevel={getChartLevel}
+              projectID={projectID}
+              generatePDF={generatePDF}
+              project={project}
+              risks={risks}
+              users={users}
+              tasks={tasks}
+              subTasks={subTasks}
+              actions={actions}
+              projectUser={projectUser}
+              projectUsers={projectUsers}
+            />
+          ) : (
+            false
+          )}
+        </>
       }
     >
-      <PageView
-        project={project}
-        user={user}
-        users={users}
-        projectUserSelected={projectUserSelected}
-        setprojectUserSelected={setprojectUserSelected}
-        projectUsers={projectUsers}
-        searchedUsers={searchedUsers}
-        search={search}
-        saveProjectUser={saveProjectUser}
-        deleteProjectUser={deleteProjectUser}
-        reRender={reRender}
-        setReRender={setReRender}
-        projectUser={projectUser}
-      />
+      {projectUser ? (
+        <PageView
+          project={project}
+          user={user}
+          users={users}
+          projectUserSelected={projectUserSelected}
+          setprojectUserSelected={setprojectUserSelected}
+          projectUsers={projectUsers}
+          searchedUsers={searchedUsers}
+          search={search}
+          saveProjectUser={saveProjectUser}
+          deleteProjectUser={deleteProjectUser}
+          projectUser={projectUser}
+        />
+      ) : (
+        false
+      )}
     </Layout>
   )
 }

@@ -12,13 +12,13 @@ interface ExportInteface {
 
 export default function Export({ risk, project, user }: ExportInteface) {
   return (
-    <div style={{ width: '34rem' }}>
+    <div style={{ width: '34rem', fontFamily: 'sans-serif' }}>
       <div className={'flex flex-col text-black'}>
         <div className={'flex justify-center'}>
           <div className={'mr-3 flex justify-center'}>
             <Image src={logo} width={60} height={60} />
           </div>
-          <div className={'flex pt-2'}>
+          <div className={'flex pt-1'}>
             <h1 className={'text-2xl font-bold '}>
               Gerenciador de Riscos de Projetos
             </h1>

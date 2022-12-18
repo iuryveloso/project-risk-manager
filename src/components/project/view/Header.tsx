@@ -21,11 +21,12 @@ interface HeaderInterface {
   tasks: TaskInterface[]
   subTasks: TaskInterface[]
   project: ProjectInterface
-  user: UserInterface
+  users: UserInterface[]
   risks: RiskInterface[]
   actions: ActionInterface[]
   projectID: string
   projectUser: ProjectUserInterface
+  projectUsers: ProjectUserInterface[]
   generatePDF: (
     risk: ReactElement,
     task: ReactElement,
@@ -45,7 +46,8 @@ export default function Header({
   tasks,
   subTasks,
   project,
-  user,
+  users,
+  projectUsers,
   risks,
   actions,
   projectID,
@@ -95,7 +97,11 @@ export default function Header({
                     actions={actions}
                   />,
                   <ExportTask tasks={tasks} subTasks={subTasks} />,
-                  <ExportMain project={project} user={user} />
+                  <ExportMain
+                    project={project}
+                    users={users}
+                    projectUsers={projectUsers}
+                  />
                 )
               }
             >
@@ -109,22 +115,27 @@ export default function Header({
           )}
         </div>
         <div className={'flex w-1/3'}>
-          <Link href={`/projects/${projectID}/risks`}>
-            <button
-              className={`
-                        focus:border-indigo-700 dark:focus:border-indigo-600
-                        text-slate-50 px-3 py-2 mt-2 rounded-lg
-                        flex flex-grow justify-center ml-1
-                        bg-amber-600 hover:bg-amber-700 
-                        dark:bg-amber-500 dark:hover:bg-amber-600
-                    `}
-            >
-              <div className={'flex'}>
-                <span className={'mr-2'}>{alertCircleIcon}</span>
-                <span>Riscos do Projeto</span>
-              </div>
-            </button>
-          </Link>
+          {projectUser?.functionProject === 'manager' ||
+          projectUser?.functionProject === 'collaborator' ? (
+            <Link href={`/projects/${projectID}/risks`}>
+              <button
+                className={`
+                          focus:border-indigo-700 dark:focus:border-indigo-600
+                          text-slate-50 px-3 py-2 mt-2 rounded-lg
+                          flex flex-grow justify-center mx-1
+                          bg-amber-600 hover:bg-amber-700 
+                          dark:bg-amber-500 dark:hover:bg-amber-600
+                      `}
+              >
+                <div className={'flex'}>
+                  <span className={'mr-2'}>{alertCircleIcon}</span>
+                  <span>Riscos do Projeto</span>
+                </div>
+              </button>
+            </Link>
+          ) : (
+            false
+          )}
         </div>
         <div className={'flex w-1/3'}>
           {projectUser?.functionProject === 'manager' ? (
@@ -133,7 +144,7 @@ export default function Header({
                 className={`
                           focus:border-indigo-700 dark:focus:border-indigo-600
                           text-slate-50 px-3 py-2 mt-2 rounded-lg
-                          flex flex-grow justify-center mx-1
+                          flex flex-grow justify-center ml-1
                           bg-teal-600 hover:bg-teal-700 
                           dark:bg-teal-500 dark:hover:bg-teal-600
                           

@@ -38,9 +38,9 @@ export default function useTask({
   parentTaskID,
   taskID,
 }: useTaskInterface) {
-  function getAllTasks() {
+  async function getAllTasks() {
     if (parentTaskID) {
-      Task.listSubTasks(projectID, parentTaskID).then((e) => {
+      await Task.listSubTasks(projectID, parentTaskID).then((e) => {
         if (setTasks) {
           setTasks(e)
         }
@@ -49,7 +49,7 @@ export default function useTask({
         }
       })
     } else {
-      Task.list(projectID).then((e) => {
+      await Task.list(projectID).then((e) => {
         if (setTasks) {
           setTasks(e)
         }
@@ -60,30 +60,30 @@ export default function useTask({
     }
   }
 
-  function getTasks() {
-    Task.list(projectID as string).then((e) => {
+  async function getTasks() {
+    await Task.list(projectID as string).then((e) => {
       if (setTasks) {
         setTasks(e)
       }
     })
-    Task.listAllSubTasks(projectID as string).then((e) => {
+    await Task.listAllSubTasks(projectID as string).then((e) => {
       if (setSubTasks) {
         setSubTasks(e)
       }
     })
   }
 
-  function getParentTask() {
+  async function getParentTask() {
     if (parentTaskID && setParentTask) {
-      Task.get(parentTaskID).then((e) => {
+      await Task.get(parentTaskID).then((e) => {
         setParentTask(e)
       })
     }
   }
 
-  function getTask() {
+  async function getTask() {
     if (taskID && setTask) {
-      Task.get(taskID).then((e) => {
+      await Task.get(taskID).then((e) => {
         setTask(e)
       })
     }
@@ -156,28 +156,28 @@ export default function useTask({
     switchMode('edit')
   }
 
-  function saveTask(task: TaskInterface) {
+  async function saveTask(task: TaskInterface) {
     if (parentTaskID) {
       if (!task._id) {
-        Task.create({ ...task, projectID, parentTaskID }).then((e) =>
+        await Task.create({ ...task, projectID, parentTaskID }).then((e) =>
           setAlert(e)
         )
       } else {
-        Task.update({ ...task, projectID, parentTaskID }).then((e) =>
+        await Task.update({ ...task, projectID, parentTaskID }).then((e) =>
           setAlert(e)
         )
       }
     } else {
       if (!task._id) {
-        Task.create({ ...task, projectID }).then((e) => setAlert(e))
+        await Task.create({ ...task, projectID }).then((e) => setAlert(e))
       } else {
-        Task.update({ ...task, projectID }).then((e) => setAlert(e))
+        await Task.update({ ...task, projectID }).then((e) => setAlert(e))
       }
     }
   }
 
-  function deleteTask(task: TaskInterface) {
-    Task.delete(task._id as string).then((e) => {
+  async function deleteTask(task: TaskInterface) {
+    await Task.delete(task._id as string).then((e) => {
       if (e.error) {
         showError(e.error)
       } else if (e.message) {

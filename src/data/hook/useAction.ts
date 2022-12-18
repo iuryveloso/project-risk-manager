@@ -30,8 +30,8 @@ export default function useAction({
   setMessage,
   setOrder,
 }: useActionInterface) {
-  function getAllActions() {
-    Action.list(riskID as string).then((e) => {
+  async function getAllActions() {
+    await Action.list(riskID as string).then((e) => {
       if (setActions) {
         setActions(e)
       }
@@ -41,16 +41,16 @@ export default function useAction({
     })
   }
 
-  function getLiterallyAllActions() {
-    Action.listAll().then((e) => {
+  async function getLiterallyAllActions() {
+    await Action.listAll().then((e) => {
       if (setActions) {
         setActions(e)
       }
     })
   }
 
-  function getAction() {
-    Action.get(actionID as string).then((e) => {
+  async function getAction() {
+    await Action.get(actionID as string).then((e) => {
       if (setAction) {
         setAction(e)
       }
@@ -132,17 +132,17 @@ export default function useAction({
     switchMode('edit')
   }
 
-  function saveAction(action: ActionInterface) {
+  async function saveAction(action: ActionInterface) {
     console.log(riskID)
     if (!action._id) {
-      Action.create({ ...action, riskID }).then((e) => setAlert(e))
+      await Action.create({ ...action, riskID }).then((e) => setAlert(e))
     } else {
-      Action.update({ ...action, riskID }).then((e) => setAlert(e))
+      await Action.update({ ...action, riskID }).then((e) => setAlert(e))
     }
   }
 
-  function deleteAction(action: ActionInterface) {
-    Action.delete(action._id as string).then((e) => {
+  async function deleteAction(action: ActionInterface) {
+    await Action.delete(action._id as string).then((e) => {
       if (e.error) {
         showError(e.error)
       } else if (e.message) {

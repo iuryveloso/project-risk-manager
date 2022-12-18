@@ -5,9 +5,15 @@ interface EditUserInterface {
   user: UserInterface
   setUser: Dispatch<SetStateAction<UserInterface>>
   mode: 'main' | 'edit' | 'password'
+  update: () => Promise<void>
 }
 
-export default function EditUser({ setUser, user, mode }: EditUserInterface) {
+export default function EditUser({
+  setUser,
+  user,
+  mode,
+  update,
+}: EditUserInterface) {
   const classname = `
     px-3 py-2 rounded-lg border focus:outline-none my-1
     bg-slate-100 dark:bg-slate-600
@@ -26,6 +32,9 @@ export default function EditUser({ setUser, user, mode }: EditUserInterface) {
             type="text"
             className={classname}
             value={user?.email ?? ''}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? update() : false
+            }}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
           />
         </div>
@@ -35,6 +44,9 @@ export default function EditUser({ setUser, user, mode }: EditUserInterface) {
             type="text"
             className={classname}
             value={user?.firstName ?? ''}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? update() : false
+            }}
             onChange={(e) => setUser({ ...user, firstName: e.target.value })}
           />
         </div>
@@ -44,6 +56,9 @@ export default function EditUser({ setUser, user, mode }: EditUserInterface) {
             type="text"
             className={classname}
             value={user?.lastName ?? ''}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? update() : false
+            }}
             onChange={(e) => setUser({ ...user, lastName: e.target.value })}
           />
         </div>
@@ -53,6 +68,9 @@ export default function EditUser({ setUser, user, mode }: EditUserInterface) {
             type="text"
             className={classname}
             value={user?.company ?? ''}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? update() : false
+            }}
             onChange={(e) => setUser({ ...user, company: e.target.value })}
           />
         </div>
@@ -62,6 +80,9 @@ export default function EditUser({ setUser, user, mode }: EditUserInterface) {
             type="text"
             className={classname}
             value={user?.occupation ?? ''}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? update() : false
+            }}
             onChange={(e) => setUser({ ...user, occupation: e.target.value })}
           />
         </div>

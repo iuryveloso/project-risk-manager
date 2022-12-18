@@ -8,6 +8,13 @@ import useRiskTaskData from '@data/hook/useRiskTask'
 import { RiskInterface } from '@interfaces/riskInterfaces'
 import { empty, TaskInterface } from '@interfaces/taskInterfaces'
 import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
+import useUserData from '@data/hook/useUser'
+import useProjectUserData from '@data/hook/useProjectUser'
+import UserInterface, { empty as emptyUser } from '@interfaces/userInterfaces'
+import {
+  ProjectUserInterface,
+  empty as emptyProjectUser,
+} from '@interfaces/projectUserInterfaces'
 import { useRouter } from 'next/router'
 
 export default function Risks() {
@@ -15,6 +22,10 @@ export default function Risks() {
   const [task, setTask] = useState<TaskInterface>(empty())
   const [riskTasks, setRiskTasks] = useState<RiskTaskInterface[]>([])
   const [message, setMessage] = useState<string | null>(null)
+  const [user, setUser] = useState<UserInterface>(emptyUser())
+  const [projectUser, setProjectUser] = useState<ProjectUserInterface>(
+    emptyProjectUser()
+  )
 
   const router = useRouter()
   const projectID = router.query.projectID as string
@@ -36,21 +47,46 @@ export default function Risks() {
     taskID: parentTaskID,
     setRiskTasks,
     setMessage,
+    getAllRisks,
+  })
+
+  const { get } = useUserData({ setUser })
+
+  const { getProjectUser } = useProjectUserData({
+    setProjectUser,
+    userID: user._id,
+    projectID,
   })
 
   useEffect(() => {
-    getTask()
+    get()
+  }, [])
+
+  useEffect(() => {
+    getProjectUser()
+  }, [projectID, user])
+
+  useEffect(() => {
     getAllRisks()
+  }, [projectID])
+
+  useEffect(() => {
     getRiskTaskByTask()
   }, [parentTaskID])
+
+  useEffect(() => {
+    getTask()
+  }, [parentTaskID, projectID])
 
   return (
     <Layout
       page={'Tarefas'}
-      title={`Vincular Riscos à ${task.title}`}
+      title={`Vincular Riscos à ${
+        projectUser?.functionProject === 'manager' ? task.title : '...'
+      }`}
       contentHeader={
         <>
-          {typeTask === '1' ? (
+          {typeTask === '1' && projectUser?.functionProject === 'manager' ? (
             <HeaderRisk
               projectID={projectID}
               message={message}
@@ -62,13 +98,17 @@ export default function Risks() {
         </>
       }
     >
-      <FormRisk
-        risks={risks}
-        saveRiskTask={saveRiskTask}
-        deleteRiskTask={deleteRiskTask}
-        riskTasks={riskTasks}
-        task={task}
-      />
+      {projectUser?.functionProject === 'manager' ? (
+        <FormRisk
+          risks={risks}
+          saveRiskTask={saveRiskTask}
+          deleteRiskTask={deleteRiskTask}
+          riskTasks={riskTasks}
+          task={task}
+        />
+      ) : (
+        false
+      )}
     </Layout>
   )
 }

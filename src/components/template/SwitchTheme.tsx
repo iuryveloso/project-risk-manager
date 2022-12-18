@@ -10,7 +10,7 @@ export default function SwitchTheme() {
             hidden sm:flex items-center cursor-pointer
             bg-gradient-to-r from-yellow-300 to-yellow-600
             hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700
-            w-14 lg:w-24 h-10 p-1 rounded-full
+            w-14 lg:w-24 h-9 p-1 rounded-full
         `}
     >
       <div
@@ -35,7 +35,7 @@ export default function SwitchTheme() {
             hidden sm:flex items-center justify-end cursor-pointer
             bg-gradient-to-r from-slate-500 to-slate-900
             hover:bg-gradient-to-r hover:from-slate-400 hover:to-slate-800
-            w-14 lg:w-24 h-10 p-1 rounded-full
+            w-14 lg:w-24 h-9 p-1 rounded-full
         `}
     >
       <div

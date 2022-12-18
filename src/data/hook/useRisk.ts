@@ -36,8 +36,8 @@ export default function useRisk({
   setMessage,
   setOrder,
 }: useRiskInterface) {
-  function getAllRisks() {
-    Risk.list(projectID as string).then((e) => {
+  async function getAllRisks() {
+    await Risk.list(projectID as string).then((e) => {
       if (setRisks) {
         setRisks(e)
       }
@@ -46,9 +46,9 @@ export default function useRisk({
       }
     })
   }
-  function getRisk() {
+  async function getRisk() {
     if (riskID) {
-      Risk.get(riskID as string).then((e) => {
+      await Risk.get(riskID as string).then((e) => {
         if (setRisk) {
           setRisk(e)
         }
@@ -298,16 +298,16 @@ export default function useRisk({
     switchMode('edit')
   }
 
-  function saveRisk(risk: RiskInterface) {
+  async function saveRisk(risk: RiskInterface) {
     if (!risk._id) {
-      Risk.create({ ...risk, projectID }).then((e) => setAlert(e))
+      await Risk.create({ ...risk, projectID }).then((e) => setAlert(e))
     } else {
-      Risk.update({ ...risk, projectID }).then((e) => setAlert(e))
+      await Risk.update({ ...risk, projectID }).then((e) => setAlert(e))
     }
   }
 
-  function deleteRisk(risk: RiskInterface) {
-    Risk.delete(risk._id as string).then((e) => {
+  async function deleteRisk(risk: RiskInterface) {
+    await Risk.delete(risk._id as string).then((e) => {
       if (e.error) {
         showError(e.error)
       } else if (e.message) {

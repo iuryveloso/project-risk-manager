@@ -17,7 +17,10 @@ export default function FormTask({
   risk,
 }: FormInterface) {
   return (
-    <div className={'mt-5 text-black'} style={{ width: '34rem' }}>
+    <div
+      className={'mt-5 text-black'}
+      style={{ width: '34rem', fontFamily: 'sans-serif' }}
+    >
       <div className={'flex justify-center'}>
         <h3 className={'text-xl'}>Tarefas Vinculadas</h3>
       </div>

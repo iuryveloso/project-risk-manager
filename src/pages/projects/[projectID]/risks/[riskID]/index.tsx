@@ -7,6 +7,7 @@ import useTaskData from '@data/hook/useTask'
 import useRiskTaskData from '@data/hook/useRiskTask'
 import useProjectData from '@data/hook/useProject'
 import useUserData from '@data/hook/useUser'
+import useProjectUserData from '@data/hook/useProjectUser'
 import useActionData from '@data/hook/useAction'
 import {
   RiskInterface,
@@ -22,6 +23,10 @@ import {
 } from '@interfaces/projectInterfaces'
 import { ActionInterface } from '@interfaces/actionInterfaces'
 import UserInterface, { empty as emptyUser } from '@interfaces/userInterfaces'
+import {
+  ProjectUserInterface,
+  empty as emptyProjectUser,
+} from '@interfaces/projectUserInterfaces'
 
 export default function Risk() {
   const router = useRouter()
@@ -36,6 +41,9 @@ export default function Risk() {
   const [project, setProject] = useState<ProjectInterface>(emptyProject())
   const [actions, setActions] = useState<ActionInterface[]>([])
   const [user, setUser] = useState<UserInterface>(emptyUser())
+  const [projectUser, setProjectUser] = useState<ProjectUserInterface>(
+    emptyProjectUser()
+  )
 
   const negativeChartRef: ForwardedRef<chartRefInterface> = useRef(null)
   const positiveChartRef: ForwardedRef<chartRefInterface> = useRef(null)
@@ -50,19 +58,38 @@ export default function Risk() {
 
   const { getRiskTask } = useRiskTaskData({ riskID, setRiskTasks })
 
-  const { getProject } = useProjectData({ projectID, setProject })
+  const { getProject } = useProjectData({ projectID, setProject, projectUser })
 
   const { getAllActions } = useActionData({ riskID, setActions })
 
   const { get } = useUserData({ setUser })
 
+  const { getProjectUser } = useProjectUserData({
+    setProjectUser,
+    userID: user._id,
+    projectID,
+  })
+
   useEffect(() => {
     get()
-    getRisk()
-    getTasks()
+  }, [])
+
+  useEffect(() => {
+    getProjectUser()
+  }, [projectID, user])
+
+  useEffect(() => {
     getProject()
+    getTasks()
+  }, [projectID, projectUser])
+
+  useEffect(() => {
     getAllActions()
     getRiskTask()
+  }, [riskID])
+
+  useEffect(() => {
+    getRisk()
   }, [riskID, projectID])
 
   return (
@@ -70,27 +97,39 @@ export default function Risk() {
       page={'Risco'}
       title={'Informações do Risco'}
       contentHeader={
-        <HeaderView
-          generatePDF={generatePDF}
-          risk={risk}
-          tasks={tasks}
-          subTasks={subTasks}
-          riskTasks={riskTasks}
-          getChartLevel={getChartLevel}
-          negativeChartRef={negativeChartRef}
-          positiveChartRef={positiveChartRef}
-          project={project}
-          actions={actions}
-          user={user}
-        />
+        <>
+          {projectUser ? (
+            <HeaderView
+              generatePDF={generatePDF}
+              risk={risk}
+              tasks={tasks}
+              subTasks={subTasks}
+              riskTasks={riskTasks}
+              getChartLevel={getChartLevel}
+              negativeChartRef={negativeChartRef}
+              positiveChartRef={positiveChartRef}
+              project={project}
+              actions={actions}
+              user={user}
+            />
+          ) : (
+            false
+          )}
+        </>
       }
     >
-      <PageView
-        risk={risk}
-        getChartLevel={getChartLevel}
-        negativeChartRef={negativeChartRef}
-        positiveChartRef={positiveChartRef}
-      />
+      <>
+        {projectUser ? (
+          <PageView
+            risk={risk}
+            getChartLevel={getChartLevel}
+            negativeChartRef={negativeChartRef}
+            positiveChartRef={positiveChartRef}
+          />
+        ) : (
+          false
+        )}
+      </>
     </Layout>
   )
 }

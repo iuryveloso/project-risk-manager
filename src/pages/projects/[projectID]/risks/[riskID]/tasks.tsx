@@ -5,9 +5,16 @@ import Formtask from '@components/risk/task/Form'
 import useRiskData from '@data/hook/useRisk'
 import useTaskData from '@data/hook/useTask'
 import useRiskTaskData from '@data/hook/useRiskTask'
+import useUserData from '@data/hook/useUser'
+import useProjectUserData from '@data/hook/useProjectUser'
 import { RiskInterface, empty } from '@interfaces/riskInterfaces'
 import { TaskInterface } from '@interfaces/taskInterfaces'
 import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
+import UserInterface, { empty as emptyUser } from '@interfaces/userInterfaces'
+import {
+  ProjectUserInterface,
+  empty as emptyProjectUser,
+} from '@interfaces/projectUserInterfaces'
 import { useRouter } from 'next/router'
 
 export default function Risks() {
@@ -16,6 +23,10 @@ export default function Risks() {
   const [subTasks, setSubTasks] = useState<TaskInterface[]>([])
   const [riskTasks, setRiskTasks] = useState<RiskTaskInterface[]>([])
   const [message, setMessage] = useState<string | null>(null)
+  const [user, setUser] = useState<UserInterface>(emptyUser())
+  const [projectUser, setProjectUser] = useState<ProjectUserInterface>(
+    emptyProjectUser()
+  )
 
   const router = useRouter()
   const projectID = router.query.projectID as string
@@ -32,32 +43,62 @@ export default function Risks() {
     riskID,
     setRiskTasks,
     setMessage,
+    getTasks,
+  })
+
+  const { get } = useUserData({ setUser })
+
+  const { getProjectUser } = useProjectUserData({
+    setProjectUser,
+    userID: user._id,
+    projectID,
   })
 
   useEffect(() => {
+    get()
+  }, [])
+
+  useEffect(() => {
+    getProjectUser()
+  }, [projectID, user])
+
+  useEffect(() => {
     getRisk()
-    getTasks()
     getRiskTask()
   }, [riskID])
+
+  useEffect(() => {
+    getTasks()
+  }, [projectID])
 
   return (
     <Layout
       page={'Riscos'}
-      title={`Vincular Tarefas à ${risk.title}`}
+      title={`Vincular Tarefas à ${projectUser ? risk.title : '...'}`}
       contentHeader={
         <>
-          <Headertask projectID={projectID} message={message} />
+          {projectUser ? (
+            <Headertask projectID={projectID} message={message} />
+          ) : (
+            false
+          )}
         </>
       }
     >
-      <Formtask
-        risk={risk}
-        saveRiskTask={saveRiskTask}
-        deleteRiskTask={deleteRiskTask}
-        tasks={tasks}
-        subTasks={subTasks}
-        riskTasks={riskTasks}
-      />
+      <>
+        {projectUser ? (
+          <Formtask
+            risk={risk}
+            saveRiskTask={saveRiskTask}
+            deleteRiskTask={deleteRiskTask}
+            tasks={tasks}
+            subTasks={subTasks}
+            riskTasks={riskTasks}
+          />
+        ) : (
+          false
+        )}
+      </>
     </Layout>
   )
 }

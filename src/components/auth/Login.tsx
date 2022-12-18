@@ -32,6 +32,9 @@ export default function Login({
           type={'email'}
           value={user?.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onKeyDown={(e) => {
+            return e.key === 'Enter' ? submit() : false
+          }}
           placeholder={'seu.email@email.com'}
           required
           className={`
@@ -47,6 +50,9 @@ export default function Login({
             type={type}
             value={user?.password}
             onChange={(e) => setUser({ ...user, password: e.target.value })}
+            onKeyDown={(e) => {
+              return e.key === 'Enter' ? submit() : false
+            }}
             placeholder={'Digite sua senha'}
             required
             className={`

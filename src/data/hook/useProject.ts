@@ -145,6 +145,8 @@ export default function useProject({
     const staticMain = renderToString(main)
     const staticTask = renderToString(task)
     const staticRisk = renderToString(risk)
+    // const multi = 3.2
+    // const doc = new JsPDF('portrait', 'pt', [263 * multi, 186 * multi])
     const doc = new JsPDF('portrait', 'pt', 'a4')
 
     doc

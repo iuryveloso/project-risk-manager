@@ -6,12 +6,14 @@ interface EditPasswordInterface {
   user: UserInterface
   setUser: Dispatch<SetStateAction<UserInterface>>
   mode: 'main' | 'edit' | 'password'
+  updatePassword: () => Promise<void>
 }
 
 export default function EditPassword({
   setUser,
   user,
   mode,
+  updatePassword,
 }: EditPasswordInterface) {
   const [type, setType] = useState<'text' | 'password'>('password')
 
@@ -40,6 +42,9 @@ export default function EditPassword({
               type={type}
               className={classnameInput}
               value={user?.password ?? ''}
+              onKeyDown={(e) => {
+                return e.key === 'Enter' ? updatePassword() : false
+              }}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
             <button
@@ -57,6 +62,9 @@ export default function EditPassword({
               type={type}
               className={classnameInput}
               value={user?.newPassword ?? ''}
+              onKeyDown={(e) => {
+                return e.key === 'Enter' ? updatePassword() : false
+              }}
               onChange={(e) =>
                 setUser({ ...user, newPassword: e.target.value })
               }
@@ -76,6 +84,9 @@ export default function EditPassword({
               type={type}
               className={classnameInput}
               value={user?.confirmPassword ?? ''}
+              onKeyDown={(e) => {
+                return e.key === 'Enter' ? updatePassword() : false
+              }}
               onChange={(e) =>
                 setUser({ ...user, confirmPassword: e.target.value })
               }

@@ -25,7 +25,7 @@ export default function ExportRisk({
     )
   }
   return (
-    <div style={{ width: '34rem' }}>
+    <div style={{ width: '34rem', fontFamily: 'sans-serif' }}>
       <div className={'mt-5 text-black'}>
         <div className={'flex justify-center mb-3'}>
           <h3 className={'text-xl'}>Riscos</h3>

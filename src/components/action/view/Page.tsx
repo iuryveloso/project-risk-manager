@@ -20,7 +20,7 @@ export default function Page({ action }: PageInterface) {
         <div className={'flex text-xl text-justify'}>
           <label className={'font-bold mr-1'}>Descrição: </label>
           <div className={'flex flex-col'}>
-            {action?.description.split('\n').map((descriptionLine, index) => (
+            {action?.description?.split('\n').map((descriptionLine, index) => (
               <div key={index}>{descriptionLine}</div>
             ))}
           </div>

@@ -69,8 +69,18 @@ export default function Profile() {
             <h1 className={'font-medium text-2xl mb-3'}>Dados Pessoais</h1>
 
             <UserData user={user} mode={mode} />
-            <EditUser user={user} setUser={setUser} mode={mode} />
-            <EditPassword user={user} setUser={setUser} mode={mode} />
+            <EditUser
+              user={user}
+              setUser={setUser}
+              mode={mode}
+              update={update}
+            />
+            <EditPassword
+              user={user}
+              setUser={setUser}
+              mode={mode}
+              updatePassword={updatePassword}
+            />
           </div>
         </div>
       </div>

@@ -38,8 +38,8 @@ export default function Form({
               <input
                 type={'text'}
                 value={action.title}
-                onChange={(value) =>
-                  setAction({ ...action, title: value.target.value })
+                onChange={(e) =>
+                  setAction({ ...action, title: e.target.value })
                 }
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveAction(action) : false
@@ -52,8 +52,8 @@ export default function Form({
               <textarea
                 rows={3}
                 value={action.description}
-                onChange={(value) =>
-                  setAction({ ...action, description: value.target.value })
+                onChange={(e) =>
+                  setAction({ ...action, description: e.target.value })
                 }
                 className={`${classNameInput} scrollbar dark:scrollbar-dark`}
               />
@@ -62,12 +62,12 @@ export default function Form({
               <label>Tipo de Abordagem</label>
               <select
                 value={action.type}
-                onChange={(value) => {
+                onChange={(e) => {
                   if (
-                    value.target.value === 'Ameaça' ||
-                    value.target.value === 'Oportunidade'
+                    e.target.value === 'Ameaça' ||
+                    e.target.value === 'Oportunidade'
                   )
-                    setAction({ ...action, type: value.target.value })
+                    setAction({ ...action, type: e.target.value })
                 }}
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveAction(action) : false
@@ -83,8 +83,8 @@ export default function Form({
               <input
                 type={'text'}
                 value={action.responsible}
-                onChange={(value) =>
-                  setAction({ ...action, responsible: value.target.value })
+                onChange={(e) =>
+                  setAction({ ...action, responsible: e.target.value })
                 }
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveAction(action) : false
@@ -96,13 +96,13 @@ export default function Form({
               <label>Status</label>
               <select
                 value={action.status}
-                onChange={(value) => {
+                onChange={(e) => {
                   if (
-                    value.target.value === 'Pendente' ||
-                    value.target.value === 'Em Andamento' ||
-                    value.target.value === 'Concluído'
+                    e.target.value === 'Pendente' ||
+                    e.target.value === 'Em Andamento' ||
+                    e.target.value === 'Concluído'
                   )
-                    setAction({ ...action, status: value.target.value })
+                    setAction({ ...action, status: e.target.value })
                 }}
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveAction(action) : false
@@ -119,8 +119,8 @@ export default function Form({
               <input
                 type={'text'}
                 value={action.observation}
-                onChange={(value) =>
-                  setAction({ ...action, observation: value.target.value })
+                onChange={(e) =>
+                  setAction({ ...action, observation: e.target.value })
                 }
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveAction(action) : false

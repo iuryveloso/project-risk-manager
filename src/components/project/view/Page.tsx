@@ -17,8 +17,6 @@ interface PageInterface {
   search: (searchTag: string) => void
   saveProjectUser: (projectUser: ProjectUserInterface) => void
   deleteProjectUser: (projectUser: ProjectUserInterface) => void
-  reRender: number
-  setReRender: Dispatch<SetStateAction<number>>
   projectUser: ProjectUserInterface
 }
 
@@ -33,8 +31,6 @@ export default function Page({
   search,
   saveProjectUser,
   deleteProjectUser,
-  reRender,
-  setReRender,
   projectUser,
 }: PageInterface) {
   return (
@@ -83,6 +79,9 @@ export default function Page({
       </div>
       {projectUser?.functionProject === 'manager' ? (
         <div>
+          <hr
+            className={'mt-10 border-t border-slate-900 dark:border-slate-500'}
+          />
           <h3 className={'text-2xl font-bold text-center my-5'}>
             Cadastrar Gestores e Colaboradores ao Projeto
           </h3>
@@ -158,7 +157,6 @@ export default function Page({
                       `}
                 onClick={() => {
                   saveProjectUser(projectUserSelected)
-                  setReRender(reRender + 1)
                 }}
               >
                 <div className={'flex items-center'}>
@@ -176,7 +174,6 @@ export default function Page({
                       `}
                 onClick={() => {
                   deleteProjectUser(projectUserSelected)
-                  setReRender(reRender + 1)
                 }}
               >
                 <div className={'flex items-center'}>

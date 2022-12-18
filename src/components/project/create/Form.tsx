@@ -38,8 +38,8 @@ export default function Form({
               <input
                 type={'text'}
                 value={project.title}
-                onChange={(value) =>
-                  setProject({ ...project, title: value.target.value })
+                onChange={(e) =>
+                  setProject({ ...project, title: e.target.value })
                 }
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveProject(project) : false
@@ -52,8 +52,8 @@ export default function Form({
               <textarea
                 rows={3}
                 value={project.description}
-                onChange={(value) =>
-                  setProject({ ...project, description: value.target.value })
+                onChange={(e) =>
+                  setProject({ ...project, description: e.target.value })
                 }
                 className={`${classNameInput} scrollbar dark:scrollbar-dark`}
               />
@@ -63,8 +63,8 @@ export default function Form({
               <input
                 type={'text'}
                 value={project.occupationArea}
-                onChange={(value) =>
-                  setProject({ ...project, occupationArea: value.target.value })
+                onChange={(e) =>
+                  setProject({ ...project, occupationArea: e.target.value })
                 }
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveProject(project) : false
@@ -77,8 +77,8 @@ export default function Form({
               <input
                 type={'date'}
                 value={project.begin}
-                onChange={(value) =>
-                  setProject({ ...project, begin: value.target.value })
+                onChange={(e) =>
+                  setProject({ ...project, begin: e.target.value })
                 }
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveProject(project) : false
@@ -91,8 +91,8 @@ export default function Form({
               <input
                 type={'date'}
                 value={project.end}
-                onChange={(value) =>
-                  setProject({ ...project, end: value.target.value })
+                onChange={(e) =>
+                  setProject({ ...project, end: e.target.value })
                 }
                 onKeyDown={(e) => {
                   return e.key === 'Enter' ? saveProject(project) : false

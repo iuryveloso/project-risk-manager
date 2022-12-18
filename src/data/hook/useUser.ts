@@ -25,15 +25,15 @@ export default function useUser({
   setSearchedUsers,
   setMode,
 }: useUserInterface) {
-  function getAll() {
+  async function getAll() {
     if (setUsers) {
-      User.list().then((e) => setUsers(e))
+      await User.list().then((e) => setUsers(e))
     }
   }
 
-  function get() {
+  async function get() {
     if (setUser) {
-      User.get().then((e) => setUser(e))
+      await User.get().then((e) => setUser(e))
     }
   }
 
@@ -57,8 +57,8 @@ export default function useUser({
     }
   }
 
-  function update() {
-    User.update(user ?? {}).then((e) => {
+  async function update() {
+    await User.update(user ?? {}).then((e) => {
       if (e.error) {
         showError(e.error)
       } else if (e.message) {
@@ -67,8 +67,8 @@ export default function useUser({
       }
     })
   }
-  function updateAvatar(avatar: File) {
-    User.updateAvatar(avatar ?? {}).then((e) => {
+  async function updateAvatar(avatar: File) {
+    await User.updateAvatar(avatar ?? {}).then((e) => {
       if (e.error) {
         showError(e.error)
       } else if (e.message) {
@@ -76,8 +76,8 @@ export default function useUser({
       }
     })
   }
-  function updatePassword() {
-    User.updatePassword(user ?? {}).then((e) => {
+  async function updatePassword() {
+    await User.updatePassword(user ?? {}).then((e) => {
       if (e.error) {
         showError(e.error)
       } else if (e.message) {
