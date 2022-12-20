@@ -36,25 +36,31 @@ export default function useRiskTask({
   }
 
   async function saveRiskTask(riskTask: RiskTaskInterface) {
-    await RiskTask.create(riskTask).then((e) => showMessage(e.message))
+    await RiskTask.create(riskTask).then((e) => {
+      if (getAllRisks) showMessage('Risco adicionado com sucesso!')
+      else showMessage(e.message)
+    })
     if (getTasks) {
-      getTasks()
-      getRiskTask()
+      await getTasks()
+      await getRiskTask()
     }
     if (getAllRisks) {
-      getRiskTaskByTask()
-      getAllRisks()
+      await getRiskTaskByTask()
+      await getAllRisks()
     }
   }
   async function deleteRiskTask(riskTask: RiskTaskInterface) {
-    await RiskTask.delete(riskTask).then((e) => showMessage(e.message))
+    await RiskTask.delete(riskTask).then((e) => {
+      if (getAllRisks) showMessage('Risco removido com sucesso!')
+      else showMessage(e.message)
+    })
     if (getTasks) {
-      getTasks()
-      getRiskTask()
+      await getTasks()
+      await getRiskTask()
     }
     if (getAllRisks) {
-      getRiskTaskByTask()
-      getAllRisks()
+      await getRiskTaskByTask()
+      await getAllRisks()
     }
   }
   function showMessage(message: any, seconds = 3) {
