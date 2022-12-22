@@ -2,7 +2,7 @@ import UserInterface from '@interfaces/userInterfaces'
 
 class UserApi {
   public async list() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/user`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/user`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -11,7 +11,7 @@ class UserApi {
   }
 
   public async get() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/user/get`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/user/get`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -20,7 +20,7 @@ class UserApi {
   }
 
   public async update(user: UserInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/user`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/user`
     const response = await fetch(url, {
       method: 'PATCH',
       credentials: 'include',
@@ -31,7 +31,7 @@ class UserApi {
   }
 
   public async updateAvatar(avatar: File) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/user/avatar`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/user/avatar`
     const userFormData = new FormData()
     userFormData.append('avatar', avatar ?? '')
     const response = await fetch(url, {
@@ -43,7 +43,7 @@ class UserApi {
   }
 
   public async updatePassword(user: UserInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/user/password`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/user/password`
     const response = await fetch(url, {
       method: 'PATCH',
       credentials: 'include',

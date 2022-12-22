@@ -24,7 +24,7 @@ export default function SearchedUser({
 
   useEffect(() => {
     fetch(
-      `${process.env.NEXT_PUBLIC_HOSTNAME}/user/avatar/${searchedUser.avatar}`,
+      `${process.env.NEXT_PUBLIC_API_NAME}/user/avatar/${searchedUser.avatar}`,
       {
         method: 'GET',
         credentials: 'include',

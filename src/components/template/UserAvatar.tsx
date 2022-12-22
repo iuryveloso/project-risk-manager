@@ -19,7 +19,7 @@ export default function UserAvatar({
   const [image, setImage] = useState(avatar)
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/user/avatar`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_NAME}/user/avatar`, {
       method: 'GET',
       credentials: 'include',
     })

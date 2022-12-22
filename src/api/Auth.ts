@@ -2,13 +2,13 @@ import UserInterface from '@interfaces/userInterfaces'
 
 class AuthApi {
   public async check() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/check`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/auth/check`
     const response = await fetch(url, { method: 'GET', credentials: 'include' })
     return response.status === 200
   }
 
   public async create(user: UserInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/auth`
     const userFormData = new FormData()
     userFormData.append('firstName', user.firstName ?? '')
     userFormData.append('lastName', user.lastName ?? '')
@@ -25,7 +25,7 @@ class AuthApi {
   }
 
   public async login(user: UserInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/login`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/auth/login`
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
@@ -36,7 +36,7 @@ class AuthApi {
   }
 
   public async logout() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/auth/logout`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/auth/logout`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',

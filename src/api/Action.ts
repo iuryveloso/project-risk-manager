@@ -2,7 +2,7 @@ import { ActionInterface } from '@interfaces/actionInterfaces'
 
 class ActionApi {
   public async list(riskID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/${riskID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/action/${riskID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -11,7 +11,7 @@ class ActionApi {
   }
 
   public async listAll() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/action`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -20,7 +20,7 @@ class ActionApi {
   }
 
   public async get(actionID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/get/${actionID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/action/get/${actionID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -29,7 +29,7 @@ class ActionApi {
   }
 
   public async create(action: ActionInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/action`
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
@@ -40,7 +40,7 @@ class ActionApi {
   }
 
   public async update(action: ActionInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/${action._id}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/action/${action._id}`
     const response = await fetch(url, {
       method: 'PATCH',
       credentials: 'include',
@@ -51,7 +51,7 @@ class ActionApi {
   }
 
   public async delete(actionID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/action/${actionID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/action/${actionID}`
     const response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include',

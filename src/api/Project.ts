@@ -2,7 +2,7 @@ import { ProjectInterface } from '@interfaces/projectInterfaces'
 
 class ProjectApi {
   public async list() {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/project`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -11,7 +11,7 @@ class ProjectApi {
   }
 
   public async get(projectID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project/${projectID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/project/${projectID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -20,7 +20,7 @@ class ProjectApi {
   }
 
   public async create(project: ProjectInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/project`
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
@@ -31,7 +31,7 @@ class ProjectApi {
   }
 
   public async update(project: ProjectInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project/${project._id}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/project/${project._id}`
     const response = await fetch(url, {
       method: 'PATCH',
       credentials: 'include',
@@ -42,7 +42,7 @@ class ProjectApi {
   }
 
   public async delete(projectID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/project/${projectID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/project/${projectID}`
     const response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include',

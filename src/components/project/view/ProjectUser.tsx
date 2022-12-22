@@ -26,7 +26,7 @@ export default function ProjectUserComponent({
 
   useEffect(() => {
     fetch(
-      `${process.env.NEXT_PUBLIC_HOSTNAME}/user/avatar/${userBinded.avatar}`,
+      `${process.env.NEXT_PUBLIC_API_NAME}/user/avatar/${userBinded.avatar}`,
       {
         method: 'GET',
         credentials: 'include',

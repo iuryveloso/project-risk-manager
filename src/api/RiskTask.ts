@@ -2,7 +2,7 @@ import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
 
 class RiskTaskApi {
   public async list(riskID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/riskTask/${riskID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/riskTask/${riskID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -11,7 +11,7 @@ class RiskTaskApi {
   }
 
   public async listByTask(taskID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/riskTask/task/${taskID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/riskTask/task/${taskID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -20,7 +20,7 @@ class RiskTaskApi {
   }
 
   public async create(riskTask: RiskTaskInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/riskTask`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/riskTask`
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
@@ -31,7 +31,7 @@ class RiskTaskApi {
   }
 
   public async delete(riskTask: RiskTaskInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/riskTask/${riskTask.riskID}/${riskTask.taskID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/riskTask/${riskTask.riskID}/${riskTask.taskID}`
     const response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include',

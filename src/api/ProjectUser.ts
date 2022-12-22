@@ -2,7 +2,7 @@ import { ProjectUserInterface } from '@interfaces/projectUserInterfaces'
 
 class RiskTaskApi {
   public async list(userID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/projectUser/${userID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/projectUser/${userID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -11,7 +11,7 @@ class RiskTaskApi {
   }
 
   public async listByProject(projectID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/projectUser/project/${projectID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/projectUser/project/${projectID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -20,7 +20,7 @@ class RiskTaskApi {
   }
 
   public async get(userID: string, projectID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/projectUser/get/${userID}/${projectID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/projectUser/get/${userID}/${projectID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -29,7 +29,7 @@ class RiskTaskApi {
   }
 
   public async create(projectUser: ProjectUserInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/projectUser`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/projectUser`
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
@@ -40,7 +40,7 @@ class RiskTaskApi {
   }
 
   public async delete(projectUser: ProjectUserInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/projectUser/${projectUser.userID}/${projectUser.projectID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/projectUser/${projectUser.userID}/${projectUser.projectID}`
     const response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include',

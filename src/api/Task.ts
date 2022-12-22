@@ -2,7 +2,7 @@ import { TaskInterface } from '@interfaces/taskInterfaces'
 
 class TaskApi {
   public async list(projectID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/${projectID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/task/${projectID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -11,7 +11,7 @@ class TaskApi {
   }
 
   public async listSubTasks(projectID: string, parentTaskID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/${projectID}/${parentTaskID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/task/${projectID}/${parentTaskID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -20,7 +20,7 @@ class TaskApi {
   }
 
   public async listAllSubTasks(projectID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/subtasks/${projectID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/task/subtasks/${projectID}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -29,7 +29,7 @@ class TaskApi {
   }
 
   public async get(id: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/get/${id}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/task/get/${id}`
     const response = await fetch(url, {
       method: 'GET',
       credentials: 'include',
@@ -38,7 +38,7 @@ class TaskApi {
   }
 
   public async create(task: TaskInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/task`
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
@@ -49,7 +49,7 @@ class TaskApi {
   }
 
   public async update(task: TaskInterface) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/${task._id}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/task/${task._id}`
     const response = await fetch(url, {
       method: 'PATCH',
       credentials: 'include',
@@ -60,7 +60,7 @@ class TaskApi {
   }
 
   public async delete(taskID: string) {
-    const url = `${process.env.NEXT_PUBLIC_HOSTNAME}/task/${taskID}`
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/task/${taskID}`
     const response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include',
