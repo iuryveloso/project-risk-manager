@@ -27,7 +27,7 @@ export default function Risk() {
 
   const { getAction } = useActionData({ actionID, setAction })
 
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   const { getProjectUser } = useProjectUserData({
     setProjectUser,
@@ -36,7 +36,7 @@ export default function Risk() {
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
 
   useEffect(() => {

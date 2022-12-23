@@ -38,7 +38,7 @@ export default function useTask({
   parentTaskID,
   taskID,
 }: useTaskInterface) {
-  async function getAllTasks() {
+  async function listTasksOrSubtasks() {
     if (parentTaskID) {
       await Task.listSubTasks(projectID, parentTaskID).then((e) => {
         if (setTasks) {
@@ -60,7 +60,7 @@ export default function useTask({
     }
   }
 
-  async function getTasks() {
+  async function listTasksAndSubtasks() {
     await Task.list(projectID as string).then((e) => {
       if (setTasks) {
         setTasks(e)
@@ -182,7 +182,7 @@ export default function useTask({
         showError(e.error)
       } else if (e.message) {
         showMessage(e.message)
-        getAllTasks()
+        listTasksOrSubtasks()
       }
     })
   }
@@ -243,7 +243,7 @@ export default function useTask({
     if (setMode) {
       setMode(mode)
       if (mode === 'main') {
-        getAllTasks()
+        listTasksOrSubtasks()
       }
     }
   }
@@ -251,14 +251,14 @@ export default function useTask({
     newTask,
     selectTask,
     getTask,
-    getTasks,
+    listTasksAndSubtasks,
     saveTask,
     deleteTask,
     back,
     search,
     switchMode,
     getParentTask,
-    getAllTasks,
+    listTasksOrSubtasks,
     orderBy,
   }
 }

@@ -43,7 +43,7 @@ export default function HeaderEdit({
         <div className={'flex justify-end w-1/3'}>
           <button
             onClick={() => {
-              update()
+              updateUser()
             }}
             className={`
                             focus:border-indigo-700 dark:focus:border-indigo-600

@@ -30,7 +30,7 @@ export default function useAction({
   setMessage,
   setOrder,
 }: useActionInterface) {
-  async function getAllActions() {
+  async function listActions() {
     await Action.list(riskID as string).then((e) => {
       if (setActions) {
         setActions(e)
@@ -41,7 +41,7 @@ export default function useAction({
     })
   }
 
-  async function getLiterallyAllActions() {
+  async function listAllActions() {
     await Action.listAll().then((e) => {
       if (setActions) {
         setActions(e)
@@ -147,7 +147,7 @@ export default function useAction({
         showError(e.error)
       } else if (e.message) {
         showMessage(e.message)
-        getAllActions()
+        listActions()
       }
     })
   }
@@ -198,7 +198,7 @@ export default function useAction({
     if (setMode) {
       setMode(mode)
       if (mode === 'main') {
-        getAllActions()
+        listActions()
       }
     }
   }
@@ -210,8 +210,8 @@ export default function useAction({
     search,
     switchMode,
     getAction,
-    getAllActions,
-    getLiterallyAllActions,
+    listActions,
+    listAllActions,
     orderBy,
   }
 }

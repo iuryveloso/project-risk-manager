@@ -32,7 +32,7 @@ export default function Projects() {
     direction: 'asc',
   })
 
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   const {
     newProject,
@@ -41,7 +41,7 @@ export default function Projects() {
     deleteProject,
     switchMode,
     saveProject,
-    getAllProjects,
+    listProjects,
     orderBy,
   } = useProjectData({
     projectUsers,
@@ -56,19 +56,19 @@ export default function Projects() {
     setOrder,
   })
 
-  const { getAllProjectUser } = useProjectUserData({
+  const { listProjectUsers } = useProjectUserData({
     setProjectUsers,
     userID: user._id,
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
   useEffect(() => {
-    getAllProjectUser()
+    listProjectUsers()
   }, [user])
   useEffect(() => {
-    getAllProjects()
+    listProjects()
   }, [projectUsers])
 
   useEffect(() => {

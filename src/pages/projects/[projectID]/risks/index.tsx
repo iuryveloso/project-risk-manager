@@ -48,7 +48,7 @@ export default function Risks() {
     deleteRisk,
     switchMode,
     saveRisk,
-    getAllRisks,
+    listRisks,
     orderBy,
     getChartLevel,
   } = useRiskData({
@@ -64,7 +64,7 @@ export default function Risks() {
     setOrder,
   })
 
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   const { getProjectUser } = useProjectUserData({
     setProjectUser,
@@ -73,11 +73,11 @@ export default function Risks() {
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
 
   useEffect(() => {
-    getAllRisks()
+    listRisks()
   }, [projectID])
 
   useEffect(() => {

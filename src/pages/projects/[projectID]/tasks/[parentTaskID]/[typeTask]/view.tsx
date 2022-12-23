@@ -31,7 +31,7 @@ export default function View() {
     setTask,
   })
 
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   const { getProjectUser } = useProjectUserData({
     setProjectUser,
@@ -40,7 +40,7 @@ export default function View() {
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
 
   useEffect(() => {

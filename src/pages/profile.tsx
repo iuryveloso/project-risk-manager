@@ -16,7 +16,7 @@ export default function Profile() {
   const [message, setMessage] = useState<string | null>(null)
   const [user, setUser] = useState<UserInterface>(empty())
 
-  const { get, updateAvatar, update, updatePassword } = useUser({
+  const { getUser, updateAvatar, updateUser, updatePassword } = useUser({
     user,
     setUser,
     setMessage,
@@ -25,7 +25,7 @@ export default function Profile() {
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [mode])
 
   return (
@@ -45,7 +45,7 @@ export default function Profile() {
             setMode={setMode}
             error={error}
             message={message}
-            update={update}
+            update={updateUser}
           />
           <HeaderPassword
             mode={mode}
@@ -73,7 +73,7 @@ export default function Profile() {
               user={user}
               setUser={setUser}
               mode={mode}
-              update={update}
+              update={updateUser}
             />
             <EditPassword
               user={user}

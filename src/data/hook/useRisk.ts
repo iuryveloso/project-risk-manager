@@ -36,7 +36,7 @@ export default function useRisk({
   setMessage,
   setOrder,
 }: useRiskInterface) {
-  async function getAllRisks() {
+  async function listRisks() {
     await Risk.list(projectID as string).then((e) => {
       if (setRisks) {
         setRisks(e)
@@ -312,7 +312,7 @@ export default function useRisk({
         showError(e.error)
       } else if (e.message) {
         showMessage(e.message)
-        getAllRisks()
+        listRisks()
       }
     })
   }
@@ -362,7 +362,7 @@ export default function useRisk({
     if (setMode) {
       setMode(mode)
       if (mode === 'main') {
-        getAllRisks()
+        listRisks()
       }
     }
   }
@@ -375,7 +375,7 @@ export default function useRisk({
     search,
     switchMode,
     getRisk,
-    getAllRisks,
+    listRisks,
     orderBy,
     getChartLevel,
   }

@@ -32,7 +32,7 @@ export default function Risks() {
   const parentTaskID = router.query.parentTaskID as string
   const typeTask = router.query.typeTask as string
 
-  const { getAllRisks } = useRiskData({
+  const { listRisks } = useRiskData({
     projectID,
     setRisks,
   })
@@ -47,10 +47,10 @@ export default function Risks() {
     taskID: parentTaskID,
     setRiskTasks,
     setMessage,
-    getAllRisks,
+    listRisks,
   })
 
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   const { getProjectUser } = useProjectUserData({
     setProjectUser,
@@ -59,7 +59,7 @@ export default function Risks() {
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Risks() {
   }, [projectID, user])
 
   useEffect(() => {
-    getAllRisks()
+    listRisks()
   }, [projectID])
 
   useEffect(() => {

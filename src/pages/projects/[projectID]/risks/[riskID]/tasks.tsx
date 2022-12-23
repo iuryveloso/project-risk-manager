@@ -37,16 +37,20 @@ export default function Risks() {
     setRisk,
   })
 
-  const { getTasks } = useTaskData({ projectID, setTasks, setSubTasks })
+  const { listTasksAndSubtasks } = useTaskData({
+    projectID,
+    setTasks,
+    setSubTasks,
+  })
 
   const { getRiskTask, saveRiskTask, deleteRiskTask } = useRiskTaskData({
     riskID,
     setRiskTasks,
     setMessage,
-    getTasks,
+    listTasksAndSubtasks,
   })
 
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   const { getProjectUser } = useProjectUserData({
     setProjectUser,
@@ -55,7 +59,7 @@ export default function Risks() {
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
 
   useEffect(() => {
@@ -68,7 +72,7 @@ export default function Risks() {
   }, [riskID])
 
   useEffect(() => {
-    getTasks()
+    listTasksAndSubtasks()
   }, [projectID])
 
   return (

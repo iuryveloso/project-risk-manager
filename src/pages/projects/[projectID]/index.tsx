@@ -43,13 +43,17 @@ export default function Project() {
     projectUser,
   })
 
-  const { getAllRisks, getChartLevel } = useRiskData({ setRisks, projectID })
+  const { listRisks, getChartLevel } = useRiskData({ setRisks, projectID })
 
-  const { getLiterallyAllActions } = useActionData({ setActions })
+  const { listAllActions } = useActionData({ setActions })
 
-  const { getTasks } = useTaskData({ setTasks, setSubTasks, projectID })
+  const { listTasksAndSubtasks } = useTaskData({
+    setTasks,
+    setSubTasks,
+    projectID,
+  })
 
-  const { get, getAll, search } = useUserData({
+  const { getUser, listUsers, search } = useUserData({
     setUser,
     setUsers,
     users,
@@ -57,7 +61,7 @@ export default function Project() {
   })
 
   const {
-    getAllProjectUserByProject,
+    listProjectUsersByProject,
     saveProjectUser,
     deleteProjectUser,
     getProjectUser,
@@ -66,13 +70,13 @@ export default function Project() {
     userID: user._id,
     setProjectUser,
     setProjectUsers,
-    getAll,
+    listUsers,
   })
 
   useEffect(() => {
-    get()
-    getAll()
-    getLiterallyAllActions()
+    getUser()
+    listUsers()
+    listAllActions()
   }, [])
 
   useEffect(() => {
@@ -84,9 +88,9 @@ export default function Project() {
   }, [projectID, projectUser])
 
   useEffect(() => {
-    getTasks()
-    getAllRisks()
-    getAllProjectUserByProject()
+    listTasksAndSubtasks()
+    listRisks()
+    listProjectUsersByProject()
   }, [projectID])
 
   return (

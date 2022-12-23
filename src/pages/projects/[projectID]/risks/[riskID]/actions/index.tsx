@@ -49,7 +49,7 @@ export default function Actions() {
     deleteAction,
     switchMode,
     saveAction,
-    getAllActions,
+    listActions,
     orderBy,
   } = useActionData({
     riskID,
@@ -64,7 +64,7 @@ export default function Actions() {
     setOrder,
   })
 
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   const { getProjectUser } = useProjectUserData({
     setProjectUser,
@@ -73,7 +73,7 @@ export default function Actions() {
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export default function Actions() {
   }, [projectID, user])
 
   useEffect(() => {
-    getAllActions()
+    listActions()
   }, [riskID])
 
   useEffect(() => {

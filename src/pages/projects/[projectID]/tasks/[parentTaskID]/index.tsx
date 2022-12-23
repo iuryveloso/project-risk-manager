@@ -51,7 +51,7 @@ export default function subTasks() {
     switchMode,
     saveTask,
     getParentTask,
-    getAllTasks,
+    listTasksOrSubtasks,
     orderBy,
   } = useTaskData({
     setMode,
@@ -69,7 +69,7 @@ export default function subTasks() {
     parentTaskID,
   })
 
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   const { getProjectUser } = useProjectUserData({
     setProjectUser,
@@ -78,11 +78,11 @@ export default function subTasks() {
   })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
 
   useEffect(() => {
-    getAllTasks()
+    listTasksOrSubtasks()
     getParentTask()
   }, [projectID, parentTaskID])
 

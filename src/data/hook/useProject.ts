@@ -35,8 +35,8 @@ export default function useProject({
   setMessage,
   setOrder,
 }: useProjectInterface) {
-  function getAllProjects() {
-    Project.list().then((e: ProjectInterface[]) => {
+  async function listProjects() {
+    await Project.list().then((e: ProjectInterface[]) => {
       if (projectUsers) {
         const projectsFiltered = e
           .filter((project) => {
@@ -64,9 +64,9 @@ export default function useProject({
       }
     })
   }
-  function getProject() {
+  async function getProject() {
     if (projectID && projectUser) {
-      Project.get(projectID as string).then((e: ProjectInterface) => {
+      await Project.get(projectID as string).then((e: ProjectInterface) => {
         if (setProject && projectUser.projectID === e._id) {
           setProject(e)
         }
@@ -145,8 +145,6 @@ export default function useProject({
     const staticMain = renderToString(main)
     const staticTask = renderToString(task)
     const staticRisk = renderToString(risk)
-    // const multi = 3.2
-    // const doc = new JsPDF('portrait', 'pt', [263 * multi, 186 * multi])
     const doc = new JsPDF('portrait', 'pt', 'a4')
 
     doc
@@ -166,21 +164,21 @@ export default function useProject({
     switchMode('edit')
   }
 
-  function saveProject(project: ProjectInterface) {
+  async function saveProject(project: ProjectInterface) {
     if (!project._id) {
-      Project.create(project).then((e) => setAlert(e))
+      await Project.create(project).then((e) => setAlert(e))
     } else {
-      Project.update(project).then((e) => setAlert(e))
+      await Project.update(project).then((e) => setAlert(e))
     }
   }
 
-  function deleteProject(project: ProjectInterface) {
-    Project.delete(project._id as string).then((e) => {
+  async function deleteProject(project: ProjectInterface) {
+    await Project.delete(project._id as string).then((e) => {
       if (e.error) {
         showError(e.error)
       } else if (e.message) {
         showMessage(e.message)
-        getAllProjects()
+        listProjects()
       }
     })
   }
@@ -231,7 +229,7 @@ export default function useProject({
     if (setMode) {
       setMode(mode)
       if (mode === 'main') {
-        getAllProjects()
+        listProjects()
       }
     }
   }
@@ -244,7 +242,7 @@ export default function useProject({
     search,
     switchMode,
     getProject,
-    getAllProjects,
+    listProjects,
     orderBy,
   }
 }

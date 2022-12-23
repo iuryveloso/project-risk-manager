@@ -33,7 +33,7 @@ export default function EditUser({
             className={classname}
             value={user?.email ?? ''}
             onKeyDown={(e) => {
-              return e.key === 'Enter' ? update() : false
+              return e.key === 'Enter' ? updateUser() : false
             }}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
           />
@@ -45,7 +45,7 @@ export default function EditUser({
             className={classname}
             value={user?.firstName ?? ''}
             onKeyDown={(e) => {
-              return e.key === 'Enter' ? update() : false
+              return e.key === 'Enter' ? updateUser() : false
             }}
             onChange={(e) => setUser({ ...user, firstName: e.target.value })}
           />
@@ -57,7 +57,7 @@ export default function EditUser({
             className={classname}
             value={user?.lastName ?? ''}
             onKeyDown={(e) => {
-              return e.key === 'Enter' ? update() : false
+              return e.key === 'Enter' ? updateUser() : false
             }}
             onChange={(e) => setUser({ ...user, lastName: e.target.value })}
           />
@@ -69,7 +69,7 @@ export default function EditUser({
             className={classname}
             value={user?.company ?? ''}
             onKeyDown={(e) => {
-              return e.key === 'Enter' ? update() : false
+              return e.key === 'Enter' ? updateUser() : false
             }}
             onChange={(e) => setUser({ ...user, company: e.target.value })}
           />
@@ -81,7 +81,7 @@ export default function EditUser({
             className={classname}
             value={user?.occupation ?? ''}
             onKeyDown={(e) => {
-              return e.key === 'Enter' ? update() : false
+              return e.key === 'Enter' ? updateUser() : false
             }}
             onChange={(e) => setUser({ ...user, occupation: e.target.value })}
           />

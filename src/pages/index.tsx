@@ -7,10 +7,10 @@ import Link from 'next/link'
 
 const Home: NextPage = () => {
   const [user, setUser] = useState<UserInterface>(empty())
-  const { get } = useUserData({ setUser })
+  const { getUser } = useUserData({ setUser })
 
   useEffect(() => {
-    get()
+    getUser()
   }, [])
 
   return (

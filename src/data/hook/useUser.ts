@@ -1,5 +1,5 @@
 import User from '@api/User'
-import UserInterface from '@interfaces/userInterfaces'
+import UserInterface, { empty } from '@interfaces/userInterfaces'
 import { Dispatch, SetStateAction } from 'react'
 
 interface useUserInterface {
@@ -25,13 +25,13 @@ export default function useUser({
   setSearchedUsers,
   setMode,
 }: useUserInterface) {
-  async function getAll() {
+  async function listUsers() {
     if (setUsers) {
       await User.list().then((e) => setUsers(e))
     }
   }
 
-  async function get() {
+  async function getUser() {
     if (setUser) {
       await User.get().then((e) => setUser(e))
     }
@@ -57,7 +57,7 @@ export default function useUser({
     }
   }
 
-  async function update() {
+  async function updateUser() {
     await User.update(user ?? {}).then((e) => {
       if (e.error) {
         showError(e.error)
@@ -77,7 +77,7 @@ export default function useUser({
     })
   }
   async function updatePassword() {
-    await User.updatePassword(user ?? {}).then((e) => {
+    await User.updatePassword(user ?? empty()).then((e) => {
       if (e.error) {
         showError(e.error)
       } else if (e.message) {
@@ -100,10 +100,10 @@ export default function useUser({
     }
   }
   return {
-    getAll,
+    listUsers,
     search,
-    get,
-    update,
+    getUser,
+    updateUser,
     updateAvatar,
     updatePassword,
   }

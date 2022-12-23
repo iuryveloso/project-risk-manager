@@ -5,8 +5,8 @@ import { RiskTaskInterface } from '@interfaces/riskTaskInterfaces'
 interface useRiskTaskInterface {
   riskID?: string
   taskID?: string
-  getTasks?: () => Promise<void>
-  getAllRisks?: () => Promise<void>
+  listTasksAndSubtasks?: () => Promise<void>
+  listRisks?: () => Promise<void>
   setRiskTasks?: Dispatch<SetStateAction<RiskTaskInterface[]>>
   setMessage?: Dispatch<SetStateAction<string | null>>
 }
@@ -14,8 +14,8 @@ interface useRiskTaskInterface {
 export default function useRiskTask({
   riskID,
   taskID,
-  getTasks,
-  getAllRisks,
+  listTasksAndSubtasks,
+  listRisks,
   setRiskTasks,
   setMessage,
 }: useRiskTaskInterface) {
@@ -37,30 +37,30 @@ export default function useRiskTask({
 
   async function saveRiskTask(riskTask: RiskTaskInterface) {
     await RiskTask.create(riskTask).then((e) => {
-      if (getAllRisks) showMessage('Risco adicionado com sucesso!')
+      if (listRisks) showMessage('Risco adicionado com sucesso!')
       else showMessage(e.message)
     })
-    if (getTasks) {
-      await getTasks()
+    if (listTasksAndSubtasks) {
+      await listTasksAndSubtasks()
       await getRiskTask()
     }
-    if (getAllRisks) {
+    if (listRisks) {
       await getRiskTaskByTask()
-      await getAllRisks()
+      await listRisks()
     }
   }
   async function deleteRiskTask(riskTask: RiskTaskInterface) {
     await RiskTask.delete(riskTask).then((e) => {
-      if (getAllRisks) showMessage('Risco removido com sucesso!')
+      if (listRisks) showMessage('Risco removido com sucesso!')
       else showMessage(e.message)
     })
-    if (getTasks) {
-      await getTasks()
+    if (listTasksAndSubtasks) {
+      await listTasksAndSubtasks()
       await getRiskTask()
     }
-    if (getAllRisks) {
+    if (listRisks) {
       await getRiskTaskByTask()
-      await getAllRisks()
+      await listRisks()
     }
   }
   function showMessage(message: any, seconds = 3) {
