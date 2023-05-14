@@ -104,6 +104,7 @@ export default function useProject({
           .toUpperCase()}${occupationAreaGenerated.slice(1)}`,
         begin: `${beginYear}-${beginMonth}-${beginDay}`,
         end: `${endYear}-${endMonth}-${endDay}`,
+        cost: +faker.finance.amount(),
       }
       setProject(project)
       switchMode('create')
@@ -115,22 +116,32 @@ export default function useProject({
     direction: OrderInterface['direction']
   ) {
     if (setProjects && projects && setOrder) {
+      function getSortNumber(a: string | number, b: string | number) {
+        if (a > b) {
+          if (direction === 'asc') {
+            return 1
+          } else {
+            return -1
+          }
+        } else if (a < b) {
+          if (direction === 'desc') {
+            return 1
+          } else {
+            return -1
+          }
+        } else {
+          return 0
+        }
+      }
       setProjects(
         projects.sort((a, b) => {
-          if (a[column].toLowerCase() > b[column].toLowerCase()) {
-            if (direction === 'asc') {
-              return 1
-            } else {
-              return -1
-            }
-          } else if (a[column].toLowerCase() < b[column].toLowerCase()) {
-            if (direction === 'desc') {
-              return 1
-            } else {
-              return -1
-            }
+          if (column !== 'cost') {
+            return getSortNumber(
+              a[column].toLowerCase(),
+              b[column].toLowerCase()
+            )
           } else {
-            return 0
+            return getSortNumber(a.cost, b.cost)
           }
         })
       )

@@ -32,7 +32,10 @@ export default function Risk() {
   const router = useRouter()
   const projectID = router.query.projectID as string
   const riskID = router.query.riskID as string
-
+  const [higherImpacts, setHigherImpacts] = useState<{
+    negative: number
+    positive: number
+  }>({ negative: 0, positive: 0 })
   const [risk, setRisk] = useState<RiskInterface>(emptyRisk())
   const [subTasks, setSubTasks] = useState<TaskInterface[]>([])
   const [riskTasks, setRiskTasks] = useState<RiskTaskInterface[]>([])
@@ -48,11 +51,14 @@ export default function Risk() {
   const negativeChartRef: ForwardedRef<chartRefInterface> = useRef(null)
   const positiveChartRef: ForwardedRef<chartRefInterface> = useRef(null)
 
-  const { getChartLevel, generatePDF, getRisk } = useRiskData({
-    projectID,
-    setRisk,
-    riskID,
-  })
+  const { getChartLevel, generatePDF, getRisk, listHigherImpacts } =
+    useRiskData({
+      projectID,
+      setRisk,
+      riskID,
+      higherImpacts,
+      setHigherImpacts,
+    })
 
   const { listTasksAndSubtasks } = useTaskData({
     projectID,
@@ -96,6 +102,10 @@ export default function Risk() {
     getRisk()
   }, [riskID, projectID])
 
+  useEffect(() => {
+    listHigherImpacts()
+  }, [projectID])
+
   return (
     <Layout
       page={'Risco'}
@@ -129,6 +139,7 @@ export default function Risk() {
             getChartLevel={getChartLevel}
             negativeChartRef={negativeChartRef}
             positiveChartRef={positiveChartRef}
+            higherImpacts={higherImpacts}
           />
         ) : (
           false

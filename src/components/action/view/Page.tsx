@@ -5,6 +5,10 @@ interface PageInterface {
 }
 
 export default function Page({ action }: PageInterface) {
+  const brazilReal = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
   return (
     <div
       className={`
@@ -42,6 +46,12 @@ export default function Page({ action }: PageInterface) {
         <p className={'text-xl text-justify'}>
           <label className={'font-bold'}>Status: </label>
           {action?.status}
+        </p>
+      </div>
+      <div className={'flex mb-4'}>
+        <p className={'text-xl text-justify'}>
+          <label className={'font-bold'}>Custo: </label>
+          {brazilReal.format(action?.cost as number)}
         </p>
       </div>
       <div className={'flex mb-4'}>

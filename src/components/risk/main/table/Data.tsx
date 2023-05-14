@@ -68,6 +68,7 @@ export default function Data({
           ).label
         }
       </td>
+      <td className={'text-justify p-1'}>{risk.status}</td>
       <Actions
         projectID={projectID}
         risk={risk}

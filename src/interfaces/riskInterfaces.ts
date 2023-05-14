@@ -9,6 +9,7 @@ export interface RiskInterface {
   probabilityNegative: number
   impactNegative: number
   observations: string
+  status: 'Aprovado' | 'Em Análise' | 'Reprovado'
   projectID?: string
 }
 
@@ -23,6 +24,7 @@ export interface OrderInterface {
     | 'impactPositive'
     | 'impactNegative'
     | 'observations'
+    | 'status'
   direction: 'asc' | 'desc'
 }
 
@@ -37,6 +39,7 @@ export function empty() {
     probabilityNegative: 0,
     impactNegative: 0,
     observations: '',
+    status: 'Em Análise',
   }
   return risk
 }

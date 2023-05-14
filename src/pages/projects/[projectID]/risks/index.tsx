@@ -24,6 +24,10 @@ import { useRouter } from 'next/router'
 export default function Risks() {
   const [mode, setMode] = useState<'main' | 'create' | 'edit'>('main')
   const [risk, setRisk] = useState<RiskInterface>(empty())
+  const [higherImpacts, setHigherImpacts] = useState<{
+    negative: number
+    positive: number
+  }>({ negative: 0, positive: 0 })
   const [risks, setRisks] = useState<RiskInterface[]>([])
   const [allRisks, setAllRisks] = useState<RiskInterface[]>([])
   const [user, setUser] = useState<UserInterface>(emptyUser())
@@ -49,6 +53,7 @@ export default function Risks() {
     switchMode,
     saveRisk,
     listRisks,
+    listHigherImpacts,
     orderBy,
     getChartLevel,
   } = useRiskData({
@@ -56,6 +61,8 @@ export default function Risks() {
     setMode,
     risks,
     setRisk,
+    higherImpacts,
+    setHigherImpacts,
     setRisks,
     allRisks,
     setAllRisks,
@@ -79,6 +86,10 @@ export default function Risks() {
   useEffect(() => {
     listRisks()
   }, [projectID])
+
+  useEffect(() => {
+    listHigherImpacts()
+  }, [risks, projectID])
 
   useEffect(() => {
     getProjectUser()
@@ -148,16 +159,20 @@ export default function Risks() {
           <FormCreate
             risk={risk}
             setRisk={setRisk}
+            higherImpacts={higherImpacts}
             mode={mode}
             saveRisk={saveRisk}
             getChartLevel={getChartLevel}
+            functionProject={projectUser.functionProject}
           />
           <FormEdit
             risk={risk}
             setRisk={setRisk}
+            higherImpacts={higherImpacts}
             mode={mode}
             saveRisk={saveRisk}
             getChartLevel={getChartLevel}
+            functionProject={projectUser.functionProject}
           />
         </>
       ) : (

@@ -30,6 +30,7 @@ export default function Project() {
   const [projectUser, setProjectUser] = useState<ProjectUserInterface>(
     emptyprojectUser()
   )
+  const [risksCost, setRisksCost] = useState(0)
   const [projectUsers, setProjectUsers] = useState<ProjectUserInterface[]>([])
   const [risks, setRisks] = useState<RiskInterface[]>([])
   const [actions, setActions] = useState<ActionInterface[]>([])
@@ -43,7 +44,11 @@ export default function Project() {
     projectUser,
   })
 
-  const { listRisks, getChartLevel } = useRiskData({ setRisks, projectID })
+  const { listRisks, getChartLevel, getRisksCost } = useRiskData({
+    setRisks,
+    projectID,
+    setRisksCost,
+  })
 
   const { listAllActions } = useActionData({ setActions })
 
@@ -91,6 +96,7 @@ export default function Project() {
     listTasksAndSubtasks()
     listRisks()
     listProjectUsersByProject()
+    getRisksCost()
   }, [projectID])
 
   return (
@@ -132,6 +138,7 @@ export default function Project() {
           saveProjectUser={saveProjectUser}
           deleteProjectUser={deleteProjectUser}
           projectUser={projectUser}
+          risksCost={risksCost}
         />
       ) : (
         false

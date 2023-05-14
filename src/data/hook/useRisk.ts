@@ -14,6 +14,11 @@ interface useRiskInterface {
   projectID?: string
   riskID?: string
   setRisk?: Dispatch<SetStateAction<RiskInterface>>
+  higherImpacts?: { negative: number; positive: number }
+  setHigherImpacts?: Dispatch<
+    SetStateAction<{ negative: number; positive: number }>
+  >
+  setRisksCost?: Dispatch<SetStateAction<number>>
   risks?: RiskInterface[]
   setRisks?: Dispatch<SetStateAction<RiskInterface[]>>
   allRisks?: RiskInterface[]
@@ -30,6 +35,9 @@ export default function useRisk({
   setRisk,
   risks,
   setRisks,
+  higherImpacts,
+  setHigherImpacts,
+  setRisksCost,
   allRisks,
   setAllRisks,
   setError,
@@ -46,6 +54,27 @@ export default function useRisk({
       }
     })
   }
+
+  async function listHigherImpacts() {
+    if (projectID) {
+      await Risk.listHigherImpacts(projectID as string).then((e) => {
+        if (setHigherImpacts) {
+          setHigherImpacts(e)
+        }
+      })
+    }
+  }
+
+  async function getRisksCost() {
+    if (projectID) {
+      await Risk.getRisksCost(projectID as string).then((e) => {
+        if (setRisksCost) {
+          setRisksCost(e.risksCost)
+        }
+      })
+    }
+  }
+
   async function getRisk() {
     if (riskID) {
       await Risk.get(riskID as string).then((e) => {
@@ -73,6 +102,19 @@ export default function useRisk({
           return 'Gestão do Projeto'
       }
     }
+    const randomStatus = () => {
+      const number = Math.round(Math.random() * 2) + 1
+      switch (number) {
+        case 1:
+          return 'Aprovado'
+        case 2:
+          return 'Em Análise'
+        case 3:
+          return 'Reprovado'
+        default:
+          return 'Em Análise'
+      }
+    }
     if (setRisk && setMode) {
       const titleGenerated = faker.lorem.words()
       const risk: RiskInterface = {
@@ -91,6 +133,7 @@ export default function useRisk({
         impactPositive: faker.datatype.number({ max: 100 }),
         impactNegative: faker.datatype.number({ max: 100 }),
         observations: faker.lorem.words(),
+        status: randomStatus(),
       }
       setRisk(risk)
       switchMode('create')
@@ -136,13 +179,13 @@ export default function useRisk({
             column === 'impactPositive'
           ) {
             return getSortNumber(
-              a.probabilityPositive * a.impactPositive,
-              b.probabilityPositive * b.impactPositive
+              (a.probabilityPositive * a.impactPositive) / 100,
+              (b.probabilityPositive * b.impactPositive) / 100
             )
           } else {
             return getSortNumber(
-              a.probabilityNegative * a.impactNegative,
-              b.probabilityNegative * b.impactNegative
+              (a.probabilityNegative * a.impactNegative) / 100,
+              (b.probabilityNegative * b.impactNegative) / 100
             )
           }
         })
@@ -155,31 +198,40 @@ export default function useRisk({
     probability: number,
     type: 'negative' | 'positive'
   ) {
-    const result = (impact * probability) / 100
-    if (result <= 5) {
-      return {
-        label: 'Muito Baixo',
-        hexColor: type === 'negative' ? '#16a34a' : '#dc2626',
-      }
-    } else if (result > 5 && result <= 16) {
-      return {
-        label: 'Baixo',
-        hexColor: type === 'negative' ? '#84cc16' : '#f97316',
-      }
-    } else if (result > 16 && result <= 36) {
-      return {
-        label: 'Médio',
-        hexColor: '#eab308',
-      }
-    } else if (result > 36 && result <= 64) {
-      return {
-        label: 'Alto',
-        hexColor: type === 'negative' ? '#f97316' : '#84cc16',
+    if (higherImpacts) {
+      const result = (impact * probability) / 100
+      const higherImpact =
+        type === 'negative' ? higherImpacts.negative : higherImpacts.positive
+      if (result <= higherImpact * 0.2) {
+        return {
+          label: 'Muito Baixo',
+          hexColor: type === 'negative' ? '#16a34a' : '#dc2626',
+        }
+      } else if (result > higherImpact * 0.2 && result <= higherImpact * 0.4) {
+        return {
+          label: 'Baixo',
+          hexColor: type === 'negative' ? '#84cc16' : '#f97316',
+        }
+      } else if (result > higherImpact * 0.4 && result <= higherImpact * 0.6) {
+        return {
+          label: 'Médio',
+          hexColor: '#eab308',
+        }
+      } else if (result > higherImpact * 0.6 && result <= higherImpact * 0.8) {
+        return {
+          label: 'Alto',
+          hexColor: type === 'negative' ? '#f97316' : '#84cc16',
+        }
+      } else {
+        return {
+          label: 'Muito Alto',
+          hexColor: type === 'negative' ? '#dc2626' : '#16a34a',
+        }
       }
     } else {
       return {
-        label: 'Muito Alto',
-        hexColor: type === 'negative' ? '#dc2626' : '#16a34a',
+        label: 'Muito Baixo',
+        hexColor: type === 'negative' ? '#16a34a' : '#dc2626',
       }
     }
   }
@@ -216,6 +268,11 @@ export default function useRisk({
     const staticAction = renderToString(action)
     const doc = new JsPDF('portrait', 'pt', 'a4')
 
+    const brazilReal = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    })
+
     doc
       .html(staticMain + staticAction + staticTask, {
         autoPaging: 'text',
@@ -247,6 +304,22 @@ export default function useRisk({
           95
         )
         doc.setTextColor('#000')
+        doc.text('Valor Esperado:', 175, 95)
+        doc.setTextColor(
+          getTextColor(
+            mainRisk.impactNegative,
+            mainRisk.probabilityNegative,
+            'negative'
+          )
+        )
+        doc.text(
+          `${brazilReal.format(
+            (mainRisk.impactNegative * mainRisk.probabilityNegative) / 100
+          )}`,
+          250,
+          95
+        )
+        doc.setTextColor('#000')
         doc.addImage(
           `
         ${negativeChartRef.current?.toBase64Image()}`,
@@ -275,6 +348,22 @@ export default function useRisk({
             'positive'
           ),
           108,
+          415
+        )
+        doc.setTextColor('#000')
+        doc.text('Valor Esperado:', 175, 415)
+        doc.setTextColor(
+          getTextColor(
+            mainRisk.impactPositive,
+            mainRisk.probabilityPositive,
+            'positive'
+          )
+        )
+        doc.text(
+          `${brazilReal.format(
+            (mainRisk.impactPositive * mainRisk.probabilityPositive) / 100
+          )}`,
+          250,
           415
         )
         doc.setTextColor('#000')
@@ -329,7 +418,8 @@ export default function useRisk({
           risk.description.toLowerCase().includes(searchTag.toLowerCase()) ||
           risk.category.toLowerCase().includes(searchTag.toLowerCase()) ||
           risk.causes.toLowerCase().includes(searchTag.toLowerCase()) ||
-          risk.observations.toLowerCase().includes(searchTag.toLowerCase())
+          risk.observations.toLowerCase().includes(searchTag.toLowerCase()) ||
+          risk.status.toLowerCase().includes(searchTag.toLowerCase())
       )
       if (setRisks) {
         setRisks(query ?? [])
@@ -376,6 +466,8 @@ export default function useRisk({
     switchMode,
     getRisk,
     listRisks,
+    listHigherImpacts,
+    getRisksCost,
     orderBy,
     getChartLevel,
   }

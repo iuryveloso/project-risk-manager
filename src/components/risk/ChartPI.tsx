@@ -16,6 +16,10 @@ interface ChartPIInterface {
   impact: number
   probability: number
   type: 'negative' | 'positive'
+  higherImpacts: {
+    negative: number
+    positive: number
+  }
   getChartLevel: (
     impact: number,
     probability: number,
@@ -32,6 +36,7 @@ export default function ChartPI({
   type,
   getChartLevel,
   chartRef,
+  higherImpacts,
 }: ChartPIInterface) {
   const options = {
     scales: {
@@ -40,15 +45,16 @@ export default function ChartPI({
         suggestedMax: 100,
         title: {
           display: true,
-          text: 'PROBABILIDADE',
+          text: 'PROBABILIDADE %',
         },
       },
       y: {
         beginAtZero: true,
-        suggestedMax: 100,
+        suggestedMax:
+          type === 'negative' ? higherImpacts.negative : higherImpacts.positive,
         title: {
           display: true,
-          text: 'IMPACTO',
+          text: 'IMPACTO R$',
         },
       },
     },
@@ -56,7 +62,7 @@ export default function ChartPI({
   const data = {
     datasets: [
       {
-        label: 'Probabilidade x Impacto',
+        label: 'Valor Esperado',
         data: [
           {
             x: probability,
@@ -67,16 +73,33 @@ export default function ChartPI({
       },
     ],
   }
+  const brazilReal = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
   return (
     <div className={'flex flex-col bg-white p-2 rounded-md'}>
-      <div className={'ml-14'}>
-        <label className={'font-semibold text-slate-800'}>Nível: </label>
-        <label
-          className={`font-bold`}
-          style={{ color: getChartLevel(impact, probability, type).hexColor }}
-        >
-          {getChartLevel(impact, probability, type).label}
-        </label>
+      <div className={'flex'}>
+        <div className={'ml-14'}>
+          <label className={'font-semibold text-slate-800'}>Nível: </label>
+          <label
+            className={`font-bold`}
+            style={{ color: getChartLevel(impact, probability, type).hexColor }}
+          >
+            {getChartLevel(impact, probability, type).label}
+          </label>
+        </div>
+        <div className={'ml-14'}>
+          <label className={'font-semibold text-slate-800'}>
+            Valor Esperado:{' '}
+          </label>
+          <label
+            className={`font-bold`}
+            style={{ color: getChartLevel(impact, probability, type).hexColor }}
+          >
+            {brazilReal.format((impact * probability) / 100)}
+          </label>
+        </div>
       </div>
       <div>
         <Scatter data={data} options={options} ref={chartRef} />

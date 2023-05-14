@@ -51,6 +51,15 @@ export default function Header({ order, setOrder, orderBy }: HeaderInterface) {
             setOrder={setOrder}
           />
         </th>
+        <th className={'px-1'}>
+          <HeadItem
+            tag={'Status'}
+            column={'status'}
+            order={order}
+            orderBy={orderBy}
+            setOrder={setOrder}
+          />
+        </th>
         <th className={'text-end pr-6'}>Ações</th>
       </tr>
     </>

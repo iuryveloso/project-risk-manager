@@ -8,7 +8,7 @@ interface HeaderEditInterface {
   setMode: Dispatch<SetStateAction<'password' | 'main' | 'edit'>>
   error: string | null
   message: string | null
-  update: () => void
+  updateUser: () => void
 }
 
 export default function HeaderEdit({
@@ -16,7 +16,7 @@ export default function HeaderEdit({
   setMode,
   error,
   message,
-  update,
+  updateUser,
 }: HeaderEditInterface) {
   return (
     <div className={mode === 'edit' ? '' : 'hidden'}>

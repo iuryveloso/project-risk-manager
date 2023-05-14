@@ -92,6 +92,7 @@ export default function useAction({
         type: randomType(),
         responsible: `${faker.name.firstName()} ${faker.name.lastName()}`,
         status: randomStatus(),
+        cost: +faker.finance.amount(),
         observation: faker.lorem.words(),
       }
       setAction(action)
@@ -104,22 +105,32 @@ export default function useAction({
     direction: OrderInterface['direction']
   ) {
     if (setActions && actions && setOrder) {
+      function getSortNumber(a: string | number, b: string | number) {
+        if (a > b) {
+          if (direction === 'asc') {
+            return 1
+          } else {
+            return -1
+          }
+        } else if (a < b) {
+          if (direction === 'desc') {
+            return 1
+          } else {
+            return -1
+          }
+        } else {
+          return 0
+        }
+      }
       setActions(
         actions.sort((a, b) => {
-          if (a[column].toLowerCase() > b[column].toLowerCase()) {
-            if (direction === 'asc') {
-              return 1
-            } else {
-              return -1
-            }
-          } else if (a[column].toLowerCase() < b[column].toLowerCase()) {
-            if (direction === 'desc') {
-              return 1
-            } else {
-              return -1
-            }
+          if (column !== 'cost') {
+            return getSortNumber(
+              a[column].toLowerCase(),
+              b[column].toLowerCase()
+            )
           } else {
-            return 0
+            return getSortNumber(a.cost, b.cost)
           }
         })
       )
@@ -133,7 +144,6 @@ export default function useAction({
   }
 
   async function saveAction(action: ActionInterface) {
-    console.log(riskID)
     if (!action._id) {
       await Action.create({ ...action, riskID }).then((e) => setAlert(e))
     } else {

@@ -10,6 +10,24 @@ class RiskApi {
     return response
   }
 
+  public async listHigherImpacts(projectID: string) {
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/risk/impacts/${projectID}`
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((e) => e.json())
+    return response
+  }
+
+  public async getRisksCost(projectID: string) {
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/risk/risks_cost/${projectID}`
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((e) => e.json())
+    return response
+  }
+
   public async get(riskID: string) {
     const url = `${process.env.NEXT_PUBLIC_API_NAME}/risk/get/${riskID}`
     const response = await fetch(url, {

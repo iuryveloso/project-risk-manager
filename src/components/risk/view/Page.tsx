@@ -6,6 +6,10 @@ interface PageInterface {
   negativeChartRef: RefObject<chartRefInterface>
   positiveChartRef: RefObject<chartRefInterface>
   risk?: RiskInterface
+  higherImpacts: {
+    negative: number
+    positive: number
+  }
   getChartLevel: (
     impact: number,
     probability: number,
@@ -21,6 +25,7 @@ export default function Page({
   getChartLevel,
   negativeChartRef,
   positiveChartRef,
+  higherImpacts,
 }: PageInterface) {
   return (
     <div
@@ -61,6 +66,12 @@ export default function Page({
           {risk?.observations}
         </p>
       </div>
+      <div className={'flex mb-4'}>
+        <p className={'text-xl text-justify'}>
+          <label className={'font-bold'}>Status: </label>
+          {risk?.status}
+        </p>
+      </div>
       <div className={'flex flex-col mb-4'}>
         <div className={'flex flex-col'}>
           <h1 className={'flex justify-center text-2xl font-bold'}>
@@ -89,6 +100,7 @@ export default function Page({
                   probability={risk.probabilityNegative}
                   type={'negative'}
                   chartRef={negativeChartRef}
+                  higherImpacts={higherImpacts}
                 />
               ) : (
                 false
@@ -104,6 +116,7 @@ export default function Page({
                   probability={risk.probabilityPositive}
                   type={'positive'}
                   chartRef={positiveChartRef}
+                  higherImpacts={higherImpacts}
                 />
               ) : (
                 false

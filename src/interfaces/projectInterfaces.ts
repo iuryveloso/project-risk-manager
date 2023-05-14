@@ -5,13 +5,14 @@ export interface ProjectInterface {
   occupationArea: string
   begin: string
   end: string
+  cost: number
   userID?: string
   message?: string
   functionProject?: 'manager' | 'collaborator'
 }
 
 export interface OrderInterface {
-  column: 'title' | 'description' | 'occupationArea' | 'begin' | 'end'
+  column: 'title' | 'description' | 'occupationArea' | 'begin' | 'end' | 'cost'
   direction: 'asc' | 'desc'
 }
 
@@ -22,6 +23,7 @@ export function empty() {
     occupationArea: '',
     begin: '',
     end: '',
+    cost: 0,
   }
   return project
 }

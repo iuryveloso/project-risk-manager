@@ -45,7 +45,7 @@ export default function Profile() {
             setMode={setMode}
             error={error}
             message={message}
-            update={updateUser}
+            updateUser={updateUser}
           />
           <HeaderPassword
             mode={mode}
@@ -73,7 +73,7 @@ export default function Profile() {
               user={user}
               setUser={setUser}
               mode={mode}
-              update={updateUser}
+              updateUser={updateUser}
             />
             <EditPassword
               user={user}

@@ -5,6 +5,10 @@ interface ExportInteface {
 }
 
 export default function Export({ actions }: ExportInteface) {
+  const brazilReal = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
   return (
     <div style={{ width: '34rem', fontFamily: 'sans-serif' }}>
       <div className={'mt-5 text-black'}>
@@ -42,6 +46,12 @@ export default function Export({ actions }: ExportInteface) {
               <li className={'flex text-xs'}>
                 <label className={'font-bold mr-2'}>Status: </label>
                 <span className={'text-justify'}>{action.status}</span>
+              </li>
+              <li className={'flex text-xs'}>
+                <label className={'font-bold mr-2'}>Custo: </label>
+                <span className={'text-justify'}>
+                  {brazilReal.format(action.cost)}
+                </span>
               </li>
               <li className={'flex text-xs mb-5'}>
                 <label className={'font-bold mr-2'}>Observação: </label>

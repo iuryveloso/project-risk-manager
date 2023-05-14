@@ -11,6 +11,10 @@ interface ExportInteface {
 }
 
 export default function Export({ risk, project, user }: ExportInteface) {
+  const brazilReal = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
   return (
     <div style={{ width: '34rem', fontFamily: 'sans-serif' }}>
       <div className={'flex flex-col text-black'}>
@@ -67,8 +71,34 @@ export default function Export({ risk, project, user }: ExportInteface) {
             <span className={'text-justify'}>{risk.causes}</span>
           </li>
           <li className={'flex text-xs'}>
+            <label className={'font-bold mr-2'}>Ameaça: </label>
+          </li>
+          <li className={'flex text-xs ml-3'}>
+            <label className={'font-bold mr-2'}>Impacto: </label>
+            <span className={'text-justify'}>
+              {brazilReal.format(risk.impactNegative)}
+            </span>
+            <label className={'font-bold mr-2 ml-3'}>Probabilidade: </label>
+            <span className={'text-justify'}>{risk.probabilityNegative}%</span>
+          </li>
+          <li className={'flex text-xs'}>
+            <label className={'font-bold mr-2'}>Oportunidade: </label>
+          </li>
+          <li className={'flex text-xs ml-3'}>
+            <label className={'font-bold mr-2'}>Impacto: </label>
+            <span className={'text-justify'}>
+              {brazilReal.format(risk.impactPositive)}
+            </span>
+            <label className={'font-bold mr-2 ml-3'}>Probabilidade: </label>
+            <span className={'text-justify'}>{risk.probabilityPositive}%</span>
+          </li>
+          <li className={'flex text-xs'}>
             <label className={'font-bold mr-2'}>Observação: </label>
             <span className={'text-justify'}>{risk.observations}</span>
+          </li>
+          <li className={'flex text-xs'}>
+            <label className={'font-bold mr-2'}>Status: </label>
+            <span className={'text-justify'}>{risk.status}</span>
           </li>
         </ul>
       </div>

@@ -4,8 +4,13 @@ import ChartPI from '@components/risk/ChartPI'
 
 interface FormInterface {
   mode: 'main' | 'create' | 'edit'
+  functionProject: 'manager' | 'collaborator'
   risk: RiskInterface
   setRisk: Dispatch<SetStateAction<RiskInterface>>
+  higherImpacts: {
+    negative: number
+    positive: number
+  }
   saveRisk: (risk: RiskInterface) => void
   getChartLevel: (
     impact: number,
@@ -19,9 +24,11 @@ interface FormInterface {
 
 export default function Form({
   mode,
+  functionProject,
   risk,
   setRisk,
   saveRisk,
+  higherImpacts,
   getChartLevel,
 }: FormInterface) {
   const classNameInput = `
@@ -31,6 +38,19 @@ export default function Form({
   text-slate-900 dark:text-slate-100
   focus:bg-white dark:focus:bg-slate-500 
   focus:border-indigo-700 dark:focus:border-indigo-600 
+  `
+  const classNameMoneyInput = `
+  flex-grow px-3 py-2  rounded-r-lg border focus:outline-none my-1
+  bg-slate-100 dark:bg-slate-600
+  border-slate-500 dark:border-slate-200
+  text-slate-900 dark:text-slate-100
+  focus:bg-white dark:focus:bg-slate-500 
+  focus:border-indigo-700 dark:focus:border-indigo-600 
+  `
+  const classNameLabel = `
+    rounded-l-lg px-3 py-2 my-1
+    bg-slate-600 text-slate-200 dark:bg-slate-200 dark:text-slate-800
+    border-y border-r border-slate-600 dark:border-slate-200
   `
   return (
     <>
@@ -117,14 +137,53 @@ export default function Form({
                 className={classNameInput}
               />
             </div>
+            {functionProject === 'manager' ? (
+              <div className={'flex flex-col mb-4'}>
+                <label>Status</label>
+                <select
+                  value={risk.status}
+                  onChange={(e) => {
+                    if (
+                      e.target.value === 'Aprovado' ||
+                      e.target.value === 'Em Análise' ||
+                      e.target.value === 'Reprovado'
+                    )
+                      setRisk({ ...risk, status: e.target.value })
+                  }}
+                  onKeyDown={(e) => {
+                    return e.key === 'Enter' ? saveRisk(risk) : false
+                  }}
+                  className={classNameInput}
+                >
+                  <option value={'Em Análise'}>Em Análise</option>
+                  <option value={'Aprovado'}>Aprovado</option>
+                  <option value={'Reprovado'}>Reprovado</option>
+                </select>
+              </div>
+            ) : (
+              false
+            )}
+            <div className={'flex flex-col'}>
+              <div className={'flex mb-1'}>
+                <div className={'w-1/2 justify-center'}>
+                  <h2 className={'flex justify-center text-xl font-bold'}>
+                    Ameaça
+                  </h2>
+                </div>
+                <div className={'w-1/2 justify-center'}>
+                  <h2 className={'flex justify-center text-xl font-bold'}>
+                    Oportunidade
+                  </h2>
+                </div>
+              </div>
+            </div>
             <div className={'flex mb-4'}>
               <div className={'flex flex-col w-1/2 mr-1'}>
-                <label>Impacto de Ameaça</label>
+                <label>Impacto</label>
                 <div className={'flex'}>
+                  <label className={classNameLabel}>R$</label>
                   <input
-                    type={'range'}
-                    min={'0'}
-                    max={'100'}
+                    type={'number'}
                     value={risk.impactNegative}
                     onChange={(e) =>
                       setRisk({
@@ -135,20 +194,16 @@ export default function Form({
                     onKeyDown={(e) => {
                       return e.key === 'Enter' ? saveRisk(risk) : false
                     }}
-                    className={'flex-grow'}
+                    className={classNameMoneyInput}
                   />
-                  <label className={'flex items-center mx-2 text-2xl'}>
-                    {risk.impactNegative}
-                  </label>
                 </div>
               </div>
               <div className={'flex flex-col w-1/2 ml-1'}>
-                <label>Impacto de Oportunidade</label>
+                <label>Impacto</label>
                 <div className={'flex'}>
+                  <label className={classNameLabel}>R$</label>
                   <input
-                    type={'range'}
-                    min={'0'}
-                    max={'100'}
+                    type={'number'}
                     value={risk.impactPositive}
                     onChange={(e) =>
                       setRisk({
@@ -159,17 +214,14 @@ export default function Form({
                     onKeyDown={(e) => {
                       return e.key === 'Enter' ? saveRisk(risk) : false
                     }}
-                    className={'flex-grow'}
+                    className={classNameMoneyInput}
                   />
-                  <label className={'flex items-center mx-2 text-2xl'}>
-                    {risk.impactPositive}
-                  </label>
                 </div>
               </div>
             </div>
             <div className={'flex mb-4'}>
               <div className={'flex flex-col w-1/2 mr-1'}>
-                <label>Probabilidade de Ameaça</label>
+                <label>Probabilidade</label>
                 <div className={'flex'}>
                   <input
                     type={'range'}
@@ -188,12 +240,12 @@ export default function Form({
                     className={'flex-grow'}
                   />
                   <label className={'flex items-center mx-2 text-2xl'}>
-                    {risk.probabilityNegative}
+                    {risk.probabilityNegative}%
                   </label>
                 </div>
               </div>
               <div className={'flex flex-col w-1/2 ml-1'}>
-                <label>Probabilidade de Oportunidade</label>
+                <label>Probabilidade</label>
                 <div className={'flex'}>
                   <input
                     type={'range'}
@@ -212,25 +264,8 @@ export default function Form({
                     className={'flex-grow'}
                   />
                   <label className={'flex items-center mx-2 text-2xl'}>
-                    {risk.probabilityPositive}
+                    {risk.probabilityPositive}%
                   </label>
-                </div>
-              </div>
-            </div>
-            <div className={'flex flex-col'}>
-              <h1 className={'flex justify-center text-2xl font-bold'}>
-                Matrizes de Probabilidade x Impacto
-              </h1>
-              <div className={'flex mb-1'}>
-                <div className={'w-1/2 justify-center'}>
-                  <h2 className={'flex justify-center text-xl font-bold'}>
-                    Ameaça
-                  </h2>
-                </div>
-                <div className={'w-1/2 justify-center'}>
-                  <h2 className={'flex justify-center text-xl font-bold'}>
-                    Oportunidade
-                  </h2>
                 </div>
               </div>
             </div>
@@ -242,6 +277,7 @@ export default function Form({
                     impact={risk.impactNegative}
                     probability={risk.probabilityNegative}
                     type={'negative'}
+                    higherImpacts={higherImpacts}
                   />
                 </div>
               </div>
@@ -252,6 +288,7 @@ export default function Form({
                     impact={risk.impactPositive}
                     probability={risk.probabilityPositive}
                     type={'positive'}
+                    higherImpacts={higherImpacts}
                   />
                 </div>
               </div>

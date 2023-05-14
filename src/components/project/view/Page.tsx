@@ -18,6 +18,7 @@ interface PageInterface {
   saveProjectUser: (projectUser: ProjectUserInterface) => void
   deleteProjectUser: (projectUser: ProjectUserInterface) => void
   projectUser: ProjectUserInterface
+  risksCost: number
 }
 
 export default function Page({
@@ -32,7 +33,12 @@ export default function Page({
   saveProjectUser,
   deleteProjectUser,
   projectUser,
+  risksCost,
 }: PageInterface) {
+  const brazilReal = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
   return (
     <div
       className={`
@@ -75,6 +81,18 @@ export default function Page({
           {`${project?.end?.split('-')[2]}/${project?.end?.split('-')[1]}/${
             project?.end?.split('-')[0]
           }`}
+        </p>
+      </div>
+      <div className={'flex flex-col mb-4'}>
+        <p className={'text-xl'}>
+          <label className={'font-bold'}> Custo do Projeto: </label>
+          {brazilReal.format(project?.cost as number)}
+        </p>
+      </div>
+      <div className={'flex flex-col mb-4'}>
+        <p className={'text-xl'}>
+          <label className={'font-bold'}> Custo dos Riscos do Projeto: </label>
+          {brazilReal.format(risksCost as number)}
         </p>
       </div>
       {projectUser?.functionProject === 'manager' ? (

@@ -5,6 +5,7 @@ export interface ActionInterface {
   type: 'Oportunidade' | 'Ameaça'
   responsible: string
   status: 'Pendente' | 'Em Andamento' | 'Concluído'
+  cost: number
   observation: string
   riskID?: string
 }
@@ -16,6 +17,7 @@ export interface OrderInterface {
     | 'type'
     | 'responsible'
     | 'status'
+    | 'cost'
     | 'observation'
   direction: 'asc' | 'desc'
 }
@@ -27,6 +29,7 @@ export function empty() {
     type: 'Ameaça',
     responsible: '',
     status: 'Pendente',
+    cost: 0,
     observation: '',
   }
   return action

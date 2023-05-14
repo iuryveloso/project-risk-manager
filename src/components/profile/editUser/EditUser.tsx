@@ -5,14 +5,14 @@ interface EditUserInterface {
   user: UserInterface
   setUser: Dispatch<SetStateAction<UserInterface>>
   mode: 'main' | 'edit' | 'password'
-  update: () => Promise<void>
+  updateUser: () => Promise<void>
 }
 
 export default function EditUser({
   setUser,
   user,
   mode,
-  update,
+  updateUser,
 }: EditUserInterface) {
   const classname = `
     px-3 py-2 rounded-lg border focus:outline-none my-1
