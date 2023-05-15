@@ -15,8 +15,12 @@ export default function ExportMain({
   users,
   projectUsers,
 }: ExportMainInteface) {
+  const brazilReal = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
   return (
-    <div style={{ width: '34rem', fontFamily: 'sans-serif' }}>
+    <div style={{ width: '34rem', fontFamily: 'arial' }}>
       <div className={'flex flex-col text-black'}>
         <div className={'flex justify-center'}>
           <div className={'mr-3 flex justify-center'}>
@@ -101,6 +105,12 @@ export default function ExportMain({
             <span className={'text-justify'}>{`${project.end.split('-')[2]} / ${
               project.end.split('-')[1]
             } / ${project.end.split('-')[0]}`}</span>
+          </li>
+          <li className={'flex text-xs'}>
+            <label className={'font-bold mr-2'}>Custo do Projeto: </label>
+            <span className={'text-justify'}>
+              {brazilReal.format(project.cost)}
+            </span>
           </li>
         </ul>
       </div>

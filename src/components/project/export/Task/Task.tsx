@@ -10,7 +10,7 @@ export default function ExportTask({ tasks, subTasks }: ExportTaskInterface) {
   return (
     <div
       className={'mt-5 text-black'}
-      style={{ width: '34rem', fontFamily: 'sans-serif' }}
+      style={{ width: '34rem', fontFamily: 'arial' }}
     >
       <div className={'flex justify-center'}>
         <h3 className={'text-xl'}>Tarefas</h3>

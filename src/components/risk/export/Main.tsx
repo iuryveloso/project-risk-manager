@@ -16,7 +16,7 @@ export default function Export({ risk, project, user }: ExportInteface) {
     currency: 'BRL',
   })
   return (
-    <div style={{ width: '34rem', fontFamily: 'sans-serif' }}>
+    <div style={{ width: '34rem', fontFamily: 'arial' }}>
       <div className={'flex flex-col text-black'}>
         <div className={'flex justify-center'}>
           <div className={'mr-3 flex justify-center'}>

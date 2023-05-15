@@ -23,6 +23,7 @@ interface HeaderInterface {
   project: ProjectInterface
   users: UserInterface[]
   risks: RiskInterface[]
+  risksCost: number
   actions: ActionInterface[]
   projectID: string
   projectUser: ProjectUserInterface
@@ -49,6 +50,7 @@ export default function Header({
   users,
   projectUsers,
   risks,
+  risksCost,
   actions,
   projectID,
   projectUser,
@@ -95,6 +97,7 @@ export default function Header({
                     getChartLevel={getChartLevel}
                     risks={risks}
                     actions={actions}
+                    risksCost={risksCost}
                   />,
                   <ExportTask tasks={tasks} subTasks={subTasks} />,
                   <ExportMain

@@ -33,6 +33,10 @@ export default function Project() {
   const [risksCost, setRisksCost] = useState(0)
   const [projectUsers, setProjectUsers] = useState<ProjectUserInterface[]>([])
   const [risks, setRisks] = useState<RiskInterface[]>([])
+  const [higherImpacts, setHigherImpacts] = useState<{
+    negative: number
+    positive: number
+  }>({ negative: 0, positive: 0 })
   const [actions, setActions] = useState<ActionInterface[]>([])
   const [tasks, setTasks] = useState<TaskInterface[]>([])
   const [subTasks, setSubTasks] = useState<TaskInterface[]>([])
@@ -44,11 +48,14 @@ export default function Project() {
     projectUser,
   })
 
-  const { listRisks, getChartLevel, getRisksCost } = useRiskData({
-    setRisks,
-    projectID,
-    setRisksCost,
-  })
+  const { listRisks, getChartLevel, getRisksCost, listHigherImpacts } =
+    useRiskData({
+      setRisks,
+      projectID,
+      higherImpacts,
+      setHigherImpacts,
+      setRisksCost,
+    })
 
   const { listAllActions } = useActionData({ setActions })
 
@@ -96,6 +103,7 @@ export default function Project() {
     listTasksAndSubtasks()
     listRisks()
     listProjectUsersByProject()
+    listHigherImpacts()
     getRisksCost()
   }, [projectID])
 
@@ -118,6 +126,7 @@ export default function Project() {
               actions={actions}
               projectUser={projectUser}
               projectUsers={projectUsers}
+              risksCost={risksCost}
             />
           ) : (
             false

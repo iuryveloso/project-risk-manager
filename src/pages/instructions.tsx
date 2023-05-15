@@ -78,9 +78,15 @@ export default function Instructions() {
               definidos em : Muito Baixo, Baixo, Médio, Alto, e Muito Alto. As
               ameaças utilizar cores quem tendem para o{' '}
               <label className="text-green-600"> verde</label> para indicar
-              níveis mais baixos, enquanto usam o cores que tendem para o
+              níveis mais baixos e cores que tendem para o
               <label className="text-red-600"> vermelho</label> para indicar
-              niveis mais altos, enauqnto nas oportunidades fazem o oposto.
+              niveis mais altos, enquanto nas oportunidades ocorre o oposto.
+            </p>
+            <p className={'ml-3'}>
+              O campo de <strong className={'font-bold'}>Status</strong> ao lado
+              de cada risco, indica como está a situação do risco, podendo ser
+              difinida em: Aprovado, Reprovado e Em Análise. Este campo somente
+              pode ser alterado por um gestor do projeto.
             </p>
             <p className={'ml-3'}>
               No campo de <strong className={'font-bold'}>Ações</strong> ao lado

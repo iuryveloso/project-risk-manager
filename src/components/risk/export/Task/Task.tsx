@@ -19,7 +19,7 @@ export default function FormTask({
   return (
     <div
       className={'mt-5 text-black'}
-      style={{ width: '34rem', fontFamily: 'sans-serif' }}
+      style={{ width: '34rem', fontFamily: 'arial' }}
     >
       <div className={'flex justify-center'}>
         <h3 className={'text-xl'}>Tarefas Vinculadas</h3>
