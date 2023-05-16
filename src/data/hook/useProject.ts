@@ -148,23 +148,18 @@ export default function useProject({
     }
   }
 
-  function generatePDF(
-    risk: ReactElement,
-    task: ReactElement,
-    main: ReactElement
-  ) {
+  function generatePDF(risk: ReactElement, main: ReactElement) {
     const staticMain = renderToString(main)
-    const staticTask = renderToString(task)
     const staticRisk = renderToString(risk)
     const doc = new JsPDF('portrait', 'pt', 'a4')
 
     doc
-      .html(staticMain + staticRisk + staticTask, {
+      .html(staticMain + staticRisk, {
         autoPaging: 'text',
         margin: 25,
       })
       .then(() => {
-        doc.save('Relatório de Projeto.pdf')
+        doc.save('Relatório de Riscos do Projeto.pdf')
       })
   }
 

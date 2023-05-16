@@ -33,7 +33,7 @@ export default function ExportRisk({
   const approvedRisks = risks.filter((e) => e.status.includes('Aprovado'))
   return (
     <div style={{ width: '34rem', fontFamily: 'arial' }}>
-      <div className={'mt-5 text-black'}>
+      <div className={'mt-3 text-black'}>
         <div className={'flex justify-center mb-3'}>
           <h3 className={'text-xl'}>Riscos</h3>
         </div>

@@ -4,7 +4,6 @@ import HeaderView from '@components/project/view/Header'
 import PageView from '@components/project/view/Page'
 import useProjectData from '@data/hook/useProject'
 import useRiskData from '@data/hook/useRisk'
-import useTaskData from '@data/hook/useTask'
 import useUserData from '@data/hook/useUser'
 import useProjectUserData from '@data/hook/useProjectUser'
 import useActionData from '@data/hook/useAction'
@@ -12,7 +11,6 @@ import { ProjectInterface, empty } from '@interfaces/projectInterfaces'
 import { useRouter } from 'next/router'
 import UserInterface, { empty as emptyUser } from '@interfaces/userInterfaces'
 import { RiskInterface } from '@interfaces/riskInterfaces'
-import { TaskInterface } from '@interfaces/taskInterfaces'
 import { ActionInterface } from '@interfaces/actionInterfaces'
 import {
   ProjectUserInterface,
@@ -38,8 +36,6 @@ export default function Project() {
     positive: number
   }>({ negative: 0, positive: 0 })
   const [actions, setActions] = useState<ActionInterface[]>([])
-  const [tasks, setTasks] = useState<TaskInterface[]>([])
-  const [subTasks, setSubTasks] = useState<TaskInterface[]>([])
   const projectID = router.query.projectID as string
 
   const { getProject, generatePDF } = useProjectData({
@@ -58,12 +54,6 @@ export default function Project() {
     })
 
   const { listAllActions } = useActionData({ setActions })
-
-  const { listTasksAndSubtasks } = useTaskData({
-    setTasks,
-    setSubTasks,
-    projectID,
-  })
 
   const { getUser, listUsers, search } = useUserData({
     setUser,
@@ -100,7 +90,6 @@ export default function Project() {
   }, [projectID, projectUser])
 
   useEffect(() => {
-    listTasksAndSubtasks()
     listRisks()
     listProjectUsersByProject()
     listHigherImpacts()
@@ -121,8 +110,6 @@ export default function Project() {
               project={project}
               risks={risks}
               users={users}
-              tasks={tasks}
-              subTasks={subTasks}
               actions={actions}
               projectUser={projectUser}
               projectUsers={projectUsers}

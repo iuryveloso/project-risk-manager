@@ -1,6 +1,5 @@
 import ExportMain from '@components/project/export/Main'
 import ExportRisk from '@components/project/export/Risk'
-import ExportTask from '@components/project/export/Task/Task'
 
 import {
   alertCircleIcon,
@@ -13,13 +12,10 @@ import { ReactElement } from 'react'
 import { RiskInterface } from '@interfaces/riskInterfaces'
 import { ProjectInterface } from '@interfaces/projectInterfaces'
 import UserInterface from '@interfaces/userInterfaces'
-import { TaskInterface } from '@interfaces/taskInterfaces'
 import { ActionInterface } from '@interfaces/actionInterfaces'
 import { ProjectUserInterface } from '@interfaces/projectUserInterfaces'
 
 interface HeaderInterface {
-  tasks: TaskInterface[]
-  subTasks: TaskInterface[]
   project: ProjectInterface
   users: UserInterface[]
   risks: RiskInterface[]
@@ -28,11 +24,7 @@ interface HeaderInterface {
   projectID: string
   projectUser: ProjectUserInterface
   projectUsers: ProjectUserInterface[]
-  generatePDF: (
-    risk: ReactElement,
-    task: ReactElement,
-    main: ReactElement
-  ) => void
+  generatePDF: (risk: ReactElement, main: ReactElement) => void
   getChartLevel: (
     impact: number,
     probability: number,
@@ -44,8 +36,6 @@ interface HeaderInterface {
 }
 
 export default function Header({
-  tasks,
-  subTasks,
   project,
   users,
   projectUsers,
@@ -99,7 +89,6 @@ export default function Header({
                     actions={actions}
                     risksCost={risksCost}
                   />,
-                  <ExportTask tasks={tasks} subTasks={subTasks} />,
                   <ExportMain
                     project={project}
                     users={users}
@@ -108,9 +97,9 @@ export default function Header({
                 )
               }
             >
-              <div className={'flex'}>
+              <div className={'flex items-center'}>
                 <span className={'mr-2'}>{documentIcon}</span>
-                <span>Relatório de Projeto</span>
+                <span>Relatório de Riscos do Projeto</span>
               </div>
             </button>
           ) : (
@@ -130,7 +119,7 @@ export default function Header({
                           dark:bg-amber-500 dark:hover:bg-amber-600
                       `}
               >
-                <div className={'flex'}>
+                <div className={'flex items-center'}>
                   <span className={'mr-2'}>{alertCircleIcon}</span>
                   <span>Riscos do Projeto</span>
                 </div>
@@ -153,7 +142,7 @@ export default function Header({
                           
                       `}
               >
-                <div className={'flex'}>
+                <div className={'flex items-center'}>
                   <span className={'mr-2'}>{queueList}</span>
                   <span>Tarefas do Projeto</span>
                 </div>

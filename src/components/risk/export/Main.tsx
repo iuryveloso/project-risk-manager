@@ -33,7 +33,7 @@ export default function Export({ risk, project, user }: ExportInteface) {
         </div>
       </div>
 
-      <div className={'mt-7 text-black'}>
+      <div className={'mt-3 text-black'}>
         <ul className={'flex flex-col'}>
           <div className={'mb-5'}>
             <li className={'flex text-xs justify-center'}>
@@ -79,7 +79,21 @@ export default function Export({ risk, project, user }: ExportInteface) {
               {brazilReal.format(risk.impactNegative)}
             </span>
             <label className={'font-bold mr-2 ml-3'}>Probabilidade: </label>
-            <span className={'text-justify'}>{risk.probabilityNegative}%</span>
+            <span className={'text-justify flex-grow'}>
+              {risk.probabilityNegative}%
+            </span>
+            <span
+              className={'text-justify italic'}
+              style={{
+                fontSize: '0.6rem',
+                lineHeight: '0.85rem',
+              }}
+            >
+              +{' '}
+              {brazilReal.format(
+                (risk.impactNegative * risk.probabilityNegative) / 100
+              )}
+            </span>
           </li>
           <li className={'flex text-xs'}>
             <label className={'font-bold mr-2'}>Oportunidade: </label>
@@ -90,7 +104,21 @@ export default function Export({ risk, project, user }: ExportInteface) {
               {brazilReal.format(risk.impactPositive)}
             </span>
             <label className={'font-bold mr-2 ml-3'}>Probabilidade: </label>
-            <span className={'text-justify'}>{risk.probabilityPositive}%</span>
+            <span className={'text-justify flex-grow'}>
+              {risk.probabilityPositive}%
+            </span>
+            <span
+              className={'text-justify italic'}
+              style={{
+                fontSize: '0.6rem',
+                lineHeight: '0.85rem',
+              }}
+            >
+              -{' '}
+              {brazilReal.format(
+                (risk.impactPositive * risk.probabilityPositive) / 100
+              )}
+            </span>
           </li>
           <li className={'flex text-xs'}>
             <label className={'font-bold mr-2'}>Observação: </label>

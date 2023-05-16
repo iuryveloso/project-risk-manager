@@ -26,20 +26,22 @@ export default function ExportMain({
           <div className={'mr-3 flex justify-center'}>
             <Image src={logo} width={60} height={60} />
           </div>
-          <div className={'flex pt-3'}>
+          <div className={'flex pt-2'}>
             <h1 className={'text-2xl font-bold '}>
               Gerenciador de Riscos de Projetos
             </h1>
           </div>
         </div>
         <div className={'flex justify-center'}>
-          <h3 className={'text-xl font-bold'}>Relatório de Projeto</h3>
+          <h3 className={'text-xl font-bold'}>
+            Relatório de Riscos do Projeto
+          </h3>
         </div>
       </div>
 
-      <div className={'mt-7 text-black'}>
+      <div className={'mt-3 text-black'}>
         <ul className={'flex flex-col'}>
-          <div className={'mb-5'}>
+          <div className={'mb-3'}>
             {users
               .filter((user) => {
                 return (

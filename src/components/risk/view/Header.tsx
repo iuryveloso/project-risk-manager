@@ -89,7 +89,7 @@ export default function Header({
           onClick={() =>
             risk
               ? generatePDF(
-                  <ExportAction actions={actions} />,
+                  <ExportAction actions={actions} risk={risk} />,
                   <ExportTask
                     risk={risk}
                     tasks={tasks}
