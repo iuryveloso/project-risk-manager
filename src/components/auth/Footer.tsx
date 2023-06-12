@@ -4,8 +4,8 @@ import { Dispatch, SetStateAction } from 'react'
 import Link from 'next/link'
 
 interface FooterInterface {
-  mode: 'login' | 'singup'
-  setMode: Dispatch<SetStateAction<'login' | 'singup'>>
+  mode: 'login' | 'singup' | 'forgot'
+  setMode: Dispatch<SetStateAction<'login' | 'singup' | 'forgot'>>
   getGoogleOAuthURl: () => string
 }
 
@@ -16,7 +16,7 @@ export default function Footer({
 }: FooterInterface) {
   return (
     <div>
-      <div className={mode === 'singup' ? 'hidden' : ''}>
+      <div className={mode === 'login' ? '' : 'hidden'}>
         <hr className={'my-3 border border-gray-300 w-full'} />
         <Link href={getGoogleOAuthURl() ?? ''} passHref>
           <a>
@@ -67,9 +67,9 @@ export default function Footer({
           </p>
         )}
 
-        <p>
+        <p className={mode === 'forgot' ? 'hidden' : ''}>
           <a
-            onClick={() => setMode('login')}
+            onClick={() => setMode('forgot')}
             className={`
                   text-blue-500 hover:text-blue-700 
                   font-semibold cursor-pointer ml-1

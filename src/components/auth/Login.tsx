@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react'
 
 interface LoginInterface {
   error: string | null
-  mode: string
+  mode: 'login' | 'singup' | 'forgot'
   type: string
   setType: Dispatch<SetStateAction<'password' | 'text'>>
   user: UserInterface

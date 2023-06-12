@@ -35,6 +35,28 @@ class AuthApi {
     return response
   }
 
+  public async sendEmail(receiver: string, token: string) {
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/auth/sendEmail`
+    const response = await fetch(url, {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ receiver, token }),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    }).then((e) => e.json())
+    return response
+  }
+
+  public async updatePassword(user: UserInterface) {
+    const url = `${process.env.NEXT_PUBLIC_API_NAME}/auth/password`
+    const response = await fetch(url, {
+      method: 'PATCH',
+      credentials: 'include',
+      body: JSON.stringify(user),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    }).then((e) => e.json())
+    return response
+  }
+
   public async logout() {
     const url = `${process.env.NEXT_PUBLIC_API_NAME}/auth/logout`
     const response = await fetch(url, {

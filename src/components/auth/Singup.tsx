@@ -10,7 +10,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 
 interface SingupInterface {
   error: string | null
-  mode: string
+  mode: 'login' | 'singup' | 'forgot'
   type: string
   setType: Dispatch<SetStateAction<'password' | 'text'>>
   user: UserInterface

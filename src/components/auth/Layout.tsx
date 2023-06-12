@@ -6,9 +6,9 @@ import Image from 'next/image'
 
 interface LoginInterface {
   title: string
-  mode: 'login' | 'singup'
+  mode: 'login' | 'singup' | 'forgot'
   children: any
-  setMode: Dispatch<SetStateAction<'login' | 'singup'>>
+  setMode: Dispatch<SetStateAction<'login' | 'singup' | 'forgot'>>
   getGoogleOAuthURl: () => string
 }
 
