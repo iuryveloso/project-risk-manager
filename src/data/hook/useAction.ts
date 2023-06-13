@@ -1,7 +1,11 @@
 import { Dispatch, SetStateAction } from 'react'
 import Action from '@api/Action'
-import { ActionInterface, OrderInterface } from '@interfaces/actionInterfaces'
-import { faker } from '@faker-js/faker'
+import {
+  ActionInterface,
+  OrderInterface,
+  empty,
+} from '@interfaces/actionInterfaces'
+// import { faker } from '@faker-js/faker'
 
 interface useActionInterface {
   setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
@@ -57,45 +61,52 @@ export default function useAction({
     })
   }
 
+  // function newAction() {
+  //   const randomType = () => {
+  //     const number = Math.round(Math.random()) + 1
+  //     switch (number) {
+  //       case 1:
+  //         return 'Ameaça'
+  //       case 2:
+  //         return 'Oportunidade'
+  //       default:
+  //         return 'Ameaça'
+  //     }
+  //   }
+  //   const randomStatus = () => {
+  //     const number = Math.round(Math.random() * 2) + 1
+  //     switch (number) {
+  //       case 1:
+  //         return 'Pendente'
+  //       case 2:
+  //         return 'Em Andamento'
+  //       case 3:
+  //         return 'Concluído'
+  //       default:
+  //         return 'Pendente'
+  //     }
+  //   }
+  //   if (setAction && setMode) {
+  //     const titleGenerated = faker.lorem.words()
+  //     const action: ActionInterface = {
+  //       title: `${titleGenerated.charAt(0).toUpperCase()}${titleGenerated.slice(
+  //         1
+  //       )}`,
+  //       description: faker.lorem.paragraph(),
+  //       type: randomType(),
+  //       responsible: `${faker.name.firstName()} ${faker.name.lastName()}`,
+  //       status: randomStatus(),
+  //       cost: +faker.finance.amount(),
+  //       observation: faker.lorem.words(),
+  //     }
+  //     setAction(action)
+  //     switchMode('create')
+  //   }
+  // }
+
   function newAction() {
-    const randomType = () => {
-      const number = Math.round(Math.random()) + 1
-      switch (number) {
-        case 1:
-          return 'Ameaça'
-        case 2:
-          return 'Oportunidade'
-        default:
-          return 'Ameaça'
-      }
-    }
-    const randomStatus = () => {
-      const number = Math.round(Math.random() * 2) + 1
-      switch (number) {
-        case 1:
-          return 'Pendente'
-        case 2:
-          return 'Em Andamento'
-        case 3:
-          return 'Concluído'
-        default:
-          return 'Pendente'
-      }
-    }
-    if (setAction && setMode) {
-      const titleGenerated = faker.lorem.words()
-      const action: ActionInterface = {
-        title: `${titleGenerated.charAt(0).toUpperCase()}${titleGenerated.slice(
-          1
-        )}`,
-        description: faker.lorem.paragraph(),
-        type: randomType(),
-        responsible: `${faker.name.firstName()} ${faker.name.lastName()}`,
-        status: randomStatus(),
-        cost: +faker.finance.amount(),
-        observation: faker.lorem.words(),
-      }
-      setAction(action)
+    if (setAction) {
+      setAction(empty())
       switchMode('create')
     }
   }

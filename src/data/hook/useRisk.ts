@@ -4,8 +4,9 @@ import {
   RiskInterface,
   OrderInterface,
   chartRefInterface,
+  empty,
 } from '@interfaces/riskInterfaces'
-import { faker } from '@faker-js/faker'
+// import { faker } from '@faker-js/faker'
 import { renderToString } from 'react-dom/server'
 import JsPDF from 'jspdf'
 
@@ -85,57 +86,64 @@ export default function useRisk({
     }
   }
 
-  function newRisk() {
-    const randomCategory = () => {
-      const number = Math.round(Math.random() * 3) + 1
-      switch (number) {
-        case 1:
-          return 'Gestão do Projeto'
-        case 2:
-          return 'Técnico'
-        case 3:
-          return 'Organizacional'
-        case 4:
-          return 'Externo'
+  // function newRisk() {
+  //   const randomCategory = () => {
+  //     const number = Math.round(Math.random() * 3) + 1
+  //     switch (number) {
+  //       case 1:
+  //         return 'Gestão do Projeto'
+  //       case 2:
+  //         return 'Técnico'
+  //       case 3:
+  //         return 'Organizacional'
+  //       case 4:
+  //         return 'Externo'
 
-        default:
-          return 'Gestão do Projeto'
-      }
-    }
-    const randomStatus = () => {
-      const number = Math.round(Math.random() * 2) + 1
-      switch (number) {
-        case 1:
-          return 'Aprovado'
-        case 2:
-          return 'Em Análise'
-        case 3:
-          return 'Reprovado'
-        default:
-          return 'Em Análise'
-      }
-    }
-    if (setRisk && setMode) {
-      const titleGenerated = faker.lorem.words()
-      const risk: RiskInterface = {
-        title: `${titleGenerated.charAt(0).toUpperCase()}${titleGenerated.slice(
-          1
-        )}`,
-        description: faker.lorem.paragraph(),
-        category: randomCategory(),
-        causes: faker.lorem.words(),
-        probabilityPositive: faker.datatype.number({
-          max: 100,
-        }),
-        probabilityNegative: faker.datatype.number({
-          max: 100,
-        }),
-        impactPositive: faker.datatype.number({ max: 100 }),
-        impactNegative: faker.datatype.number({ max: 100 }),
-        observations: faker.lorem.words(),
-        status: randomStatus(),
-      }
-      setRisk(risk)
+  //       default:
+  //         return 'Gestão do Projeto'
+  //     }
+  //   }
+  //   const randomStatus = () => {
+  //     const number = Math.round(Math.random() * 2) + 1
+  //     switch (number) {
+  //       case 1:
+  //         return 'Aprovado'
+  //       case 2:
+  //         return 'Em Análise'
+  //       case 3:
+  //         return 'Reprovado'
+  //       default:
+  //         return 'Em Análise'
+  //     }
+  //   }
+  //   if (setRisk && setMode) {
+  //     const titleGenerated = faker.lorem.words()
+  //     const risk: RiskInterface = {
+  //       title: `${titleGenerated.charAt(0).toUpperCase()}${titleGenerated.slice(
+  //         1
+  //       )}`,
+  //       description: faker.lorem.paragraph(),
+  //       category: randomCategory(),
+  //       causes: faker.lorem.words(),
+  //       probabilityPositive: faker.datatype.number({
+  //         max: 100,
+  //       }),
+  //       probabilityNegative: faker.datatype.number({
+  //         max: 100,
+  //       }),
+  //       impactPositive: faker.datatype.number({ max: 100 }),
+  //       impactNegative: faker.datatype.number({ max: 100 }),
+  //       observations: faker.lorem.words(),
+  //       status: randomStatus(),
+  //     }
+  //     setRisk(risk)
+  //     switchMode('create')
+  //   }
+  // }
+
+  function newRisk() {
+    if (setRisk) {
+      setRisk(empty())
       switchMode('create')
     }
   }

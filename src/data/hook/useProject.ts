@@ -1,7 +1,11 @@
 import { Dispatch, ReactElement, SetStateAction } from 'react'
 import Project from '@api/Project'
-import { ProjectInterface, OrderInterface } from '@interfaces/projectInterfaces'
-import { faker } from '@faker-js/faker'
+import {
+  ProjectInterface,
+  OrderInterface,
+  empty,
+} from '@interfaces/projectInterfaces'
+// import { faker } from '@faker-js/faker'
 import { renderToString } from 'react-dom/server'
 import JsPDF from 'jspdf'
 import { ProjectUserInterface } from '@interfaces/projectUserInterfaces'
@@ -19,6 +23,7 @@ interface useProjectInterface {
   setError?: Dispatch<SetStateAction<string | null>>
   setMessage?: Dispatch<SetStateAction<string | null>>
   setOrder?: Dispatch<SetStateAction<OrderInterface>>
+  listProjectUsers?: () => Promise<void>
 }
 
 export default function useProject({
@@ -34,15 +39,18 @@ export default function useProject({
   setError,
   setMessage,
   setOrder,
+  listProjectUsers,
 }: useProjectInterface) {
   async function listProjects() {
     await Project.list().then((e: ProjectInterface[]) => {
       if (projectUsers) {
         const projectsFiltered = e
           .filter((project) => {
-            return projectUsers.filter((projectUser) => {
-              return projectUser.projectID.includes(project._id as string)
-            }).length
+            return (
+              projectUsers.filter((projectUser) => {
+                return projectUser.projectID.includes(project._id as string)
+              }).length > 0
+            )
           })
           .map((project) => {
             const projectUsersFiltered = projectUsers.filter((projectUser) => {
@@ -74,39 +82,46 @@ export default function useProject({
     }
   }
 
+  // function newProject() {
+  //   if (setProject && setMode) {
+  //     const titleGenerated = faker.lorem.words()
+  //     const occupationAreaGenerated = faker.lorem.words()
+  //     const beginFullDate = new Date(faker.date.birthdate())
+  //     const beginYear = beginFullDate.toLocaleString('default', {
+  //       year: 'numeric',
+  //     })
+  //     const beginMonth = beginFullDate.toLocaleString('default', {
+  //       month: '2-digit',
+  //     })
+  //     const beginDay = beginFullDate.toLocaleString('default', {
+  //       day: '2-digit',
+  //     })
+  //     const endFullDate = new Date(faker.date.birthdate())
+  //     const endYear = endFullDate.toLocaleString('default', { year: 'numeric' })
+  //     const endMonth = endFullDate.toLocaleString('default', {
+  //       month: '2-digit',
+  //     })
+  //     const endDay = endFullDate.toLocaleString('default', { day: '2-digit' })
+  //     const project: ProjectInterface = {
+  //       title: `${titleGenerated.charAt(0).toUpperCase()}${titleGenerated.slice(
+  //         1
+  //       )}`,
+  //       description: faker.lorem.paragraph(),
+  //       occupationArea: `${occupationAreaGenerated
+  //         .charAt(0)
+  //         .toUpperCase()}${occupationAreaGenerated.slice(1)}`,
+  //       begin: `${beginYear}-${beginMonth}-${beginDay}`,
+  //       end: `${endYear}-${endMonth}-${endDay}`,
+  //       cost: +faker.finance.amount() * 10,
+  //     }
+  //     setProject(project)
+  //     switchMode('create')
+  //   }
+  // }
+
   function newProject() {
-    if (setProject && setMode) {
-      const titleGenerated = faker.lorem.words()
-      const occupationAreaGenerated = faker.lorem.words()
-      const beginFullDate = new Date(faker.date.birthdate())
-      const beginYear = beginFullDate.toLocaleString('default', {
-        year: 'numeric',
-      })
-      const beginMonth = beginFullDate.toLocaleString('default', {
-        month: '2-digit',
-      })
-      const beginDay = beginFullDate.toLocaleString('default', {
-        day: '2-digit',
-      })
-      const endFullDate = new Date(faker.date.birthdate())
-      const endYear = endFullDate.toLocaleString('default', { year: 'numeric' })
-      const endMonth = endFullDate.toLocaleString('default', {
-        month: '2-digit',
-      })
-      const endDay = endFullDate.toLocaleString('default', { day: '2-digit' })
-      const project: ProjectInterface = {
-        title: `${titleGenerated.charAt(0).toUpperCase()}${titleGenerated.slice(
-          1
-        )}`,
-        description: faker.lorem.paragraph(),
-        occupationArea: `${occupationAreaGenerated
-          .charAt(0)
-          .toUpperCase()}${occupationAreaGenerated.slice(1)}`,
-        begin: `${beginYear}-${beginMonth}-${beginDay}`,
-        end: `${endYear}-${endMonth}-${endDay}`,
-        cost: +faker.finance.amount(),
-      }
-      setProject(project)
+    if (setProject) {
+      setProject(empty())
       switchMode('create')
     }
   }
@@ -136,10 +151,9 @@ export default function useProject({
       setProjects(
         projects.sort((a, b) => {
           if (column !== 'cost') {
-            return getSortNumber(
-              a[column].toLowerCase(),
-              b[column].toLowerCase()
-            )
+            const aColumn = a[column] as string
+            const bColumn = b[column] as string
+            return getSortNumber(aColumn.toLowerCase(), bColumn.toLowerCase())
           } else {
             return getSortNumber(a.cost, b.cost)
           }
@@ -195,15 +209,19 @@ export default function useProject({
         setProjects(allProjects ?? [])
       }
     } else {
-      const query = allProjects?.filter(
-        (project) =>
+      const query = allProjects?.filter((project) => {
+        const functionProject =
+          project.functionProject === 'manager' ? 'Gestor' : 'Colaborador'
+        return (
           project.title.toLowerCase().includes(searchTag.toLowerCase()) ||
           project.occupationArea
             .toLowerCase()
             .includes(searchTag.toLowerCase()) ||
           project.begin.toLowerCase().includes(searchTag.toLowerCase()) ||
-          project.end.toLowerCase().includes(searchTag.toLowerCase())
-      )
+          project.end.toLowerCase().includes(searchTag.toLowerCase()) ||
+          functionProject.toLowerCase().includes(searchTag.toLowerCase())
+        )
+      })
       if (setProjects) {
         setProjects(query ?? [])
       }
@@ -234,8 +252,8 @@ export default function useProject({
   function switchMode(mode: 'main' | 'create' | 'edit') {
     if (setMode) {
       setMode(mode)
-      if (mode === 'main') {
-        listProjects()
+      if (mode === 'main' && listProjectUsers) {
+        listProjectUsers()
       }
     }
   }

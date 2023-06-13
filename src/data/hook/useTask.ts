@@ -1,7 +1,11 @@
 import { Dispatch, SetStateAction } from 'react'
 import Task from '@api/Task'
-import { TaskInterface, OrderInterface } from '@interfaces/taskInterfaces'
-import { faker } from '@faker-js/faker'
+import {
+  TaskInterface,
+  OrderInterface,
+  empty,
+} from '@interfaces/taskInterfaces'
+// import { faker } from '@faker-js/faker'
 
 interface useTaskInterface {
   setMode?: Dispatch<SetStateAction<'main' | 'create' | 'edit'>>
@@ -89,35 +93,42 @@ export default function useTask({
     }
   }
 
+  // function newTask() {
+  //   if (setTask && setMode) {
+  //     const titleGenerated = faker.lorem.words()
+  //     const beginFullDate = new Date(faker.date.birthdate())
+  //     const beginYear = beginFullDate.toLocaleString('default', {
+  //       year: 'numeric',
+  //     })
+  //     const beginMonth = beginFullDate.toLocaleString('default', {
+  //       month: '2-digit',
+  //     })
+  //     const beginDay = beginFullDate.toLocaleString('default', {
+  //       day: '2-digit',
+  //     })
+  //     const endFullDate = new Date(faker.date.birthdate())
+  //     const endYear = endFullDate.toLocaleString('default', { year: 'numeric' })
+  //     const endMonth = endFullDate.toLocaleString('default', {
+  //       month: '2-digit',
+  //     })
+  //     const endDay = endFullDate.toLocaleString('default', { day: '2-digit' })
+  //     const task: TaskInterface = {
+  //       title: `${titleGenerated.charAt(0).toUpperCase()}${titleGenerated.slice(
+  //         1
+  //       )}`,
+  //       description: faker.lorem.paragraph(),
+  //       responsible: `${faker.name.firstName()} ${faker.name.lastName()}`,
+  //       begin: `${beginYear}-${beginMonth}-${beginDay}`,
+  //       end: `${endYear}-${endMonth}-${endDay}`,
+  //     }
+  //     setTask(task)
+  //     switchMode('create')
+  //   }
+  // }
+
   function newTask() {
-    if (setTask && setMode) {
-      const titleGenerated = faker.lorem.words()
-      const beginFullDate = new Date(faker.date.birthdate())
-      const beginYear = beginFullDate.toLocaleString('default', {
-        year: 'numeric',
-      })
-      const beginMonth = beginFullDate.toLocaleString('default', {
-        month: '2-digit',
-      })
-      const beginDay = beginFullDate.toLocaleString('default', {
-        day: '2-digit',
-      })
-      const endFullDate = new Date(faker.date.birthdate())
-      const endYear = endFullDate.toLocaleString('default', { year: 'numeric' })
-      const endMonth = endFullDate.toLocaleString('default', {
-        month: '2-digit',
-      })
-      const endDay = endFullDate.toLocaleString('default', { day: '2-digit' })
-      const task: TaskInterface = {
-        title: `${titleGenerated.charAt(0).toUpperCase()}${titleGenerated.slice(
-          1
-        )}`,
-        description: faker.lorem.paragraph(),
-        responsible: `${faker.name.firstName()} ${faker.name.lastName()}`,
-        begin: `${beginYear}-${beginMonth}-${beginDay}`,
-        end: `${endYear}-${endMonth}-${endDay}`,
-      }
-      setTask(task)
+    if (setTask) {
+      setTask(empty())
       switchMode('create')
     }
   }

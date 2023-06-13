@@ -12,7 +12,14 @@ export interface ProjectInterface {
 }
 
 export interface OrderInterface {
-  column: 'title' | 'description' | 'occupationArea' | 'begin' | 'end' | 'cost'
+  column:
+    | 'title'
+    | 'description'
+    | 'occupationArea'
+    | 'begin'
+    | 'end'
+    | 'cost'
+    | 'functionProject'
   direction: 'asc' | 'desc'
 }
 

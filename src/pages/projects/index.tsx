@@ -34,6 +34,11 @@ export default function Projects() {
 
   const { getUser } = useUserData({ setUser })
 
+  const { listProjectUsers } = useProjectUserData({
+    setProjectUsers,
+    userID: user._id,
+  })
+
   const {
     newProject,
     search,
@@ -54,11 +59,7 @@ export default function Projects() {
     setError,
     setMessage,
     setOrder,
-  })
-
-  const { listProjectUsers } = useProjectUserData({
-    setProjectUsers,
-    userID: user._id,
+    listProjectUsers,
   })
 
   useEffect(() => {
