@@ -39,21 +39,19 @@ export default function Task({
           <Link
             href={`/projects/${task.projectID}/tasks/${task._id}/${
               task.parentTaskID ? '1' : '2'
-            }/view`}
+            }/view`} target={'_blank'}
           >
-            <a target={'_blank'}>
-              <button
-                className={`
-                              text-cyan-600 hover:bg-slate-200 hover:text-cyan-700 rounded-lg mr-1
-                              dark:text-cyan-400 dark:hover:bg-slate-800 dark:hover:text-cyan-200 py-1 px-2
-                          `}
-              >
-                <div className={'flex'}>
-                  <span className={'mr-1'}>{docLookIcon}</span>
-                  <span>Detalhes</span>
-                </div>
-              </button>
-            </a>
+            <button
+              className={`
+                            text-cyan-600 hover:bg-slate-200 hover:text-cyan-700 rounded-lg mr-1
+                            dark:text-cyan-400 dark:hover:bg-slate-800 dark:hover:text-cyan-200 py-1 px-2
+                        `}
+            >
+              <div className={'flex'}>
+                <span className={'mr-1'}>{docLookIcon}</span>
+                <span>Detalhes</span>
+              </div>
+            </button>
           </Link>
           {saveORDelete === 'save' ? (
             <button

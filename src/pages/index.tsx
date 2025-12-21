@@ -25,28 +25,22 @@ const Home: NextPage = () => {
         </p>
         <p className={'text-lg mt-5'}>
           Clique em{' '}
-          <Link href={'/projects'}>
-            <a className={'text-blue-500 underline underline-offset-1'}>
+          <Link href={'/projects'} className={'text-blue-500 underline underline-offset-1'}>
               Projetos
-            </a>
           </Link>{' '}
           para gerenciar seus projetos e riscos
         </p>
         <p className={'text-lg'}>
           Clique em{' '}
-          <Link href={'/instructions'}>
-            <a className={'text-blue-500 underline underline-offset-1'}>
+          <Link href={'/instructions'} className={'text-blue-500 underline underline-offset-1'}>
               Instruções
-            </a>
           </Link>{' '}
           para ler as instruções de usos do sistema
         </p>
         <p className={'text-lg'}>
           Clique em{' '}
-          <Link href={'/profile'}>
-            <a className={'text-blue-500 underline underline-offset-1'}>
+          <Link href={'/profile'} className={'text-blue-500 underline underline-offset-1'}>
               Perfil
-            </a>
           </Link>{' '}
           para editar seus dados de usuário
         </p>

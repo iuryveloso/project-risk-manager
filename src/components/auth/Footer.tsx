@@ -19,23 +19,21 @@ export default function Footer({
       <div className={mode === 'login' ? '' : 'hidden'}>
         <hr className={'my-3 border border-gray-300 w-full'} />
         <Link href={getGoogleOAuthURl() ?? ''} passHref>
-          <a>
-            <div
-              className={` 
-                        flex justify-center items-center w-full bg-red-600 hover:bg-red-700 
-                        text-white rounded-lg px-3 py-2
-                    `}
-            >
-              <Image
-                className={'w-8 mr-3'}
-                src={googleLogo}
-                width="25"
-                height={'25'}
-                alt="Google Logo"
-              />
-              <span className="ml-3">Entrar com Google</span>
-            </div>
-          </a>
+          <div
+            className={` 
+                      flex justify-center items-center w-full bg-red-600 hover:bg-red-700 
+                      text-white rounded-lg px-3 py-2
+                  `}
+          >
+            <Image
+              className={'w-8 mr-3'}
+              src={googleLogo}
+              width="25"
+              height={'25'}
+              alt="Google Logo"
+            />
+            <span className="ml-3">Entrar com Google</span>
+          </div>
         </Link>
       </div>
       <div className="sm:flex mt-3">

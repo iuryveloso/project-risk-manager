@@ -30,23 +30,23 @@ export default function UserAvatar({
   return (
     <div>
       <div className={`${className ?? ''}`}>
-        <Link href={href ?? ''} passHref>
-          <a>
+        {width && height ? (
+          <Link href={href ?? ''} passHref>
             <div>
               <Image
                 loader={({ src }) => src}
                 unoptimized={true}
                 src={image}
                 alt="Avatar do usuário"
-                width={width}
-                height={height}
+                width={+width}
+                height={+height}
                 objectFit="cover"
                 className={'rounded-full'}
                 onError={() => setImage(avatar)}
               />
             </div>
-          </a>
-        </Link>
+          </Link>
+        ) : false}
       </div>
     </div>
   )
